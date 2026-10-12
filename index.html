@@ -13,6 +13,7 @@
   <meta name="twitter:card" content="summary" />
   <meta name="color-scheme" content="light dark" />
   <script>
+    document.documentElement.classList.add('js');
     // Apply saved theme before paint to avoid a flash
     try {
       const t = localStorage.getItem('theme');
@@ -37,6 +38,7 @@
       --accent-hover: #4338ca;
       --accent-soft: #eef2ff;
       --accent-text: #4338ca;
+      --hl: rgba(79, 70, 229, 0.16);
       --on-accent: #ffffff;
       --success: #047857;
       --success-soft: #ecfdf5;
@@ -59,6 +61,7 @@
         --accent-hover: #a5b4fc;
         --accent-soft: rgba(129, 140, 248, 0.12);
         --accent-text: #a5b4fc;
+        --hl: rgba(129, 140, 248, 0.28);
         --on-accent: #0b0f17;
         --success: #34d399;
         --success-soft: rgba(52, 211, 153, 0.1);
@@ -78,6 +81,7 @@
       --accent-hover: #a5b4fc;
       --accent-soft: rgba(129, 140, 248, 0.12);
       --accent-text: #a5b4fc;
+      --hl: rgba(129, 140, 248, 0.28);
       --on-accent: #0b0f17;
       --success: #34d399;
       --success-soft: rgba(52, 211, 153, 0.1);
@@ -270,6 +274,7 @@
       max-width: 560px;
       margin-bottom: 28px;
     }
+    .lede-hook { display: block; color: var(--text); font-weight: 500; margin-bottom: 4px; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .headshot {
@@ -354,7 +359,9 @@
       margin: 18px 0 14px 64px;
       padding: 10px 14px;
       border-radius: 10px;
-      background: var(--accent-soft);
+      background-image: linear-gradient(var(--accent-soft), var(--accent-soft));
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
       color: var(--accent-text);
       font-size: 0.9rem;
       font-weight: 600;
@@ -464,11 +471,71 @@
     }
 
     /* ── MOTION ── */
-    .fade-in { opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
-    .fade-in.visible { opacity: 1; transform: none; }
+    .sr-only {
+      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+    }
+
+    /* Scroll reveal, staggered via --d */
+    .js .fade-in {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.55s ease var(--d, 0s), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+    }
+    .js .fade-in.visible { opacity: 1; transform: none; }
+    .js .fade-in.settled { transition: border-color 0.15s, transform 0.15s; }
+
+    .js .reveal-chips .chip {
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.35s ease var(--d, 0s), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
+    }
+    .js .reveal-chips.visible .chip { opacity: 1; transform: none; }
+
+    /* Highlighter sweep behind key phrases */
+    .hl {
+      background-image: linear-gradient(var(--hl), var(--hl));
+      background-repeat: no-repeat;
+      background-position: 0 90%;
+      background-size: 0% 42%;
+      transition: background-size 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    .hl.in { background-size: 100% 42%; }
+    .impact.anim { background-size: 0% 100%; transition: background-size 0.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s; }
+    .impact.anim.in { background-size: 100% 100%; }
+
+    /* Count-up numbers */
+    .count { font-variant-numeric: tabular-nums; }
+
+    /* Rotating word in hero */
+    .rotator {
+      display: inline-block;
+      position: relative;
+      vertical-align: top;
+      white-space: nowrap;
+      color: var(--accent-text);
+      font-weight: 600;
+      transition: width 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+    }
+    .rotator span {
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+      transform: translateY(0.45em);
+      filter: blur(6px);
+      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
+    }
+    .rotator span.on { position: relative; opacity: 1; transform: none; filter: none; }
+    .rotator span.out { opacity: 0; transform: translateY(-0.45em); filter: blur(6px); }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .fade-in { opacity: 1; transform: none; transition: none; }
+      .js .fade-in, .js .reveal-chips .chip { opacity: 1; transform: none; transition: none; }
+      .hl, .impact.anim { transition: none; }
+      .rotator, .rotator span { transition: none; }
       .btn:hover, .project:hover { transform: none; }
     }
 
@@ -528,14 +595,16 @@
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="container hero-grid">
-    <div class="fade-in">
-      <div class="status"><span class="status-dot"></span>Open to new product roles</div>
-      <p class="hero-role">Product Manager · Chicago, IL</p>
-      <h1>Mike Tempestini</h1>
-      <p class="hero-lede">
-        I started selling loads on the phone — now I ship software. <strong>7+ years in freight &amp; logistics tech</strong>, turning messy operational problems into simple, high-impact B2B products.
+    <div class="hero-copy">
+      <div class="fade-in"><div class="status"><span class="status-dot"></span>Open to new product roles</div></div>
+      <p class="hero-role fade-in">Product Manager · Chicago, IL</p>
+      <h1 class="fade-in">Mike Tempestini</h1>
+      <p class="hero-lede fade-in">
+        <span class="lede-hook">I started selling loads on the phone — now I ship software for
+        <span class="sr-only">freight brokers, carriers, drivers, factoring firms, and sales teams</span><span class="rotator" aria-hidden="true"><span class="on">freight brokers</span><span>carriers</span><span>drivers</span><span>factoring firms</span><span>sales teams</span></span>.</span>
+        <strong><span class="count" data-to="7">7</span>+ years in freight &amp; logistics tech</strong>, turning messy operational problems into simple, high-impact B2B products.
       </p>
-      <div class="hero-actions">
+      <div class="hero-actions fade-in">
         <a href="Tempestini Resume.pdf" download class="btn btn-primary">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Download Resume
@@ -550,7 +619,7 @@
         </a>
       </div>
     </div>
-    <div class="headshot fade-in">
+    <div class="headshot fade-in" style="--d: 0.25s">
       <img src="headshot.jpg" alt="Mike Tempestini" width="800" height="789" />
     </div>
   </div>
@@ -564,7 +633,7 @@
       <h2>From the brokerage floor to product</h2>
     </div>
     <p class="about-summary fade-in">
-      Product manager with <strong>7+ years in freight and logistics technology</strong>, including <strong>nearly 5 years in product roles</strong> on B2B SaaS web and mobile products. I run the full lifecycle — discovery and requirements through launch, iteration, and measurement — with engineering, design, data science, and marketing, and I use <strong>AI-enabled tools</strong> to prototype UI, draft requirements, and automate roadmap and release communication.
+      Product manager with <strong><span class="count" data-to="7">7</span>+ years in freight and logistics technology</strong>, including <strong>nearly 5 years in product roles</strong> on B2B SaaS web and mobile products. I run the full lifecycle — discovery and requirements through launch, iteration, and measurement — with engineering, design, data science, and marketing, and I use <strong>AI-enabled tools</strong> to prototype UI, draft requirements, and automate roadmap and release communication.
     </p>
     <div class="cards-3">
       <div class="card fade-in">
@@ -611,7 +680,7 @@
         </div>
         <div class="impact">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          Owned Epay Manager end-to-end · Took the Epay Manager Mobile App to go-live
+          <span>Owned Epay Manager end-to-end · Took the Epay Manager Mobile App to go-live</span>
         </div>
         <ul class="bullets">
           <li>Owned end-to-end product strategy for <strong>Epay Manager</strong> — a real-time billing, invoicing, and document-audit platform serving freight brokers, carriers, and factoring firms</li>
@@ -645,7 +714,7 @@
         </div>
         <div class="impact">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          $0 → $41.7k MRR in 6 months · 800k requests/day
+          <span>$0 → $<span class="count" data-to="41.7" data-dec="1">41.7</span>k MRR in 6 months · <span class="count" data-to="800">800</span>k requests/day</span>
         </div>
         <ul class="bullets">
           <li>Supported development of underlying services for <strong>Risk Factors</strong> in Chrome and Outlook, from initial launch in June 2024 to an up-market premium offering in November 2024</li>
@@ -680,7 +749,7 @@
             </div>
             <div class="impact">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              +50% load-opening speed · −20% time-to-task · +5–7% engagement
+              <span>+<span class="count" data-to="50">50</span>% load-opening speed · −<span class="count" data-to="20">20</span>% time-to-task · +5–7% engagement</span>
             </div>
             <ul class="bullets">
               <li>Conducted discovery and started development of two internal web applications for sales reps (Accessorial Management Portal, Carrier Sales Web Application), breaking legacy workflows into web apps; decreased time-to-task in freight-matching workflows by <strong>20%</strong> and increased speed of opening loads by <strong>50%</strong></li>
@@ -697,7 +766,7 @@
               <div class="subrole-date">Jul 2020 — Nov 2021</div>
             </div>
             <ul class="bullets">
-              <li>Onboarded <strong>200+ new carriers per week</strong> to the CoyoteGO digital freight platform to drive adoption of digital booking, and collected weekly carrier feedback to inform product development</li>
+              <li>Onboarded <strong><span class="count" data-to="200">200</span>+ new carriers per week</strong> to the CoyoteGO digital freight platform to drive adoption of digital booking, and collected weekly carrier feedback to inform product development</li>
             </ul>
           </div>
 
@@ -725,7 +794,7 @@
         <p class="eyebrow">Skills</p>
         <h2>What I bring</h2>
       </div>
-      <div class="fade-in">
+      <div class="fade-in reveal-chips">
         <div class="skill-group">
           <div class="skill-label">Product</div>
           <div class="chips">
@@ -877,16 +946,81 @@
     try { localStorage.setItem('theme', next); } catch (e) {}
   });
 
-  // ── Scroll fade-in ──
+  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ── Stagger: delay siblings so groups cascade in ──
+  const stagger = (sel, stepMs) => document.querySelectorAll(sel).forEach(group => {
+    [...group.children].forEach((el, i) => el.style.setProperty('--d', `${i * stepMs}ms`));
+  });
+  stagger('.hero-copy', 80);
+  stagger('.cards-3', 90);
+  stagger('.edu-list', 90);
+  stagger('.projects', 100);
+  document.querySelectorAll('.reveal-chips .chip').forEach((el, i) => el.style.setProperty('--d', `${i * 18}ms`));
+
+  // ── Highlighter targets ──
+  document.querySelectorAll('.hero-lede strong, .about-summary strong, .bullets strong, .project-desc strong')
+    .forEach(el => el.classList.add('hl'));
+  document.querySelectorAll('.impact').forEach(el => el.classList.add('anim'));
+
+  // ── Count-up ──
+  const countUp = (el) => {
+    const to = parseFloat(el.dataset.to);
+    const dec = parseInt(el.dataset.dec || '0', 10);
+    if (reduceMotion) return;
+    const dur = 1200;
+    const start = performance.now();
+    const tick = (now) => {
+      const t = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = (to * eased).toFixed(dec);
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  // ── Scroll reveal: fade-ins, highlight sweeps, counters ──
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.classList.contains('fade-in')) el.classList.add('visible');
+      if (el.classList.contains('hl') || el.classList.contains('anim')) el.classList.add('in');
+      if (el.classList.contains('count')) countUp(el);
+      observer.unobserve(el);
     });
-  }, { threshold: 0.06 });
-  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-in, .hl, .impact, .count').forEach(el => observer.observe(el));
+
+  // Once a card has faded in, drop the reveal delay so hover feels instant
+  document.querySelectorAll('.fade-in').forEach(el => {
+    el.addEventListener('transitionend', (e) => {
+      if (e.propertyName === 'opacity' && el.classList.contains('visible')) el.classList.add('settled');
+    });
+  });
+
+  // ── Rotating word in hero ──
+  const rotator = document.querySelector('.rotator');
+  if (rotator) {
+    const words = [...rotator.children];
+    let i = 0;
+    const fit = () => { rotator.style.width = words[i].offsetWidth + 'px'; };
+    fit();
+    window.addEventListener('resize', fit);
+    if (document.fonts) document.fonts.ready.then(fit);
+    if (!reduceMotion) {
+      setInterval(() => {
+        const prev = words[i];
+        i = (i + 1) % words.length;
+        prev.classList.remove('on');
+        prev.classList.add('out');
+        words[i].classList.remove('out');
+        words[i].classList.add('on');
+        fit();
+        setTimeout(() => prev.classList.remove('out'), 500);
+      }, 2400);
+    }
+  }
 
   // ── Active nav highlight on scroll ──
   const navLinks = document.querySelectorAll('.nav-links a');

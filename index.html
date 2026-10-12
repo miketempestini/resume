@@ -4,711 +4,496 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Mike Tempestini — Product Manager</title>
+  <meta name="description" content="Mike Tempestini — Product Manager with 7+ years in freight and logistics technology, shipping B2B SaaS web and mobile products." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Mike Tempestini — Product Manager" />
+  <meta property="og:description" content="Product Manager with 7+ years in freight and logistics tech. B2B SaaS, web and mobile, AI-enabled workflows." />
+  <meta property="og:url" content="https://miketempestini.github.io/resume/" />
+  <meta property="og:image" content="https://miketempestini.github.io/resume/headshot.jpg" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    // Apply saved theme before paint to avoid a flash
+    try {
+      const t = localStorage.getItem('theme');
+      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+    } catch (e) {}
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=DM+Serif+Display&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #faf9f7;
-      --bg-alt: #f2f0ec;
-      --bg-dark: #1a1a2e;
-      --text: #1a1a2e;
-      --subtext: #5c5c6d;
-      --accent: #e07a3a;
-      --accent-hover: #c7652b;
-      --accent-light: #fdf0e8;
-      --accent-glow: rgba(224, 122, 58, 0.12);
-      --blue: #3a6be0;
-      --blue-light: #eef3fd;
-      --border: #e2dfd9;
-      --radius: 14px;
-      --max-w: 940px;
+      --bg: #ffffff;
+      --surface: #f6f7f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --faint: #64748b;
+      --border: #e5e7eb;
+      --accent: #4f46e5;
+      --accent-hover: #4338ca;
+      --accent-soft: #eef2ff;
+      --accent-text: #4338ca;
+      --on-accent: #ffffff;
+      --success: #047857;
+      --success-soft: #ecfdf5;
+      --nav-bg: rgba(255, 255, 255, 0.8);
+      --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.04);
+      --radius: 12px;
+      --max-w: 1040px;
     }
 
-    html { scroll-behavior: smooth; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0b0f17;
+        --surface: #0f1420;
+        --card: #121826;
+        --text: #e5e7eb;
+        --muted: #a3afc2;
+        --faint: #8a96a8;
+        --border: #1f2937;
+        --accent: #818cf8;
+        --accent-hover: #a5b4fc;
+        --accent-soft: rgba(129, 140, 248, 0.12);
+        --accent-text: #a5b4fc;
+        --on-accent: #0b0f17;
+        --success: #34d399;
+        --success-soft: rgba(52, 211, 153, 0.1);
+        --nav-bg: rgba(11, 15, 23, 0.8);
+        --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0b0f17;
+      --surface: #0f1420;
+      --card: #121826;
+      --text: #e5e7eb;
+      --muted: #a3afc2;
+      --faint: #8a96a8;
+      --border: #1f2937;
+      --accent: #818cf8;
+      --accent-hover: #a5b4fc;
+      --accent-soft: rgba(129, 140, 248, 0.12);
+      --accent-text: #a5b4fc;
+      --on-accent: #0b0f17;
+      --success: #34d399;
+      --success-soft: rgba(52, 211, 153, 0.1);
+      --nav-bg: rgba(11, 15, 23, 0.8);
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
     body {
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
       background: var(--bg);
       color: var(--text);
-      line-height: 1.65;
+      line-height: 1.6;
       font-size: 16px;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+    strong { font-weight: 600; color: var(--text); }
+
+    :focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
     /* ── NAV ── */
     nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
+      position: sticky;
+      top: 0;
       z-index: 100;
-      background: rgba(250, 249, 247, 0.88);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      background: var(--nav-bg);
+      backdrop-filter: saturate(180%) blur(14px);
+      -webkit-backdrop-filter: saturate(180%) blur(14px);
       border-bottom: 1px solid var(--border);
     }
-
     .nav-inner {
-      max-width: var(--max-w);
-      margin: 0 auto;
-      padding: 0 2rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      height: 62px;
+      height: 60px;
+      gap: 16px;
     }
-
     .nav-logo {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.1rem;
-      color: var(--text);
-      text-decoration: none;
+      font-weight: 700;
+      font-size: 0.95rem;
       letter-spacing: -0.01em;
-    }
-
-    .nav-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.85rem;
-      color: var(--subtext);
       text-decoration: none;
+      white-space: nowrap;
+    }
+    .nav-right { display: flex; align-items: center; gap: 8px; }
+    .nav-links { display: flex; gap: 4px; list-style: none; margin-right: 8px; }
+    .nav-links a {
+      display: block;
+      padding: 6px 10px;
+      font-size: 0.875rem;
       font-weight: 500;
-      transition: color 0.2s;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 8px;
+      transition: color 0.15s, background 0.15s;
     }
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links a.active { color: var(--accent-text); }
 
-    .nav-links a:hover,
-    .nav-links a.active { color: var(--accent); }
-
-    /* ── LAYOUT ── */
-    section { padding: 96px 2rem; }
-
-    .container {
-      max-width: var(--max-w);
-      margin: 0 auto;
-    }
-
-    /* ── HERO ── */
-    #hero {
-      padding-top: 140px;
-      padding-bottom: 80px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #hero::before {
-      content: '';
-      position: absolute;
-      top: -120px;
-      right: -200px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-inner {
-      display: flex;
+    .icon-btn {
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
       align-items: center;
-      gap: 4rem;
-      position: relative;
-      z-index: 1;
+      justify-content: center;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .icon-btn:hover { color: var(--text); border-color: var(--faint); }
+    .icon-sun { display: none; }
+    :root[data-theme="dark"] .icon-sun { display: block; }
+    :root[data-theme="dark"] .icon-moon { display: none; }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .icon-sun { display: block; }
+      :root:not([data-theme="light"]) .icon-moon { display: none; }
     }
 
-    .hero-text { flex: 1; }
-
-    .hero-eyebrow {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.75rem;
-    }
-
-    .hero-text h1 {
-      font-family: 'DM Serif Display', serif;
-      font-size: 3.5rem;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-      line-height: 1.08;
-      margin-bottom: 1.25rem;
-      color: var(--text);
-    }
-
-    .hero-text .tagline {
-      font-size: 1.05rem;
-      color: var(--subtext);
-      max-width: 500px;
-      line-height: 1.75;
-      margin-bottom: 2rem;
-    }
-
-    .hero-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-wrap: wrap;
-    }
-
+    /* ── BUTTONS ── */
     .btn {
       display: inline-flex;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.65rem 1.3rem;
+      gap: 8px;
+      padding: 10px 16px;
       border-radius: 10px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      text-decoration: none;
-      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-      cursor: pointer;
-      border: none;
       font-family: inherit;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      white-space: nowrap;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary { background: var(--accent); color: var(--on-accent); }
+    .btn-primary:hover { background: var(--accent-hover); }
+    .btn-outline { background: var(--card); color: var(--text); border-color: var(--border); }
+    .btn-outline:hover { border-color: var(--faint); }
+    .btn-sm { padding: 7px 12px; font-size: 0.82rem; border-radius: 8px; }
+
+    .pill-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--accent-text);
+      background: var(--accent-soft);
+      text-decoration: none;
+    }
+    .pill-link:hover { text-decoration: underline; }
+
+    /* ── SECTIONS ── */
+    section { padding: 72px 0; }
+    section.alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .section-head { margin-bottom: 32px; }
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent-text);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: clamp(1.6rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }
 
-    .btn-primary {
-      background: var(--accent);
-      color: #fff;
+    /* ── HERO ── */
+    #hero { padding: 80px 0 72px; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 56px;
+      align-items: center;
     }
-
-    .btn-primary:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(224, 122, 58, 0.3);
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 5px 12px 5px 10px;
+      border-radius: 999px;
+      background: var(--success-soft);
+      color: var(--success);
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-bottom: 20px;
     }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--text);
-      border: 1.5px solid var(--border);
+    .status-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--success);
     }
-
-    .btn-outline:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
+    .hero-role {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 8px;
     }
-
-    /* ── HEADSHOT ── */
-    .headshot-wrap { flex-shrink: 0; }
+    h1 {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+    .hero-lede {
+      font-size: clamp(1.05rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 28px;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
 
     .headshot {
-      width: 270px;
-      height: 270px;
-      border-radius: 50%;
-      border: 3px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--bg-alt);
+      width: 260px;
+      height: 260px;
+      border-radius: 28px;
       overflow: hidden;
-      cursor: pointer;
-      transition: border-color 0.3s, box-shadow 0.3s;
-      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 0 8px var(--accent-soft);
+      background: var(--surface);
     }
-
-    .headshot:hover {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 6px var(--accent-glow);
-    }
-
-    .headshot img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: none;
-    }
-
-    .headshot-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-      color: var(--subtext);
-      font-size: 0.8rem;
-      pointer-events: none;
-      text-align: center;
-    }
-
-    .headshot-placeholder svg {
-      width: 36px;
-      height: 36px;
-      opacity: 0.4;
-    }
-
-    /* ── SECTION HEADERS ── */
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .section-title {
-      font-family: 'DM Serif Display', serif;
-      font-size: 2.25rem;
-      font-weight: 400;
-      letter-spacing: -0.01em;
-      margin-bottom: 1rem;
-    }
-
-    .section-subtitle {
-      font-size: 1rem;
-      color: var(--subtext);
-      max-width: 600px;
-      line-height: 1.7;
-      margin-bottom: 3rem;
-    }
+    .headshot img { width: 100%; height: 100%; object-fit: cover; }
 
     /* ── ABOUT ── */
-    #about { background: var(--bg); padding-bottom: 48px; }
-
-    .about-content {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 3rem;
-      align-items: start;
+    .about-summary {
+      font-size: 1.08rem;
+      color: var(--muted);
+      max-width: 760px;
+      margin-bottom: 32px;
     }
-
-    .about-narrative {
-      font-size: 1rem;
-      line-height: 1.85;
-      color: var(--subtext);
-    }
-
-    .about-narrative p { margin-bottom: 1.25rem; }
-
-    .about-narrative strong {
-      color: var(--text);
-      font-weight: 600;
-    }
-
-    .about-narrative em {
-      color: var(--accent);
-      font-style: normal;
-      font-weight: 500;
-    }
-
-    .about-highlights {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-    }
-
-    .about-card {
-      padding: 1.25rem 1.5rem;
-      border-radius: var(--radius);
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .about-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
-    }
-
-    .about-card-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--accent);
-      margin-bottom: 0.4rem;
-    }
-
-    .about-card-value {
-      font-family: 'DM Serif Display', serif;
-      font-size: 1.5rem;
-      line-height: 1.2;
-      margin-bottom: 0.3rem;
-    }
-
-    .about-card-desc {
-      font-size: 0.82rem;
-      color: var(--subtext);
-      line-height: 1.6;
-    }
-
-    /* ── EXPERIENCE ── */
-    #experience { background: var(--bg); }
-
-    .timeline { display: flex; flex-direction: column; }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 190px 1fr;
-      gap: 2.5rem;
-      padding: 2.5rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .timeline-item:last-of-type { border-bottom: none; }
-
-    .timeline-left { padding-top: 0.15rem; }
-
-    .timeline-company {
-      font-weight: 600;
-      font-size: 0.875rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .timeline-date {
-      font-size: 0.775rem;
-      color: var(--subtext);
-      line-height: 1.5;
-    }
-
-    .timeline-role {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.85rem;
-    }
-
-    .timeline-bullets {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 0.45rem;
-    }
-
-    .timeline-bullets li {
-      font-size: 0.875rem;
-      color: var(--subtext);
-      padding-left: 1.1rem;
-      position: relative;
-      line-height: 1.65;
-    }
-
-    .timeline-bullets li::before {
-      content: '–';
-      position: absolute;
-      left: 0;
-      color: var(--accent);
-    }
-
-    /* ── SKILLS ── */
-    .skills-wrap {
-      margin-top: 3rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .skills-heading {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--subtext);
-      margin-bottom: 1rem;
-    }
-
-    .skills-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .skill-tag {
-      padding: 0.3rem 0.85rem;
-      border-radius: 100px;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      font-size: 0.8rem;
-      color: var(--text);
-      font-weight: 500;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .skill-tag:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-
-    /* ── EDUCATION ── */
-    .education-item {
-      margin-top: 3rem;
-      padding-top: 3rem;
-      border-top: 1px solid var(--border);
-      display: grid;
-      grid-template-columns: 190px 1fr;
-      gap: 2.5rem;
-      align-items: center;
-    }
-
-    .edu-year {
-      font-size: 0.875rem;
-      color: var(--subtext);
-    }
-
-    .edu-school {
-      font-weight: 600;
-      font-size: 1rem;
-      margin-bottom: 0.25rem;
-    }
-
-    .edu-degree {
-      font-size: 0.875rem;
-      color: var(--subtext);
-    }
-
-    /* ── PROJECTS ── */
-    #projects { background: var(--bg-alt); }
-
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .project-card {
-      background: var(--bg);
+    .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.65rem;
-      transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.25s, border-color 0.25s;
+      padding: 22px;
+      box-shadow: var(--shadow);
     }
-
-    .project-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
-      border-color: var(--accent);
-    }
-
-    .project-tag-row { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-
-    .project-tag {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-light);
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-    }
-
-    .project-title {
-      font-size: 1rem;
-      font-weight: 600;
-    }
-
-    .project-desc {
-      font-size: 0.875rem;
-      color: var(--subtext);
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    .project-links {
-      display: flex;
-      gap: 1rem;
-      padding-top: 0.25rem;
-    }
-
-    .project-link {
-      font-size: 0.8rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-    }
-
-    .project-link:hover { text-decoration: underline; }
-
-    /* ── CONTACT ── */
-    #contact { background: var(--bg); }
-
-    .contact-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-
-    .contact-card {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1.25rem 1.5rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      text-decoration: none;
-      color: var(--text);
-      background: var(--bg);
-      transition: all 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .contact-card:hover {
-      border-color: var(--accent);
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-    }
-
-    .contact-card:hover .contact-value { color: var(--accent); }
-
-    .contact-icon {
-      width: 42px;
-      height: 42px;
-      border-radius: 11px;
-      background: var(--accent-light);
+    .card-icon {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent-text);
       display: flex;
       align-items: center;
       justify-content: center;
+      margin-bottom: 14px;
       flex-shrink: 0;
-      color: var(--accent);
     }
-
-    .contact-label {
-      font-size: 0.75rem;
-      color: var(--subtext);
-      margin-bottom: 0.15rem;
+    .card-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--faint);
+      margin-bottom: 2px;
     }
+    .card-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; }
+    .card-desc { font-size: 0.9rem; color: var(--muted); }
 
-    .contact-value {
-      font-weight: 500;
-      font-size: 0.875rem;
-      transition: color 0.2s;
-    }
-
-    /* ── FOOTER ── */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 2rem;
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--subtext);
-    }
-
-    /* ── FADE-IN ── */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(40px);
-      transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-
-    .fade-in.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── VIDEO BUTTONS ── */
-    .video-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      margin-top: 1rem;
-    }
-
-    .btn-video {
-      display: inline-flex;
+    /* ── EXPERIENCE ── */
+    .jobs { display: flex; flex-direction: column; gap: 16px; }
+    .job { padding: 24px; }
+    .job-head {
+      display: grid;
+      grid-template-columns: 48px 1fr auto;
+      gap: 16px;
       align-items: center;
-      gap: 0.45rem;
-      padding: 0.45rem 1rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      text-decoration: none;
-      color: var(--accent);
-      border: 1.5px solid var(--accent);
-      background: var(--accent-light);
-      transition: all 0.2s;
     }
-
-    .btn-video:hover {
-      background: var(--accent);
-      color: #fff;
-      transform: translateY(-1px);
-    }
-
-    /* ── COMPANY LOGO ── */
-    .company-logo-wrap {
-      margin-top: 1.25rem;
+    .logo {
+      width: 48px; height: 48px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 4px;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      width: 100%;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
     }
+    .logo img { width: 100%; height: 100%; object-fit: contain; }
+    .job-title { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+    .job-company { font-size: 0.92rem; color: var(--muted); font-weight: 500; }
+    .job-meta { text-align: right; font-size: 0.82rem; color: var(--faint); line-height: 1.5; white-space: nowrap; }
+    .job-meta .dates { color: var(--text); font-weight: 600; }
 
-    .company-logo-wrap img {
-      width: 100%;
-      max-width: 200px;
-      height: auto;
-      max-height: 100px;
-      object-fit: contain;
-      object-position: left center;
-      display: block;
+    .impact {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin: 18px 0 14px 64px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      color: var(--accent-text);
+      font-size: 0.9rem;
+      font-weight: 600;
     }
+    .impact svg { flex-shrink: 0; margin-top: 3px; }
 
-    /* ── SUB-ROLES ── */
-    .timeline-subroles {
+    .bullets { list-style: none; margin-left: 64px; display: flex; flex-direction: column; gap: 8px; }
+    .bullets li {
+      position: relative;
+      padding-left: 18px;
+      font-size: 0.93rem;
+      color: var(--muted);
+    }
+    .bullets li::before {
+      content: '';
+      position: absolute;
+      left: 2px;
+      top: 0.62em;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--faint);
+    }
+    .job-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0 64px; }
+
+    .subroles { margin: 18px 0 0 64px; border-left: 2px solid var(--border); padding-left: 20px; display: flex; flex-direction: column; gap: 22px; }
+    .subrole { position: relative; }
+    .subrole::before {
+      content: '';
+      position: absolute;
+      left: -27px;
+      top: 6px;
+      width: 12px; height: 12px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 2px solid var(--faint);
+    }
+    .subrole:first-child::before { border-color: var(--accent); background: var(--accent); }
+    .subrole-head { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; margin-bottom: 8px; }
+    .subrole-title { font-weight: 700; font-size: 0.98rem; }
+    .subrole-date { font-size: 0.82rem; color: var(--faint); font-weight: 500; }
+    .subrole .impact, .subrole .bullets { margin-left: 0; }
+    .subrole .impact { margin-top: 0; }
+
+    /* ── SKILLS & EDUCATION ── */
+    .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; }
+    .skill-group + .skill-group { margin-top: 20px; }
+    .skill-label { font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip {
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .chip.accent { background: var(--accent-soft); border-color: transparent; color: var(--accent-text); }
+
+    .sub-h { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
+    .edu-list { display: flex; flex-direction: column; gap: 12px; }
+    .edu { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; padding: 16px; }
+    .edu .card-icon { width: 48px; height: 48px; margin: 0; }
+    .edu-title { font-weight: 700; font-size: 0.95rem; line-height: 1.35; }
+    .edu-sub { font-size: 0.85rem; color: var(--muted); }
+    .edu-note { font-size: 0.85rem; color: var(--faint); margin-top: 12px; }
+
+    /* ── PROJECTS ── */
+    .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+    .project {
       display: flex;
       flex-direction: column;
-      gap: 0;
+      text-decoration: none;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+    .project:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .project .chips { margin-bottom: 14px; }
+    .project-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
+    .project-desc { font-size: 0.92rem; color: var(--muted); flex: 1; }
+    .project-cta {
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-text);
     }
 
-    .timeline-subrole {
-      padding-top: 1.5rem;
-      margin-top: 1.5rem;
-      border-top: 1px dashed var(--border);
-    }
-
-    .timeline-subrole:first-child {
-      padding-top: 0;
-      margin-top: 0;
-      border-top: none;
-    }
-
-    .timeline-subrole-header {
+    /* ── CONTACT ── */
+    .contact {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: baseline;
-      gap: 1rem;
-      margin-bottom: 0.75rem;
+      gap: 24px;
       flex-wrap: wrap;
+      padding: 36px;
+    }
+    .contact p { color: var(--muted); margin-top: 6px; }
+    .contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    footer {
+      padding: 28px 0 40px;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--faint);
     }
 
-    .timeline-subrole-date {
-      font-size: 0.775rem;
-      color: var(--subtext);
-      white-space: nowrap;
+    /* ── MOTION ── */
+    .fade-in { opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-in { opacity: 1; transform: none; transition: none; }
+      .btn:hover, .project:hover { transform: none; }
     }
 
     /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .hero-inner {
-        flex-direction: column-reverse;
-        gap: 2rem;
-        text-align: center;
-      }
-
-      .hero-text h1 { font-size: 2.5rem; }
-      .hero-actions { justify-content: center; }
-
-      .about-content { grid-template-columns: 1fr; }
-
-      .timeline-item,
-      .education-item {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-      }
-
-      .contact-grid { grid-template-columns: 1fr; }
-      .projects-grid { grid-template-columns: 1fr; }
-      section { padding: 72px 1.25rem; }
-      #hero { padding-top: 110px; }
-
-      .headshot { width: 200px; height: 200px; }
+    @media (max-width: 860px) {
+      .two-col { grid-template-columns: 1fr; gap: 40px; }
+      .cards-3 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .container { padding: 0 16px; }
+      .nav-links { display: none; }
+      #hero { padding: 40px 0 56px; }
+      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
+      .headshot { width: 120px; height: 120px; border-radius: 22px; order: -1; box-shadow: 0 0 0 6px var(--accent-soft); }
+      section { padding: 56px 0; }
+      .projects { grid-template-columns: 1fr; }
+      .job { padding: 18px; }
+      .job-head { grid-template-columns: 44px 1fr; gap: 12px; }
+      .logo { width: 44px; height: 44px; }
+      .job-meta { grid-column: 1 / -1; text-align: left; white-space: normal; }
+      .job-meta br { display: none; }
+      .job-meta .loc::before { content: ' · '; }
+      .impact, .bullets, .job-links { margin-left: 0; }
+      .subroles { margin-left: 6px; }
+      .contact { padding: 24px; }
     }
   </style>
 </head>
@@ -716,109 +501,89 @@
 
 <!-- ── NAV ── -->
 <nav>
-  <div class="nav-inner">
+  <div class="container nav-inner">
     <a href="#hero" class="nav-logo">Mike Tempestini</a>
-    <ul class="nav-links">
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#projects">Projects</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#experience">Experience</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+      <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
+        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+      </button>
+      <a href="Tempestini Resume.pdf" download class="btn btn-primary btn-sm">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Resume
+      </a>
+    </div>
   </div>
 </nav>
 
+<main>
+
 <!-- ── HERO ── -->
 <section id="hero">
-  <div class="container">
-    <div class="hero-inner">
-
-      <div class="hero-text fade-in">
-        <p class="hero-eyebrow">Product Manager · Chicago, IL</p>
-        <h1>Mike Tempestini</h1>
-        <p class="tagline">
-          I started selling loads on the phone and now I ship software. I build products that turn messy operational problems into simple, high-impact tools people actually want to use.
-        </p>
-        <div class="hero-actions">
-          <a href="Tempestini Resume.pdf" download class="btn btn-primary">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="7 10 12 15 17 10"/>
-              <line x1="12" y1="15" x2="12" y2="3"/>
-            </svg>
-            Download Resume
-          </a>
-          <a href="https://www.linkedin.com/in/michael-tempestini-977174115/" target="_blank" rel="noopener" class="btn btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-              <rect x="2" y="9" width="4" height="12"/>
-              <circle cx="4" cy="4" r="2"/>
-            </svg>
-            LinkedIn
-          </a>
-          <a href="mailto:mrtempestini@gmail.com" class="btn btn-outline">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="4" width="20" height="16" rx="2"/>
-              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-            </svg>
-            Email
-          </a>
-        </div>
+  <div class="container hero-grid">
+    <div class="fade-in">
+      <div class="status"><span class="status-dot"></span>Open to new product roles</div>
+      <p class="hero-role">Product Manager · Chicago, IL</p>
+      <h1>Mike Tempestini</h1>
+      <p class="hero-lede">
+        I started selling loads on the phone — now I ship software. <strong>7+ years in freight &amp; logistics tech</strong>, turning messy operational problems into simple, high-impact B2B products.
+      </p>
+      <div class="hero-actions">
+        <a href="Tempestini Resume.pdf" download class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Resume
+        </a>
+        <a href="https://www.linkedin.com/in/michael-tempestini-977174115/" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="mailto:mrtempestini@gmail.com" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email
+        </a>
       </div>
-
-      <!-- HEADSHOT -->
-      <div class="headshot-wrap fade-in" style="transition-delay: 0.15s">
-        <div class="headshot" id="headshot" title="Click to add your photo">
-          <img id="headshot-img" src="mike headshot 2025.png" alt="Mike Tempestini" style="display:block" />
-          <div class="headshot-placeholder" id="headshot-placeholder" style="display:none">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="8" r="4"/>
-              <path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/>
-            </svg>
-            <span>Add photo</span>
-          </div>
-        </div>
-        <input type="file" id="photo-input" accept="image/*" style="display:none" />
-      </div>
-
+    </div>
+    <div class="headshot fade-in">
+      <img src="headshot.jpg" alt="Mike Tempestini" width="800" height="789" />
     </div>
   </div>
 </section>
 
 <!-- ── ABOUT ── -->
-<section id="about">
+<section id="about" class="alt">
   <div class="container">
-    <p class="section-label fade-in">Who I Am</p>
-    <h2 class="section-title fade-in">About Me</h2>
-
-    <div class="about-content">
-      <div class="about-narrative fade-in">
-        <p>
-          I didn't start in product management — I started on the <strong>freight brokerage floor</strong>, making cold calls, booking loads, and learning how the supply chain actually moves. That hands-on experience gave me something most PMs don't have: a deep understanding of the people who use the tools I build.
-        </p>
-        <p>
-          I worked my way from carrier sales into product, where I found my sweet spot — <strong>translating complex operational problems into clean, intuitive software</strong>. I've shipped billing platforms, fraud prevention workflows, Chrome extensions, mobile apps, and A/B-tested recommendation engines — all in freight and logistics.
-        </p>
-        <p>
-          Outside of work, I'm teaching myself to build software from scratch. Not because I want to become an engineer, but because <em>I believe the best product people understand what it takes to ship</em>.
-        </p>
+    <div class="section-head fade-in">
+      <p class="eyebrow">About</p>
+      <h2>From the brokerage floor to product</h2>
+    </div>
+    <p class="about-summary fade-in">
+      Product manager with <strong>7+ years in freight and logistics technology</strong>, including <strong>nearly 5 years in product roles</strong> on B2B SaaS web and mobile products. I run the full lifecycle — discovery and requirements through launch, iteration, and measurement — with engineering, design, data science, and marketing, and I use <strong>AI-enabled tools</strong> to prototype UI, draft requirements, and automate roadmap and release communication.
+    </p>
+    <div class="cards-3">
+      <div class="card fade-in">
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+        <div class="card-label">Background</div>
+        <div class="card-title">Freight Insider</div>
+        <div class="card-desc">Started in carrier sales. I know the people who use the tools I build.</div>
       </div>
-
-      <div class="about-highlights fade-in" style="transition-delay: 0.1s">
-        <div class="about-card">
-          <div class="about-card-label">Background</div>
-          <div class="about-card-value">Freight Insider</div>
-          <div class="about-card-desc">6+ years in logistics — from selling loads to shipping software. I know the industry from the inside out.</div>
-        </div>
-        <div class="about-card">
-          <div class="about-card-label">Superpower</div>
-          <div class="about-card-value">Simplifier</div>
-          <div class="about-card-desc">I take messy, complex workflows and turn them into tools people actually enjoy using.</div>
-        </div>
-        <div class="about-card">
-          <div class="about-card-label">Current Chapter</div>
-          <div class="about-card-value">Builder</div>
-          <div class="about-card-desc">Learning to code on my own time. Because the best way to understand building is to build.</div>
-        </div>
+      <div class="card fade-in">
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+        <div class="card-label">Superpower</div>
+        <div class="card-title">Simplifier</div>
+        <div class="card-desc">I turn messy, complex workflows into tools people actually enjoy using.</div>
+      </div>
+      <div class="card fade-in">
+        <div class="card-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+        <div class="card-label">Current Chapter</div>
+        <div class="card-title">Builder</div>
+        <div class="card-desc">Learning to code on my own time. Because the best way to understand building is to build.</div>
       </div>
     </div>
   </div>
@@ -827,290 +592,289 @@
 <!-- ── EXPERIENCE ── -->
 <section id="experience">
   <div class="container">
-    <p class="section-label fade-in">Career</p>
-    <h2 class="section-title fade-in">Experience</h2>
+    <div class="section-head fade-in">
+      <p class="eyebrow">Experience</p>
+      <h2>Where I've shipped</h2>
+    </div>
 
-    <div class="timeline">
+    <div class="jobs">
 
       <!-- OTR Solutions -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-left">
-          <div class="timeline-company">OTR Solutions</div>
-          <div class="timeline-date">Jan 2025 — Oct 2026<br/>Atlanta, GA (Remote)</div>
-          <div class="company-logo-wrap">
-            <img src="OTR.png" alt="OTR Solutions" />
+      <article class="card job fade-in">
+        <div class="job-head">
+          <div class="logo"><img src="OTR.png" alt="OTR Solutions logo" width="800" height="600" loading="lazy" /></div>
+          <div>
+            <div class="job-title">Product Manager</div>
+            <div class="job-company">OTR Solutions</div>
           </div>
+          <div class="job-meta"><span class="dates">Jan 2025 — Oct 2026</span><br/><span class="loc">Atlanta, GA (Remote)</span></div>
         </div>
-        <div class="timeline-right">
-          <div class="timeline-role">Product Manager</div>
-          <ul class="timeline-bullets">
-            <li>Owned end-to-end product strategy for Epay Manager — a real-time billing, invoicing, and document-audit platform serving freight brokers, carriers, and factoring firms</li>
-            <li>Used AI-enabled tools to prototype and build mockups for a refreshed Epay Manager UI</li>
-            <li>Built AI-assisted workflows to turn stakeholder meeting transcripts into epics and features, draft user stories, create wireframes, and automate roadmap updates and release notes</li>
-            <li>Led the Epay Manager Mobile App through discovery, scoping, development, and go-live, enabling drivers to submit delivery documents from a mobile device</li>
-            <li>Prioritized Sales and Operations feedback against the roadmap and strategic initiatives, shipping features that accelerated adoption and reduced audit disputes</li>
-            <li>Served as voice of the customer during broker and TMS onboarding; ran sprint planning and agile ceremonies; presented live product demos at TIA and FreightWaves conferences</li>
-          </ul>
-          <div class="video-btns">
-            <a href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener" class="btn-video">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-              Gaining a Competitive Edge — TIA 2025
-            </a>
-            <a href="https://www.youtube.com/watch?v=lmlRIH0odKQ" target="_blank" rel="noopener" class="btn-video">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-              OTR Solutions Demo — FreightWaves 2025
-            </a>
-          </div>
+        <div class="impact">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          Owned Epay Manager end-to-end · Took the Epay Manager Mobile App to go-live
         </div>
-      </div>
+        <ul class="bullets">
+          <li>Owned end-to-end product strategy for <strong>Epay Manager</strong> — a real-time billing, invoicing, and document-audit platform serving freight brokers, carriers, and factoring firms</li>
+          <li>Used AI-enabled tools to prototype and build mockups for a refreshed Epay Manager UI</li>
+          <li>Built AI-assisted workflows to turn stakeholder meeting transcripts into epics and features, draft user stories, create wireframes, and automate roadmap updates and release notes</li>
+          <li>Led the <strong>Epay Manager Mobile App</strong> through discovery, scoping, development, and go-live, enabling drivers to submit delivery documents from a mobile device</li>
+          <li>Prioritized Sales and Operations feedback against the roadmap and strategic initiatives, shipping features that accelerated adoption and reduced audit disputes</li>
+          <li>Served as voice of the customer during broker and TMS onboarding; ran sprint planning and agile ceremonies; presented live product demos at TIA and FreightWaves conferences</li>
+        </ul>
+        <div class="job-links">
+          <a href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener" class="pill-link">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            Gaining a Competitive Edge — TIA 2025
+          </a>
+          <a href="https://www.youtube.com/watch?v=lmlRIH0odKQ" target="_blank" rel="noopener" class="pill-link">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            OTR Solutions Demo — FreightWaves 2025
+          </a>
+        </div>
+      </article>
 
       <!-- Internet Truckstop Group -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-left">
-          <div class="timeline-company">Internet Truckstop Group</div>
-          <div class="timeline-date">Oct 2023 — Jan 2025<br/>Boise, ID (Remote)</div>
-          <div class="company-logo-wrap">
-            <img src="Truckstop.jpg" alt="Truckstop" />
+      <article class="card job fade-in">
+        <div class="job-head">
+          <div class="logo"><img src="Truckstop.jpg" alt="Truckstop logo" width="1200" height="630" loading="lazy" /></div>
+          <div>
+            <div class="job-title">Associate Product Manager</div>
+            <div class="job-company">Internet Truckstop Group</div>
           </div>
+          <div class="job-meta"><span class="dates">Oct 2023 — Jan 2025</span><br/><span class="loc">Boise, ID (Remote)</span></div>
         </div>
-        <div class="timeline-right">
-          <div class="timeline-role">Associate Product Manager</div>
-          <ul class="timeline-bullets">
-            <li>Supported development of underlying services for Risk Factors in Chrome and Outlook, from initial launch in June 2024 to an up-market premium offering in November 2024
-              <a href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook?utm_source=item-share-cb" target="_blank" rel="noopener" class="btn-video" style="margin-top:0.5rem; display:inline-flex;">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-                View on Chrome Web Store
-              </a>
-            </li>
-            <li>New product grew from $0 to $41.7k MRR in 6 months, averaging 800k requests/day across all use cases; its data and services also supported the RMIS Gate Rules and RAS releases</li>
-            <li>Led a UX research project with user interviews for the carrier-facing Risk Factors experience to inform design improvements</li>
-            <li>Aligned with leadership on the product roadmap, set objectives and key results, and aligned development team goals for execution and delivery</li>
-          </ul>
+        <div class="impact">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          $0 → $41.7k MRR in 6 months · 800k requests/day
         </div>
-      </div>
+        <ul class="bullets">
+          <li>Supported development of underlying services for <strong>Risk Factors</strong> in Chrome and Outlook, from initial launch in June 2024 to an up-market premium offering in November 2024</li>
+          <li>New product grew from <strong>$0 to $41.7k MRR in 6 months</strong>, averaging <strong>800k requests/day</strong> across all use cases; its data and services also supported the RMIS Gate Rules and RAS releases</li>
+          <li>Led a UX research project with user interviews for the carrier-facing Risk Factors experience to inform design improvements</li>
+          <li>Aligned with leadership on the product roadmap, set objectives and key results, and aligned development team goals for execution and delivery</li>
+        </ul>
+        <div class="job-links">
+          <a href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook" target="_blank" rel="noopener" class="pill-link">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            View on Chrome Web Store
+          </a>
+        </div>
+      </article>
 
       <!-- Coyote Logistics -->
-      <div class="timeline-item fade-in">
-        <div class="timeline-left">
-          <div class="timeline-company">Coyote Logistics</div>
-          <div class="timeline-date">Jun 2019 — Sep 2023<br/>Chicago, IL</div>
-          <div class="company-logo-wrap">
-            <img src="Coyote.avif" alt="Coyote Logistics" />
+      <article class="card job fade-in">
+        <div class="job-head">
+          <div class="logo"><img src="Coyote.avif" alt="Coyote Logistics logo" width="461" height="304" loading="lazy" /></div>
+          <div>
+            <div class="job-title">Coyote Logistics</div>
+            <div class="job-company">3 roles · Sales → Product</div>
+          </div>
+          <div class="job-meta"><span class="dates">Jun 2019 — Sep 2023</span><br/><span class="loc">Chicago, IL</span></div>
+        </div>
+
+        <div class="subroles">
+          <div class="subrole">
+            <div class="subrole-head">
+              <div class="subrole-title">Associate Product Manager</div>
+              <div class="subrole-date">Nov 2021 — Sep 2023</div>
+            </div>
+            <div class="impact">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+              +50% load-opening speed · −20% time-to-task · +5–7% engagement
+            </div>
+            <ul class="bullets">
+              <li>Conducted discovery and started development of two internal web applications for sales reps (Accessorial Management Portal, Carrier Sales Web Application), breaking legacy workflows into web apps; decreased time-to-task in freight-matching workflows by <strong>20%</strong> and increased speed of opening loads by <strong>50%</strong></li>
+              <li>Implemented A/B tests of a load recommendation model on carrier-facing website and mobile apps, matching loads based on history and increasing offers and engagement by <strong>5–7%</strong></li>
+              <li>Installed Pendo analytics on external web and mobile experiences, using user-behavior insights to inform roadmap and feature prioritization</li>
+              <li>Led <strong>four cross-functional teams</strong> (engineering, design, marketing, data science, customer support) to execute initiatives within established timelines and budgets</li>
+              <li>Defined requirements with stakeholders, prioritized features by business value and user impact, and wrote user stories; collaborated with designers in Figma and FigJam</li>
+            </ul>
+          </div>
+
+          <div class="subrole">
+            <div class="subrole-head">
+              <div class="subrole-title">Carrier Engagement Representative</div>
+              <div class="subrole-date">Jul 2020 — Nov 2021</div>
+            </div>
+            <ul class="bullets">
+              <li>Onboarded <strong>200+ new carriers per week</strong> to the CoyoteGO digital freight platform to drive adoption of digital booking, and collected weekly carrier feedback to inform product development</li>
+            </ul>
+          </div>
+
+          <div class="subrole">
+            <div class="subrole-head">
+              <div class="subrole-title">Carrier Sales Representative</div>
+              <div class="subrole-date">Jun 2019 — Jul 2020</div>
+            </div>
+            <ul class="bullets">
+              <li>Sold spot and dedicated freight to owner-operators and fleets, serviced loads to improve service KPIs, and promoted CoyoteGO self-service adoption</li>
+            </ul>
           </div>
         </div>
-        <div class="timeline-right">
-          <div class="timeline-subroles">
+      </article>
 
-            <div class="timeline-subrole">
-              <div class="timeline-subrole-header">
-                <div class="timeline-role">Associate Product Manager</div>
-                <div class="timeline-subrole-date">Nov 2021 — Sep 2023</div>
-              </div>
-              <ul class="timeline-bullets">
-                <li>Conducted discovery and started development of two internal web applications for sales reps (Accessorial Management Portal, Carrier Sales Web Application), breaking legacy workflows into web apps; decreased time-to-task in freight-matching workflows by 20% and increased speed of opening loads by 50%</li>
-                <li>Implemented A/B tests of a load recommendation model on carrier-facing website and mobile apps, matching loads based on history and increasing offers and engagement by 5–7%</li>
-                <li>Installed Pendo analytics on external web and mobile experiences, using user-behavior insights to inform roadmap and feature prioritization</li>
-                <li>Led four cross-functional teams (engineering, design, marketing, data science, customer support) to execute initiatives within established timelines and budgets</li>
-                <li>Defined requirements with stakeholders, prioritized features by business value and user impact, and wrote user stories; collaborated with designers in Figma and FigJam</li>
-              </ul>
-            </div>
+    </div>
+  </div>
+</section>
 
-            <div class="timeline-subrole">
-              <div class="timeline-subrole-header">
-                <div class="timeline-role">Carrier Engagement Representative</div>
-                <div class="timeline-subrole-date">Jul 2020 — Nov 2021</div>
-              </div>
-              <ul class="timeline-bullets">
-                <li>Onboarded 200+ new carriers per week to the CoyoteGO digital freight platform to drive adoption of digital booking, and collected weekly carrier feedback to inform product development</li>
-              </ul>
-            </div>
-
-            <div class="timeline-subrole">
-              <div class="timeline-subrole-header">
-                <div class="timeline-role">Carrier Sales Representative</div>
-                <div class="timeline-subrole-date">Jun 2019 — Jul 2020</div>
-              </div>
-              <ul class="timeline-bullets">
-                <li>Sold spot and dedicated freight to owner-operators and fleets, serviced loads to improve service KPIs, and promoted CoyoteGO self-service adoption</li>
-              </ul>
-            </div>
-
+<!-- ── SKILLS & EDUCATION ── -->
+<section id="skills" class="alt">
+  <div class="container two-col">
+    <div>
+      <div class="section-head fade-in">
+        <p class="eyebrow">Skills</p>
+        <h2>What I bring</h2>
+      </div>
+      <div class="fade-in">
+        <div class="skill-group">
+          <div class="skill-label">Product</div>
+          <div class="chips">
+            <span class="chip accent">Product strategy</span>
+            <span class="chip accent">Roadmapping</span>
+            <span class="chip">Product lifecycle</span>
+            <span class="chip">Discovery &amp; user research</span>
+            <span class="chip">Requirements</span>
+            <span class="chip">Epics &amp; user stories</span>
+            <span class="chip accent">A/B testing</span>
+            <span class="chip">Success metrics &amp; OKRs</span>
+            <span class="chip">Agile / Scrum</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">AI</div>
+          <div class="chips">
+            <span class="chip accent">AI-assisted prototyping &amp; mockups</span>
+            <span class="chip accent">AI workflow automation</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Tools</div>
+          <div class="chips">
+            <span class="chip">Figma</span>
+            <span class="chip">FigJam</span>
+            <span class="chip">Pendo</span>
+            <span class="chip">Asana</span>
+            <span class="chip">Aha!</span>
+            <span class="chip">Jira</span>
+            <span class="chip">Confluence</span>
+            <span class="chip">Claude / Claude Code</span>
+            <span class="chip">Copilot</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-label">Domain</div>
+          <div class="chips">
+            <span class="chip">Freight &amp; logistics</span>
+            <span class="chip">B2B SaaS</span>
+            <span class="chip">Billing, invoicing &amp; payments</span>
+            <span class="chip">Mobile apps</span>
+            <span class="chip">TMS integrations</span>
           </div>
         </div>
       </div>
-
     </div>
 
-    <!-- SKILLS -->
-    <div class="skills-wrap fade-in">
-      <div class="skills-heading">Skills &amp; Tools</div>
-      <div class="skills-list">
-        <span class="skill-tag">Product Strategy</span>
-        <span class="skill-tag">Roadmapping</span>
-        <span class="skill-tag">OKRs</span>
-        <span class="skill-tag">User Research</span>
-        <span class="skill-tag">A/B Testing</span>
-        <span class="skill-tag">Agile / Scrum</span>
-        <span class="skill-tag">Figma</span>
-        <span class="skill-tag">FigJam</span>
-        <span class="skill-tag">Pendo</span>
-        <span class="skill-tag">Jira</span>
-        <span class="skill-tag">Freight &amp; Logistics</span>
-        <span class="skill-tag">Freight Brokerage</span>
-        <span class="skill-tag">TMS Integrations</span>
-        <span class="skill-tag">Cross-functional Leadership</span>
-        <span class="skill-tag">Stakeholder Management</span>
-      </div>
-    </div>
-
-    <!-- EDUCATION -->
-    <div class="education-item fade-in">
-      <div class="timeline-left">
-        <div class="company-logo-wrap" style="margin-top:0">
-          <img src="miami.webp" alt="Miami University" style="max-width:100%; max-height:160px;" />
+    <div>
+      <h3 class="sub-h fade-in">Education &amp; Certifications</h3>
+      <div class="edu-list">
+        <div class="card edu fade-in">
+          <div class="logo"><img src="miami.webp" alt="Miami University logo" width="416" height="416" loading="lazy" /></div>
+          <div>
+            <div class="edu-title">Miami University</div>
+            <div class="edu-sub">B.S. in Business · Oxford, OH · 2019</div>
+          </div>
+        </div>
+        <div class="card edu fade-in">
+          <div class="logo"><img src="Evans-Scholars.jpg" alt="Evans Scholars logo" width="1536" height="2048" loading="lazy" /></div>
+          <div>
+            <div class="edu-title">Evans Scholar</div>
+            <div class="edu-sub">Scholarship for caddies with outstanding academics, caddie record, and leadership</div>
+          </div>
+        </div>
+        <div class="card edu fade-in">
+          <div class="card-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <div>
+            <div class="edu-title">Certified Scrum Product Owner</div>
+            <div class="edu-sub">CSPO</div>
+          </div>
         </div>
       </div>
-      <div>
-        <div class="edu-school">Miami University</div>
-        <div class="edu-degree">Bachelor of Science in Business &mdash; Oxford, OH</div>
-        <div class="edu-year" style="margin-top:0.3rem">Class of 2019</div>
-      </div>
+      <p class="edu-note fade-in">Plus coursework in AI for product management.</p>
     </div>
-
-    <!-- EVANS SCHOLARS -->
-    <div class="education-item fade-in">
-      <div class="timeline-left">
-        <div class="company-logo-wrap" style="margin-top:0">
-          <img src="Evans-Scholars.jpg" alt="Evans Scholars" style="max-width:100%; max-height:160px;" />
-        </div>
-      </div>
-      <div>
-        <div class="edu-school">Evans Scholar Recipient</div>
-        <div class="edu-degree" style="margin-top:0.35rem; line-height:1.65;">Recipient of the Evans Scholarship for caddies showing outstanding records of academic achievement, strong caddie record, and demonstrated leadership ability.</div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <!-- ── PROJECTS ── -->
 <section id="projects">
   <div class="container">
-    <p class="section-label fade-in">Work</p>
-    <h2 class="section-title fade-in">Projects</h2>
-    <p class="section-subtitle fade-in">A growing collection of things I've built, shipped, or contributed to.</p>
-
-    <div class="projects-grid">
-
-      <div class="project-card fade-in">
-        <div class="project-tag-row">
-          <span class="project-tag">Product</span>
-          <span class="project-tag">Conference</span>
-        </div>
+    <div class="section-head fade-in">
+      <p class="eyebrow">Projects</p>
+      <h2>Talks &amp; launches</h2>
+    </div>
+    <div class="projects">
+      <a class="card project fade-in" href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener">
+        <div class="chips"><span class="chip accent">Conference</span><span class="chip">Product</span></div>
         <div class="project-title">TIA 2025 — Competitive Edge Talk</div>
-        <div class="project-desc">
-          Presented at the TIA Intermediaries Conference on freight automation best practices — covering a six-step implementation framework and real-world case studies.
-        </div>
-        <div class="project-links">
-          <a href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener" class="project-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            Watch Talk
-          </a>
-        </div>
-      </div>
-
-      <div class="project-card fade-in" style="transition-delay: 0.1s">
-        <div class="project-tag-row">
-          <span class="project-tag">Chrome Extension</span>
-          <span class="project-tag">Product</span>
-        </div>
+        <div class="project-desc">Presented at the TIA Intermediaries Conference on freight automation best practices — covering a six-step implementation framework and real-world case studies.</div>
+        <span class="project-cta">Watch talk
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+      <a class="card project fade-in" href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook" target="_blank" rel="noopener">
+        <div class="chips"><span class="chip accent">Chrome Extension</span><span class="chip">Product</span></div>
         <div class="project-title">Risk Factors — Chrome &amp; Outlook</div>
-        <div class="project-desc">
-          Helped ship a freight risk assessment product from $0 to $41.7k MRR in 6 months, with 800k daily requests. Available on the Chrome Web Store.
-        </div>
-        <div class="project-links">
-          <a href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook" target="_blank" rel="noopener" class="project-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
-            </svg>
-            View on Chrome Store
-          </a>
-        </div>
-      </div>
-
+        <div class="project-desc">Helped ship a freight risk assessment product from <strong>$0 to $41.7k MRR in 6 months</strong>, with <strong>800k daily requests</strong>. Available on the Chrome Web Store.</div>
+        <span class="project-cta">View on Chrome Web Store
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ── CONTACT ── -->
-<section id="contact">
+<section id="contact" style="padding-top: 0;">
   <div class="container">
-    <p class="section-label fade-in">Get in Touch</p>
-    <h2 class="section-title fade-in">Contact</h2>
-    <div class="contact-grid">
-
-      <a href="mailto:mrtempestini@gmail.com" class="contact-card fade-in">
-        <div class="contact-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="4" width="20" height="16" rx="2"/>
-            <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-          </svg>
-        </div>
-        <div>
-          <div class="contact-label">Email</div>
-          <div class="contact-value">mrtempestini@gmail.com</div>
-        </div>
-      </a>
-
-      <a href="https://www.linkedin.com/in/michael-tempestini-977174115/" target="_blank" rel="noopener" class="contact-card fade-in" style="transition-delay: 0.07s">
-        <div class="contact-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
-            <rect x="2" y="9" width="4" height="12"/>
-            <circle cx="4" cy="4" r="2"/>
-          </svg>
-        </div>
-        <div>
-          <div class="contact-label">LinkedIn</div>
-          <div class="contact-value">linkedin.com/in/michael-tempestini</div>
-        </div>
-      </a>
-
+    <div class="card contact fade-in">
+      <div>
+        <h2>Let's talk</h2>
+        <p>Product, freight, or AI-enabled workflows — my inbox is open.</p>
+      </div>
+      <div class="contact-actions">
+        <a href="mailto:mrtempestini@gmail.com" class="btn btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Email me
+        </a>
+        <a href="https://www.linkedin.com/in/michael-tempestini-977174115/" target="_blank" rel="noopener" class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          LinkedIn
+        </a>
+        <a href="Tempestini Resume.pdf" download class="btn btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Resume
+        </a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ── FOOTER ── -->
+</main>
+
 <footer>
-  <p>&copy; 2025 Mike Tempestini &middot; Chicago, IL</p>
+  <p>&copy; <span id="year">2026</span> Mike Tempestini · Chicago, IL · mrtempestini@gmail.com</p>
 </footer>
 
 <script>
-  // ── Auto-stagger grouped elements ──
-  document.querySelectorAll('.timeline-item').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.07}s`;
-  });
+  document.getElementById('year').textContent = new Date().getFullYear();
 
-  document.querySelectorAll('.timeline-subrole').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.06}s`;
-  });
-
-  document.querySelectorAll('.projects-grid .fade-in').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.08}s`;
-  });
-
-  document.querySelectorAll('.contact-card').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.07}s`;
-  });
-
-  document.querySelectorAll('.education-item').forEach((el, i) => {
-    el.style.transitionDelay = `${i * 0.06}s`;
+  // ── Theme toggle ──
+  const root = document.documentElement;
+  document.getElementById('theme-toggle').addEventListener('click', () => {
+    const current = root.dataset.theme ||
+      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    const next = current === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch (e) {}
   });
 
   // ── Scroll fade-in ──
@@ -1122,13 +886,10 @@
       }
     });
   }, { threshold: 0.06 });
-
   document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
 
   // ── Active nav highlight on scroll ──
-  const sections = document.querySelectorAll('section[id]');
   const navLinks = document.querySelectorAll('.nav-links a');
-
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -1137,30 +898,8 @@
         });
       }
     });
-  }, { threshold: 0.4 });
-
-  sections.forEach(s => navObserver.observe(s));
-
-  // ── Click-to-upload headshot ──
-  const headshot    = document.getElementById('headshot');
-  const photoInput  = document.getElementById('photo-input');
-  const headshotImg = document.getElementById('headshot-img');
-  const placeholder = document.getElementById('headshot-placeholder');
-
-  if (headshot && photoInput) {
-    headshot.addEventListener('click', () => photoInput.click());
-    photoInput.addEventListener('change', (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = (ev) => {
-        headshotImg.src = ev.target.result;
-        headshotImg.style.display = 'block';
-        if (placeholder) placeholder.style.display = 'none';
-      };
-      reader.readAsDataURL(file);
-    });
-  }
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('section[id]').forEach(s => navObserver.observe(s));
 </script>
 
 </body>

@@ -288,6 +288,43 @@
     }
     .headshot img { width: 100%; height: 100%; object-fit: cover; }
 
+    /* Showreel */
+    .reel {
+      position: relative;
+      margin-top: 56px;
+      aspect-ratio: 16 / 9;
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: #0b0f17;
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 24px 60px rgba(15, 23, 42, 0.14);
+    }
+    .reel video { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .reel button {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      background: rgba(11, 15, 23, 0.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: #fff;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s, opacity 0.2s;
+    }
+    .reel button:hover { background: rgba(11, 15, 23, 0.85); }
+    .reel-toggle { right: 14px; bottom: 14px; width: 40px; height: 40px; }
+    .reel-play { inset: 0; margin: auto; width: 84px; height: 84px; opacity: 0; pointer-events: none; }
+    .reel-play svg { margin-left: 4px; }
+    .reel.idle .reel-play { opacity: 1; pointer-events: auto; }
+    .reel.idle .reel-toggle { opacity: 0; pointer-events: none; }
+    .reel .icon-play { display: none; }
+    .reel.paused .icon-play { display: block; }
+    .reel.paused .icon-pause { display: none; }
+    .reel:not(.ready) button { display: none; }
+
     /* ── ABOUT ── */
     .about-summary {
       font-size: 1.08rem;
@@ -563,6 +600,9 @@
       .cards-3 { grid-template-columns: 1fr; }
     }
     @media (max-width: 720px) {
+      .reel { margin-top: 36px; border-radius: 14px; }
+      .reel-play { width: 64px; height: 64px; }
+      .reel-toggle { right: 10px; bottom: 10px; width: 34px; height: 34px; }
       .container { padding: 0 16px; }
       .nav-links { display: none; }
       #hero { padding: 40px 0 56px; }
@@ -639,6 +679,18 @@
     </div>
     <div class="headshot fade-in" style="--d: 0.25s">
       <img src="headshot.jpg" alt="Mike Tempestini" width="800" height="789" />
+    </div>
+  </div>
+  <div class="container">
+    <div class="reel fade-in" style="--d: 0.4s">
+      <video id="reel-video" src="showreel.mp4" poster="showreel-poster.jpg" muted loop playsinline controls preload="metadata" width="1920" height="1080" aria-label="30-second career showreel: Coyote Logistics, Internet Truckstop, OTR Solutions, conference talks, and side projects"></video>
+      <button class="reel-play" type="button" aria-label="Play showreel">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button class="reel-toggle" type="button" aria-label="Pause showreel">
+        <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
+        <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      </button>
     </div>
   </div>
 </section>
@@ -1067,6 +1119,40 @@
       if (e.propertyName === 'opacity' && el.classList.contains('visible')) el.classList.add('settled');
     });
   });
+
+  // ── Showreel: autoplay muted while in view; poster + play button for reduced motion ──
+  const reel = document.querySelector('.reel');
+  const video = document.getElementById('reel-video');
+  if (reel && video) {
+    video.controls = false;
+    reel.classList.add('ready');
+    let userPaused = false;
+    let inView = false;
+    const sync = () => {
+      reel.classList.toggle('paused', video.paused);
+      reel.querySelector('.reel-toggle').setAttribute('aria-label', video.paused ? 'Play showreel' : 'Pause showreel');
+    };
+    video.addEventListener('play', () => { reel.classList.remove('idle'); sync(); });
+    video.addEventListener('pause', sync);
+    const tryPlay = () => { video.play().catch(() => { reel.classList.add('idle'); }); };
+
+    reel.querySelector('.reel-play').addEventListener('click', () => { userPaused = false; tryPlay(); });
+    reel.querySelector('.reel-toggle').addEventListener('click', () => {
+      if (video.paused) { userPaused = false; tryPlay(); }
+      else { userPaused = true; video.pause(); }
+    });
+
+    if (reduceMotion) {
+      reel.classList.add('idle');
+      userPaused = true;
+    }
+    new IntersectionObserver(([entry]) => {
+      inView = entry.isIntersecting;
+      if (inView && !userPaused) tryPlay();
+      else if (!inView && !video.paused) video.pause();
+    }, { threshold: 0.35 }).observe(reel);
+    sync();
+  }
 
   // ── Rotating word in hero ──
   const rotator = document.querySelector('.rotator');

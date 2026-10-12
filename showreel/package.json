@@ -1,0 +1,22 @@
+{
+  "name": "showreel",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Career showreel for miketempestini.github.io/resume, rendered with Remotion",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "render": "remotion render src/index.ts Reel ../showreel.mp4 --codec h264 --crf 26 --pixel-format yuv420p",
+    "poster": "remotion still src/index.ts Reel ../showreel-poster.jpg --frame 870 --image-format jpeg --jpeg-quality 82"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.535",
+    "@remotion/google-fonts": "^4.0.535",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.535"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.31",
+    "typescript": "^7.0.2"
+  }
+}

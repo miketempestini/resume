@@ -112,7 +112,7 @@ export const Side: React.FC = () => {
       </div>
       <div style={{display: 'flex', gap: 32, marginTop: 40}}>
         <Project delay={12} img="cart-jockey.png" chip="Browser game" title="Cart Jockey" desc="Wrangle shopping carts across a parking lot before your shift ends." />
-        <Project delay={22} img="band-rise.png" zoom={1.8} chip="Strategy sim" title="Band Rise" desc="Go from bedroom musician to international stardom." />
+        <Project delay={22} img="band-rise.jpg" chip="Strategy sim" title="Band Rise" desc="Go from bedroom musician to international stardom." />
         <Project
           delay={32}
           art={<BitcoinArt delay={32} />}

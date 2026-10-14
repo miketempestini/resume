@@ -1,17 +1,21 @@
 import React from 'react';
-import {interpolate, useCurrentFrame} from 'remotion';
+import {AbsoluteFill, OffthreadVideo, Sequence, interpolate, staticFile, useCurrentFrame} from 'remotion';
 import {Chip, Eyebrow, Scene, rise, useSpring} from '../anim';
 import {C} from '../theme';
 
-const Talk: React.FC<{delay: number; chip: string; title: string; desc: string}> = ({delay, chip, title, desc}) => {
+// Footage clips live in public/ — trimmed to their first 4.5s, muted, 30fps
+const Talk: React.FC<{delay: number; clip: string; chip: string; title: string; desc: string}> = ({
+  delay,
+  clip,
+  chip,
+  title,
+  desc,
+}) => {
   const frame = useCurrentFrame();
   const p = useSpring(delay);
-  // Spotlight flickers on, then holds
-  const light = interpolate(frame, [delay + 6, delay + 9, delay + 11, delay + 14, delay + 22], [0, 0.9, 0.35, 1, 1], {
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const play = useSpring(delay + 16, 12);
+  // Small pulse on the live dot
+  const pulse = 0.55 + 0.45 * Math.abs(Math.sin((frame - delay) / 9));
+  const tag = interpolate(frame, [delay + 8, delay + 16], [0, 1], {extrapolateLeft: 'clamp', extrapolateRight: 'clamp'});
   return (
     <div
       style={{
@@ -29,41 +33,44 @@ const Talk: React.FC<{delay: number; chip: string; title: string; desc: string}>
         ...rise(p, 50),
       }}
     >
-      <div
+      {/* Footage starts the moment this card appears */}
+      <Sequence from={delay} layout="none">
+        <AbsoluteFill>
+          <OffthreadVideo src={staticFile(clip)} muted style={{width: '100%', height: '100%', objectFit: 'cover'}} />
+        </AbsoluteFill>
+      </Sequence>
+      <AbsoluteFill
         style={{
-          position: 'absolute',
-          inset: 0,
-          opacity: light,
           background:
-            'radial-gradient(60% 90% at 50% -10%, rgba(165,180,252,0.28), rgba(129,140,248,0.08) 45%, transparent 70%)',
+            'linear-gradient(to top, rgba(11,15,23,0.98) 0%, rgba(11,15,23,0.92) 38%, rgba(11,15,23,0.4) 62%, rgba(11,15,23,0) 82%)',
         }}
       />
       <div
         style={{
           position: 'absolute',
-          left: '50%',
-          top: 96,
-          width: 110,
-          height: 110,
-          marginLeft: -55,
-          borderRadius: '50%',
-          background: 'rgba(255,255,255,0.08)',
-          border: '2px solid rgba(255,255,255,0.25)',
+          left: 28,
+          top: 26,
           display: 'flex',
           alignItems: 'center',
-          justifyContent: 'center',
-          transform: `scale(${play})`,
-          opacity: play,
+          gap: 10,
+          padding: '8px 16px 8px 14px',
+          borderRadius: 999,
+          background: 'rgba(0,0,0,0.55)',
+          border: '1px solid rgba(255,255,255,0.18)',
+          color: '#fff',
+          fontSize: 20,
+          fontWeight: 700,
+          letterSpacing: '0.04em',
+          opacity: tag,
         }}
       >
-        <svg width="44" height="44" viewBox="0 0 24 24" fill={C.text}>
-          <path d="M8 5v14l11-7z" />
-        </svg>
+        <span style={{width: 12, height: 12, borderRadius: '50%', background: '#ef4444', opacity: pulse, boxShadow: '0 0 10px rgba(239,68,68,0.8)'}} />
+        LIVE
       </div>
       <div style={{position: 'relative'}}>
-        <Chip accent>{chip}</Chip>
+        <Chip accent style={{background: 'rgba(129,140,248,0.22)'}}>{chip}</Chip>
         <div style={{fontSize: 50, fontWeight: 800, letterSpacing: '-0.03em', color: C.text, marginTop: 20, lineHeight: 1.1}}>{title}</div>
-        <div style={{fontSize: 26, color: C.muted, marginTop: 14, lineHeight: 1.4}}>{desc}</div>
+        <div style={{fontSize: 26, color: '#c3cbd8', marginTop: 14, lineHeight: 1.4}}>{desc}</div>
       </div>
     </div>
   );
@@ -80,12 +87,14 @@ export const Stage: React.FC = () => {
       <div style={{display: 'flex', gap: 36, marginTop: 44}}>
         <Talk
           delay={12}
+          clip="tia-2025.mp4"
           chip="TIA 2025 · Conference talk"
           title="Gaining a Competitive Edge"
           desc="Freight automation best practices — a six-step implementation framework and real-world case studies."
         />
         <Talk
           delay={26}
+          clip="freightwaves-2025.mp4"
           chip="FreightWaves 2025 · Live demo"
           title="OTR Solutions Product Demo"
           desc="Live product demo of the OTR Solutions platform, presented on stage."

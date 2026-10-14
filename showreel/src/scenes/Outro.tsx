@@ -48,7 +48,7 @@ export const Outro: React.FC = () => {
         <span style={{width: 14, height: 14, borderRadius: '50%', background: C.success}} />
         Open to new product roles
       </div>
-      <div style={{fontSize: 30, color: C.accentText, fontWeight: 600, marginTop: 30, ...rise(url)}}>miketempestini.github.io/resume</div>
+      <div style={{fontSize: 30, color: C.accentText, fontWeight: 600, marginTop: 30, ...rise(url)}}>miketemp.com</div>
     </Scene>
   );
 };

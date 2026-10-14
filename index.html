@@ -66,6 +66,7 @@
         --success: #34d399;
         --success-soft: rgba(52, 211, 153, 0.1);
         --nav-bg: rgba(11, 15, 23, 0.8);
+        --tex-opacity: 0.32;
         --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       }
     }
@@ -86,14 +87,26 @@
       --success: #34d399;
       --success-soft: rgba(52, 211, 153, 0.1);
       --nav-bg: rgba(11, 15, 23, 0.8);
+      --tex-opacity: 0.32;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 
+    html { background: var(--bg); }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: url('bg-texture.jpg') center / cover no-repeat;
+      opacity: var(--tex-opacity, 0.14);
+      pointer-events: none;
+    }
+
     body {
       font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: var(--bg);
+      background: transparent;
       color: var(--text);
       line-height: 1.6;
       font-size: 16px;
@@ -213,7 +226,7 @@
 
     /* ── SECTIONS ── */
     section { padding: 72px 0; }
-    section.alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    section.alt { background: color-mix(in srgb, var(--surface) 65%, transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
     .section-head { margin-bottom: 32px; }
     .eyebrow {
       font-size: 0.75rem;

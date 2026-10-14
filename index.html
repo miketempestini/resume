@@ -43,6 +43,8 @@
       --success: #047857;
       --success-soft: #ecfdf5;
       --nav-bg: rgba(255, 255, 255, 0.8);
+      --tex-image: url('bg-texture-light.jpg');
+      --tex-opacity: 0.36;
       --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.04);
       --radius: 12px;
       --max-w: 1040px;
@@ -66,7 +68,8 @@
         --success: #34d399;
         --success-soft: rgba(52, 211, 153, 0.1);
         --nav-bg: rgba(11, 15, 23, 0.8);
-        --tex-opacity: 0.32;
+        --tex-image: url('bg-texture.jpg');
+        --tex-opacity: 0.27;
         --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       }
     }
@@ -87,7 +90,8 @@
       --success: #34d399;
       --success-soft: rgba(52, 211, 153, 0.1);
       --nav-bg: rgba(11, 15, 23, 0.8);
-      --tex-opacity: 0.32;
+      --tex-image: url('bg-texture.jpg');
+      --tex-opacity: 0.27;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
 
@@ -99,8 +103,8 @@
       position: fixed;
       inset: 0;
       z-index: -1;
-      background: url('bg-texture.jpg') center / cover no-repeat;
-      opacity: var(--tex-opacity, 0.14);
+      background: var(--tex-image) center / cover no-repeat;
+      opacity: var(--tex-opacity);
       pointer-events: none;
     }
 

@@ -248,12 +248,28 @@
       transition: color 0.2s, background 0.2s;
     }
     nav .icon-btn:hover { color: var(--notch-text-hi); background: var(--notch-pill); }
-    .icon-sun { display: none; }
-    :root[data-theme="dark"] .icon-sun { display: block; }
-    :root[data-theme="dark"] .icon-moon { display: none; }
+    /* Sun/moon stacked in the toggle; the outgoing icon spins away as the other spins in */
+    #theme-toggle { position: relative; }
+    #theme-toggle svg {
+      position: absolute;
+      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
+    :root[data-theme="dark"] .icon-sun { opacity: 1; transform: none; }
+    :root[data-theme="dark"] .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
     @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) .icon-sun { display: block; }
-      :root:not([data-theme="light"]) .icon-moon { display: none; }
+      :root:not([data-theme="light"]) .icon-sun { opacity: 1; transform: none; }
+      :root:not([data-theme="light"]) .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
+    }
+
+    /* Whole-page cross-fade when the theme changes (View Transitions) */
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 0.3s;
+      animation-timing-function: ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #theme-toggle svg { transition: none; }
     }
 
     /* ── BUTTONS ── */
@@ -1199,8 +1215,16 @@
     const current = root.dataset.theme ||
       (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     const next = current === 'dark' ? 'light' : 'dark';
-    root.dataset.theme = next;
-    try { localStorage.setItem('theme', next); } catch (e) {}
+    const apply = () => {
+      root.dataset.theme = next;
+      try { localStorage.setItem('theme', next); } catch (e) {}
+    };
+    // Cross-fade where supported; otherwise (or with reduced motion) switch instantly
+    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.startViewTransition(apply);
+    } else {
+      apply();
+    }
   });
 
   const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;

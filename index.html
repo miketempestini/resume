@@ -44,6 +44,13 @@
       --success-soft: #ecfdf5;
       --nav-bg: rgba(255, 255, 255, 0.8);
       --tex-image: url('bg-texture-light.jpg');
+      --notch-bg: #ffffff;
+      --notch-text: #475569;
+      --notch-text-hi: #0f172a;
+      --notch-pill: rgba(15, 23, 42, 0.07);
+      --notch-cta-bg: #0f172a;
+      --notch-cta-text: #ffffff;
+      --notch-shadow: rgba(15, 23, 42, 0.12);
       --tex-opacity: 0.36;
       --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.04);
       --radius: 12px;
@@ -69,7 +76,14 @@
         --success-soft: rgba(52, 211, 153, 0.1);
         --nav-bg: rgba(11, 15, 23, 0.8);
         --tex-image: url('bg-texture.jpg');
-        --tex-opacity: 0.27;
+        --notch-bg: #000000;
+        --notch-text: #a1a1aa;
+        --notch-text-hi: #ffffff;
+        --notch-pill: rgba(255, 255, 255, 0.12);
+        --notch-cta-bg: #ffffff;
+        --notch-cta-text: #000000;
+        --notch-shadow: rgba(0, 0, 0, 0.5);
+                --tex-opacity: 0.27;
         --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
       }
     }
@@ -91,6 +105,13 @@
       --success-soft: rgba(52, 211, 153, 0.1);
       --nav-bg: rgba(11, 15, 23, 0.8);
       --tex-image: url('bg-texture.jpg');
+      --notch-bg: #000000;
+      --notch-text: #a1a1aa;
+      --notch-text-hi: #ffffff;
+      --notch-pill: rgba(255, 255, 255, 0.12);
+      --notch-cta-bg: #ffffff;
+      --notch-cta-text: #000000;
+      --notch-shadow: rgba(0, 0, 0, 0.5);
       --tex-opacity: 0.27;
       --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
@@ -130,44 +151,80 @@
 
     .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
 
-    /* ── NAV ── */
+    /* ── NAV: notch hanging from the top edge ── */
     nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      background: var(--nav-bg);
-      backdrop-filter: saturate(180%) blur(14px);
-      -webkit-backdrop-filter: saturate(180%) blur(14px);
-      border-bottom: 1px solid var(--border);
+      width: min(980px, calc(100% - 32px));
+      margin: 0 auto;
+      background: var(--notch-bg);
+      border-radius: 0 0 22px 22px;
+      filter: drop-shadow(0 6px 18px var(--notch-shadow));
     }
+    /* Inverted curves where the notch meets the top edge */
+    nav::before, nav::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      width: var(--flare);
+      height: var(--flare);
+      pointer-events: none;
+    }
+    nav { --flare: 16px; }
+    nav::before { left: calc(-1 * var(--flare)); background: radial-gradient(circle at 0 100%, transparent calc(var(--flare) - 0.5px), var(--notch-bg) var(--flare)); }
+    nav::after { right: calc(-1 * var(--flare)); background: radial-gradient(circle at 100% 100%, transparent calc(var(--flare) - 0.5px), var(--notch-bg) var(--flare)); }
     .nav-inner {
-      display: flex;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
       align-items: center;
-      justify-content: space-between;
-      height: 60px;
+      height: 56px;
+      padding: 0 10px 0 24px;
       gap: 16px;
     }
     .nav-logo {
       font-weight: 700;
-      font-size: 0.95rem;
-      letter-spacing: -0.01em;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+      color: var(--notch-text-hi);
       text-decoration: none;
       white-space: nowrap;
+      justify-self: start;
     }
-    .nav-right { display: flex; align-items: center; gap: 8px; }
-    .nav-links { display: flex; gap: 4px; list-style: none; margin-right: 8px; }
+    .nav-right { display: flex; align-items: center; gap: 6px; justify-self: end; }
+    .nav-links { position: relative; display: flex; gap: 2px; list-style: none; }
+    .nav-pill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0;
+      border-radius: 999px;
+      background: var(--notch-pill);
+      opacity: 0;
+      pointer-events: none;
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), width 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
+    }
     .nav-links a {
+      position: relative;
       display: block;
-      padding: 6px 10px;
+      padding: 7px 14px;
       font-size: 0.875rem;
       font-weight: 500;
-      color: var(--muted);
+      color: var(--notch-text);
       text-decoration: none;
-      border-radius: 8px;
-      transition: color 0.15s, background 0.15s;
+      border-radius: 999px;
+      transition: color 0.2s ease;
     }
-    .nav-links a:hover { color: var(--text); background: var(--surface); }
-    .nav-links a.active { color: var(--accent-text); }
+    .nav-links a.lit, .nav-links a.active { color: var(--notch-text-hi); }
+    nav .btn-cta {
+      background: var(--notch-cta-bg);
+      color: var(--notch-cta-text);
+      border-radius: 999px;
+      padding: 8px 16px;
+      font-size: 0.82rem;
+    }
+    nav .btn-cta:hover { background: var(--notch-cta-bg); filter: brightness(0.92); }
 
     .icon-btn {
       width: 36px;
@@ -183,6 +240,14 @@
       transition: color 0.15s, border-color 0.15s;
     }
     .icon-btn:hover { color: var(--text); border-color: var(--faint); }
+    nav .icon-btn {
+      border: none;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--notch-text);
+      transition: color 0.2s, background 0.2s;
+    }
+    nav .icon-btn:hover { color: var(--notch-text-hi); background: var(--notch-pill); }
     .icon-sun { display: none; }
     :root[data-theme="dark"] .icon-sun { display: block; }
     :root[data-theme="dark"] .icon-moon { display: none; }
@@ -638,6 +703,8 @@
       .reel-toggle { right: 10px; bottom: 10px; width: 34px; height: 34px; }
       .container { padding: 0 16px; }
       .nav-links { display: none; }
+      nav { width: calc(100% - 24px); --flare: 12px; }
+      .nav-inner { grid-template-columns: 1fr auto; padding-left: 18px; }
       #hero { padding: 40px 0 56px; }
       .hero-grid { grid-template-columns: 1fr; gap: 28px; }
       .headshot { width: 120px; height: 120px; border-radius: 22px; order: -1; box-shadow: 0 0 0 6px var(--accent-soft); }
@@ -658,22 +725,23 @@
 <body>
 
 <!-- ── NAV ── -->
-<nav>
-  <div class="container nav-inner">
+<nav aria-label="Main">
+  <div class="nav-inner">
     <a href="#hero" class="nav-logo">Mike Tempestini</a>
+    <ul class="nav-links">
+      <li class="nav-pill" aria-hidden="true"></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
     <div class="nav-right">
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
       <button class="icon-btn" id="theme-toggle" type="button" aria-label="Toggle dark mode">
         <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       </button>
-      <a href="Tempestini Resume.pdf" download class="btn btn-primary btn-sm">
+      <a href="Tempestini Resume.pdf" download class="btn btn-cta">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Resume
       </a>
@@ -1245,18 +1313,39 @@
     }
   }
 
-  // ── Active nav highlight on scroll ──
+  // ── Nav: sliding highlight pill follows hover, rests on the current section ──
+  const navList = document.querySelector('.nav-links');
+  const navPill = document.querySelector('.nav-pill');
   const navLinks = document.querySelectorAll('.nav-links a');
+  let activeLink = null;
+  const movePill = (link) => {
+    navLinks.forEach(l => l.classList.toggle('lit', l === link));
+    if (!link) { navPill.style.opacity = '0'; return; }
+    const listBox = navList.getBoundingClientRect();
+    const box = link.getBoundingClientRect();
+    navPill.style.width = box.width + 'px';
+    navPill.style.transform = `translateX(${box.left - listBox.left}px)`;
+    navPill.style.opacity = '1';
+  };
+  if (reduceMotion) navPill.style.transition = 'none';
+  navLinks.forEach(link => {
+    link.addEventListener('mouseenter', () => movePill(link));
+    link.addEventListener('focus', () => movePill(link));
+  });
+  navList.addEventListener('mouseleave', () => movePill(activeLink));
+  navList.addEventListener('focusout', () => movePill(activeLink));
+
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        navLinks.forEach(link => {
-          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
-        });
-      }
+      if (!entry.isIntersecting) return;
+      activeLink = [...navLinks].find(l => l.getAttribute('href') === '#' + entry.target.id) || null;
+      navLinks.forEach(l => l.classList.toggle('active', l === activeLink));
+      if (!navList.matches(':hover')) movePill(activeLink);
     });
   }, { rootMargin: '-40% 0px -55% 0px' });
   document.querySelectorAll('section[id]').forEach(s => navObserver.observe(s));
+  window.addEventListener('resize', () => movePill(activeLink));
+  if (document.fonts) document.fonts.ready.then(() => movePill(activeLink));
 </script>
 
 </body>

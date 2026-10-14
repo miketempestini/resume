@@ -495,6 +495,22 @@
     .project .chips { margin-bottom: 14px; }
     .project-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
     .project-desc { font-size: 0.92rem; color: var(--muted); flex: 1; }
+    .project.static:hover { border-color: var(--border); transform: none; }
+    .private-note {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px dashed var(--border);
+      background: var(--surface);
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .private-note svg { flex-shrink: 0; margin-top: 2px; color: var(--accent-text); }
+    .project .btn { align-self: flex-start; margin-top: 14px; }
     .project-cta {
       margin-top: 16px;
       display: inline-flex;
@@ -953,11 +969,53 @@
 
     <div class="project-group">
       <div class="group-head fade-in">
-        <h3 class="group-title">Work</h3>
-        <span class="group-sub">Conference talks and products I helped ship</span>
+        <h3 class="group-title">Products I've shipped</h3>
+        <span class="group-sub">Launches I led or helped ship, plus tools I built for the team</span>
       </div>
       <div class="projects three">
+      <a class="card project fade-in" href="https://apps.apple.com/us/app/epay-manager-mobile/id6756434455" target="_blank" rel="noopener">
+        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <div class="chips"><span class="chip accent">iOS app</span><span class="chip">Mobile</span></div>
+        <div class="project-title">Epay Manager Mobile</div>
+        <div class="project-desc">Led the app through discovery, scoping, development, and go-live — drivers submit delivery documents to Epay Manager straight from their phone.</div>
+        <span class="project-cta">View on the App Store
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+      <a class="card project fade-in" href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook" target="_blank" rel="noopener">
+        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="chips"><span class="chip accent">Chrome Extension</span><span class="chip">Product</span></div>
+        <div class="project-title">Risk Factors — Chrome &amp; Outlook</div>
+        <div class="project-desc">Helped ship a freight risk assessment product from <strong>$0 to $41.7k MRR in 6 months</strong>, with <strong>800k daily requests</strong>. Available on the Chrome Web Store.</div>
+        <span class="project-cta">View on Chrome Web Store
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+        </span>
+      </a>
+      <div class="card project static fade-in">
+        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg></div>
+        <div class="chips"><span class="chip accent">Internal tool</span><span class="chip">Built with Claude</span></div>
+        <div class="project-title">Broker Onboarding Playbook</div>
+        <div class="project-desc">An AI-built tool for operations teams to streamline customer onboardings — build timelines, generate task lists to post to project tracking tools, and get a complete list of every task needed to onboard a new broker.</div>
+        <div class="private-note">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          <span>Intentionally kept private to protect information. I'd be happy to demo it on a call.</span>
+        </div>
+        <a class="btn btn-outline btn-sm" href="mailto:mrtempestini@gmail.com?subject=Demo%20request%3A%20Broker%20Onboarding%20Playbook">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Request a demo
+        </a>
+      </div>
+      </div>
+    </div>
+
+    <div class="project-group">
+      <div class="group-head fade-in">
+        <h3 class="group-title">On stage</h3>
+        <span class="group-sub">Conference talks and live product demos</span>
+      </div>
+      <div class="projects">
       <a class="card project fade-in" href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener">
+        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
         <div class="chips"><span class="chip accent">Conference talk</span><span class="chip">TIA 2025</span></div>
         <div class="project-title">Gaining a Competitive Edge</div>
         <div class="project-desc">Presented at the TIA Intermediaries Conference on freight automation best practices — a six-step implementation framework and real-world case studies.</div>
@@ -966,18 +1024,11 @@
         </span>
       </a>
       <a class="card project fade-in" href="https://www.youtube.com/watch?v=lmlRIH0odKQ" target="_blank" rel="noopener">
+        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m10 7 5 3-5 3z"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
         <div class="chips"><span class="chip accent">Live demo</span><span class="chip">FreightWaves 2025</span></div>
         <div class="project-title">OTR Solutions Product Demo</div>
         <div class="project-desc">Live product demo of the OTR Solutions platform, presented on stage at FreightWaves 2025.</div>
         <span class="project-cta">Watch demo
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
-        </span>
-      </a>
-      <a class="card project fade-in" href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook" target="_blank" rel="noopener">
-        <div class="chips"><span class="chip accent">Chrome Extension</span><span class="chip">Product</span></div>
-        <div class="project-title">Risk Factors — Chrome &amp; Outlook</div>
-        <div class="project-desc">Helped ship a freight risk assessment product from <strong>$0 to $41.7k MRR in 6 months</strong>, with <strong>800k daily requests</strong>. Available on the Chrome Web Store.</div>
-        <span class="project-cta">View on Chrome Web Store
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
         </span>
       </a>

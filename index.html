@@ -594,6 +594,22 @@
     .project-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
     .project-desc { font-size: 0.92rem; color: var(--muted); flex: 1; }
     .project.static:hover { border-color: var(--border); transform: none; }
+    .project-media {
+      margin: -8px -8px 16px;
+      height: 140px;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #0b0f17;
+    }
+    .project-media video {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 35%;
+      transition: transform 0.4s ease;
+    }
+    .project:hover .project-media video { transform: scale(1.03); }
     .private-note {
       display: flex;
       gap: 10px;
@@ -1116,7 +1132,9 @@
       </div>
       <div class="projects">
       <a class="card project fade-in" href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener">
-        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg></div>
+        <div class="project-media">
+          <video src="preview-tia-2025.mp4" poster="preview-tia-2025.jpg" muted loop playsinline preload="metadata" width="640" height="362" aria-label="Silent preview clip of Mike speaking at TIA 2025"></video>
+        </div>
         <div class="chips"><span class="chip accent">Conference talk</span><span class="chip">TIA 2025</span></div>
         <div class="project-title">Gaining a Competitive Edge</div>
         <div class="project-desc">Presented at the TIA Intermediaries Conference on freight automation best practices — a six-step implementation framework and real-world case studies.</div>
@@ -1125,7 +1143,9 @@
         </span>
       </a>
       <a class="card project fade-in" href="https://www.youtube.com/watch?v=lmlRIH0odKQ" target="_blank" rel="noopener">
-        <div class="project-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="m10 7 5 3-5 3z"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+        <div class="project-media">
+          <video src="preview-freightwaves-2025.mp4" poster="preview-freightwaves-2025.jpg" muted loop playsinline preload="metadata" width="640" height="362" aria-label="Silent preview clip of the OTR Solutions demo at FreightWaves 2025"></video>
+        </div>
         <div class="chips"><span class="chip accent">Live demo</span><span class="chip">FreightWaves 2025</span></div>
         <div class="project-title">OTR Solutions Product Demo</div>
         <div class="project-desc">Live product demo of the OTR Solutions platform, presented on stage at FreightWaves 2025.</div>
@@ -1312,6 +1332,18 @@
       else if (!inView && !video.paused) video.pause();
     }, { threshold: 0.35 }).observe(reel);
     sync();
+  }
+
+  // ── Project card previews: loop muted while on screen; still frame for reduced motion ──
+  const previews = document.querySelectorAll('.project-media video');
+  if (!reduceMotion) {
+    const previewObserver = new IntersectionObserver((entries) => {
+      entries.forEach(({ target, isIntersecting }) => {
+        if (isIntersecting) target.play().catch(() => {});
+        else target.pause();
+      });
+    }, { threshold: 0.25 });
+    previews.forEach(v => previewObserver.observe(v));
   }
 
   // ── Rotating word in hero ──

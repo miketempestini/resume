@@ -6,7 +6,7 @@
   "scripts": {
     "studio": "remotion studio src/index.ts",
     "render": "remotion render src/index.ts Reel ../showreel.mp4 --codec h264 --crf 26 --pixel-format yuv420p",
-    "poster": "remotion still src/index.ts Reel ../showreel-poster.jpg --frame 870 --image-format jpeg --jpeg-quality 82"
+    "poster": "remotion still src/index.ts Reel ../showreel-poster.jpg --frame=-30 --image-format jpeg --jpeg-quality 82"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.535",

@@ -14,747 +14,28 @@
   <meta name="color-scheme" content="light dark" />
   <script>
     document.documentElement.classList.add('js');
-    // Apply saved theme before paint to avoid a flash
-    try {
-      const t = localStorage.getItem('theme');
-      if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
-    } catch (e) {}
+    // Set the theme before paint to avoid a flash: saved choice, else the system setting
+    let t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    document.documentElement.dataset.theme = t === 'light' || t === 'dark' ? t
+      : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --bg: #ffffff;
-      --surface: #f6f7f9;
-      --card: #ffffff;
-      --text: #0f172a;
-      --muted: #475569;
-      --faint: #64748b;
-      --border: #e5e7eb;
-      --accent: #4f46e5;
-      --accent-hover: #4338ca;
-      --accent-soft: #eef2ff;
-      --accent-text: #4338ca;
-      --hl: rgba(79, 70, 229, 0.16);
-      --on-accent: #ffffff;
-      --success: #047857;
-      --success-soft: #ecfdf5;
-      --nav-bg: rgba(255, 255, 255, 0.8);
-      --tex-image: url('bg-texture-light.jpg');
-      --notch-bg: #ffffff;
-      --notch-text: #475569;
-      --notch-text-hi: #0f172a;
-      --notch-pill: rgba(15, 23, 42, 0.07);
-      --notch-cta-bg: #0f172a;
-      --notch-cta-text: #ffffff;
-      --notch-shadow: rgba(15, 23, 42, 0.12);
-      --tex-opacity: 0.36;
-      --shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.04);
-      --radius: 12px;
-      --max-w: 1040px;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) {
-        --bg: #0b0f17;
-        --surface: #0f1420;
-        --card: #121826;
-        --text: #e5e7eb;
-        --muted: #a3afc2;
-        --faint: #8a96a8;
-        --border: #1f2937;
-        --accent: #818cf8;
-        --accent-hover: #a5b4fc;
-        --accent-soft: rgba(129, 140, 248, 0.12);
-        --accent-text: #a5b4fc;
-        --hl: rgba(129, 140, 248, 0.28);
-        --on-accent: #0b0f17;
-        --success: #34d399;
-        --success-soft: rgba(52, 211, 153, 0.1);
-        --nav-bg: rgba(11, 15, 23, 0.8);
-        --tex-image: url('bg-texture.jpg');
-        --notch-bg: #000000;
-        --notch-text: #a1a1aa;
-        --notch-text-hi: #ffffff;
-        --notch-pill: rgba(255, 255, 255, 0.12);
-        --notch-cta-bg: #ffffff;
-        --notch-cta-text: #000000;
-        --notch-shadow: rgba(0, 0, 0, 0.5);
-                --tex-opacity: 0.27;
-        --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-      }
-    }
-    :root[data-theme="dark"] {
-      --bg: #0b0f17;
-      --surface: #0f1420;
-      --card: #121826;
-      --text: #e5e7eb;
-      --muted: #a3afc2;
-      --faint: #8a96a8;
-      --border: #1f2937;
-      --accent: #818cf8;
-      --accent-hover: #a5b4fc;
-      --accent-soft: rgba(129, 140, 248, 0.12);
-      --accent-text: #a5b4fc;
-      --hl: rgba(129, 140, 248, 0.28);
-      --on-accent: #0b0f17;
-      --success: #34d399;
-      --success-soft: rgba(52, 211, 153, 0.1);
-      --nav-bg: rgba(11, 15, 23, 0.8);
-      --tex-image: url('bg-texture.jpg');
-      --notch-bg: #000000;
-      --notch-text: #a1a1aa;
-      --notch-text-hi: #ffffff;
-      --notch-pill: rgba(255, 255, 255, 0.12);
-      --notch-cta-bg: #ffffff;
-      --notch-cta-text: #000000;
-      --notch-shadow: rgba(0, 0, 0, 0.5);
-      --tex-opacity: 0.27;
-      --shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    html { scroll-behavior: smooth; scroll-padding-top: 72px; }
-
-    html { background: var(--bg); }
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background: var(--tex-image) center / cover no-repeat;
-      opacity: var(--tex-opacity);
-      pointer-events: none;
-    }
-
-    body {
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      background: transparent;
-      color: var(--text);
-      line-height: 1.6;
-      font-size: 16px;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    a { color: inherit; }
-    img { display: block; max-width: 100%; }
-    strong { font-weight: 600; color: var(--text); }
-
-    :focus-visible {
-      outline: 2px solid var(--accent);
-      outline-offset: 3px;
-      border-radius: 6px;
-    }
-
-    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 24px; }
-
-    /* ── NAV: notch hanging from the top edge ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      width: min(980px, calc(100% - 32px));
-      margin: 0 auto;
-      background: var(--notch-bg);
-      border-radius: 0 0 22px 22px;
-      filter: drop-shadow(0 6px 18px var(--notch-shadow));
-    }
-    /* Inverted curves where the notch meets the top edge */
-    nav::before, nav::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      width: var(--flare);
-      height: var(--flare);
-      pointer-events: none;
-    }
-    nav { --flare: 16px; }
-    nav::before { left: calc(-1 * var(--flare)); background: radial-gradient(circle at 0 100%, transparent calc(var(--flare) - 0.5px), var(--notch-bg) var(--flare)); }
-    nav::after { right: calc(-1 * var(--flare)); background: radial-gradient(circle at 100% 100%, transparent calc(var(--flare) - 0.5px), var(--notch-bg) var(--flare)); }
-    .nav-inner {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      height: 56px;
-      padding: 0 10px 0 24px;
-      gap: 16px;
-    }
-    .nav-logo {
-      font-weight: 700;
-      font-size: 1rem;
-      letter-spacing: -0.02em;
-      color: var(--notch-text-hi);
-      text-decoration: none;
-      white-space: nowrap;
-      justify-self: start;
-    }
-    .nav-right { display: flex; align-items: center; gap: 6px; justify-self: end; }
-    .nav-links { position: relative; display: flex; gap: 2px; list-style: none; }
-    .nav-pill {
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 0;
-      border-radius: 999px;
-      background: var(--notch-pill);
-      opacity: 0;
-      pointer-events: none;
-      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), width 0.35s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.2s ease;
-    }
-    .nav-links a {
-      position: relative;
-      display: block;
-      padding: 7px 14px;
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: var(--notch-text);
-      text-decoration: none;
-      border-radius: 999px;
-      transition: color 0.2s ease;
-    }
-    .nav-links a.lit, .nav-links a.active { color: var(--notch-text-hi); }
-    nav .btn-cta {
-      background: var(--notch-cta-bg);
-      color: var(--notch-cta-text);
-      border-radius: 999px;
-      padding: 8px 16px;
-      font-size: 0.82rem;
-    }
-    nav .btn-cta:hover { background: var(--notch-cta-bg); filter: brightness(0.92); }
-
-    .icon-btn {
-      width: 36px;
-      height: 36px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: var(--card);
-      color: var(--muted);
-      cursor: pointer;
-      transition: color 0.15s, border-color 0.15s;
-    }
-    .icon-btn:hover { color: var(--text); border-color: var(--faint); }
-    nav .icon-btn {
-      border: none;
-      border-radius: 999px;
-      background: transparent;
-      color: var(--notch-text);
-      transition: color 0.2s, background 0.2s;
-    }
-    nav .icon-btn:hover { color: var(--notch-text-hi); background: var(--notch-pill); }
-    /* Sun/moon stacked in the toggle; the outgoing icon spins away as the other spins in */
-    #theme-toggle { position: relative; }
-    #theme-toggle svg {
-      position: absolute;
-      transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    .icon-sun { opacity: 0; transform: rotate(-90deg) scale(0.5); }
-    :root[data-theme="dark"] .icon-sun { opacity: 1; transform: none; }
-    :root[data-theme="dark"] .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
-    @media (prefers-color-scheme: dark) {
-      :root:not([data-theme="light"]) .icon-sun { opacity: 1; transform: none; }
-      :root:not([data-theme="light"]) .icon-moon { opacity: 0; transform: rotate(90deg) scale(0.5); }
-    }
-
-    /* Whole-page cross-fade when the theme changes (View Transitions) */
-    ::view-transition-old(root),
-    ::view-transition-new(root) {
-      animation-duration: 0.3s;
-      animation-timing-function: ease;
-    }
-    @media (prefers-reduced-motion: reduce) {
-      #theme-toggle svg { transition: none; }
-    }
-
-    /* ── BUTTONS ── */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 16px;
-      border-radius: 10px;
-      font-family: inherit;
-      font-size: 0.9rem;
-      font-weight: 600;
-      text-decoration: none;
-      border: 1px solid transparent;
-      cursor: pointer;
-      transition: background 0.15s, border-color 0.15s, transform 0.15s;
-      white-space: nowrap;
-    }
-    .btn:hover { transform: translateY(-1px); }
-    .btn-primary { background: var(--accent); color: var(--on-accent); }
-    .btn-primary:hover { background: var(--accent-hover); }
-    .btn-outline { background: var(--card); color: var(--text); border-color: var(--border); }
-    .btn-outline:hover { border-color: var(--faint); }
-    .btn-sm { padding: 7px 12px; font-size: 0.82rem; border-radius: 8px; }
-
-    .pill-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      color: var(--accent-text);
-      background: var(--accent-soft);
-      text-decoration: none;
-    }
-    .pill-link:hover { text-decoration: underline; }
-
-    /* ── SECTIONS ── */
-    section { padding: 72px 0; }
-    section.alt { background: color-mix(in srgb, var(--surface) 65%, transparent); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .section-head { margin-bottom: 32px; }
-    .eyebrow {
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--accent-text);
-      margin-bottom: 8px;
-    }
-    h2 {
-      font-size: clamp(1.6rem, 3vw, 2rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
-
-    /* ── HERO ── */
-    #hero { padding: 80px 0 72px; }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 56px;
-      align-items: center;
-    }
-    .status {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 5px 12px 5px 10px;
-      border-radius: 999px;
-      background: var(--success-soft);
-      color: var(--success);
-      font-size: 0.8rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-    }
-    .status-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--success);
-    }
-    .hero-role {
-      font-size: 0.95rem;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 8px;
-    }
-    h1 {
-      font-size: clamp(2.5rem, 6vw, 4rem);
-      font-weight: 800;
-      letter-spacing: -0.035em;
-      line-height: 1.05;
-      margin-bottom: 20px;
-    }
-    .hero-lede {
-      font-size: clamp(1.05rem, 2vw, 1.2rem);
-      color: var(--muted);
-      max-width: 560px;
-      margin-bottom: 28px;
-    }
-    .lede-hook { display: block; color: var(--text); font-weight: 500; margin-bottom: 4px; }
-    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-
-    .headshot {
-      width: 260px;
-      height: 260px;
-      border-radius: 28px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 0 0 0 8px var(--accent-soft);
-      background: var(--surface);
-    }
-    .headshot img { width: 100%; height: 100%; object-fit: cover; }
-
-    /* Showreel */
-    .reel {
-      position: relative;
-      margin-top: 56px;
-      aspect-ratio: 16 / 9;
-      border-radius: 20px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: #0b0f17;
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.06), 0 24px 60px rgba(15, 23, 42, 0.14);
-    }
-    .reel video { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .reel button {
-      position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      background: rgba(11, 15, 23, 0.6);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      color: #fff;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.15s, opacity 0.2s;
-    }
-    .reel button:hover { background: rgba(11, 15, 23, 0.85); }
-    .reel-toggle { right: 14px; bottom: 14px; width: 40px; height: 40px; }
-    .reel-play { inset: 0; margin: auto; width: 84px; height: 84px; opacity: 0; pointer-events: none; }
-    .reel-play svg { margin-left: 4px; }
-    .reel.idle .reel-play { opacity: 1; pointer-events: auto; }
-    .reel.idle .reel-toggle { opacity: 0; pointer-events: none; }
-    .reel .icon-play { display: none; }
-    .reel.paused .icon-play { display: block; }
-    .reel.paused .icon-pause { display: none; }
-    .reel:not(.ready) button { display: none; }
-
-    /* ── ABOUT ── */
-    .about-summary {
-      font-size: 1.08rem;
-      color: var(--muted);
-      max-width: 760px;
-      margin-bottom: 32px;
-    }
-    .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 22px;
-      box-shadow: var(--shadow);
-    }
-    .card-icon {
-      width: 36px; height: 36px;
-      border-radius: 10px;
-      background: var(--accent-soft);
-      color: var(--accent-text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      flex-shrink: 0;
-    }
-    .card-label {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--faint);
-      margin-bottom: 2px;
-    }
-    .card-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 6px; }
-    .card-desc { font-size: 0.9rem; color: var(--muted); }
-
-    /* ── EXPERIENCE ── */
-    .jobs { display: flex; flex-direction: column; gap: 16px; }
-    .job { padding: 24px; }
-    .job-head {
-      display: grid;
-      grid-template-columns: 48px 1fr auto;
-      gap: 16px;
-      align-items: center;
-    }
-    .logo {
-      width: 48px; height: 48px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: #fff;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-      flex-shrink: 0;
-    }
-    .logo img { width: 100%; height: 100%; object-fit: contain; }
-    .job-title { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
-    .job-company { font-size: 0.92rem; color: var(--muted); font-weight: 500; }
-    .job-meta { text-align: right; font-size: 0.82rem; color: var(--faint); line-height: 1.5; white-space: nowrap; }
-    .job-meta .dates { color: var(--text); font-weight: 600; }
-
-    .impact {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      margin: 18px 0 14px 64px;
-      padding: 10px 14px;
-      border-radius: 10px;
-      background-image: linear-gradient(var(--accent-soft), var(--accent-soft));
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      color: var(--accent-text);
-      font-size: 0.9rem;
-      font-weight: 600;
-    }
-    .impact svg { flex-shrink: 0; margin-top: 3px; }
-
-    .bullets { list-style: none; margin-left: 64px; display: flex; flex-direction: column; gap: 8px; }
-    .bullets li {
-      position: relative;
-      padding-left: 18px;
-      font-size: 0.93rem;
-      color: var(--muted);
-    }
-    .bullets li::before {
-      content: '';
-      position: absolute;
-      left: 2px;
-      top: 0.62em;
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--faint);
-    }
-    .job-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0 64px; }
-
-    .subroles { margin: 18px 0 0 64px; border-left: 2px solid var(--border); padding-left: 20px; display: flex; flex-direction: column; gap: 22px; }
-    .subrole { position: relative; }
-    .subrole::before {
-      content: '';
-      position: absolute;
-      left: -27px;
-      top: 6px;
-      width: 12px; height: 12px;
-      border-radius: 50%;
-      background: var(--card);
-      border: 2px solid var(--faint);
-    }
-    .subrole:first-child::before { border-color: var(--accent); background: var(--accent); }
-    .subrole-head { display: flex; justify-content: space-between; gap: 4px 12px; flex-wrap: wrap; margin-bottom: 8px; }
-    .subrole-title { font-weight: 700; font-size: 0.98rem; }
-    .subrole-date { font-size: 0.82rem; color: var(--faint); font-weight: 500; }
-    .subrole .impact, .subrole .bullets { margin-left: 0; }
-    .subrole .impact { margin-top: 0; }
-
-    /* ── SKILLS & EDUCATION ── */
-    .two-col { display: grid; grid-template-columns: 1.4fr 1fr; gap: 48px; align-items: start; }
-    .skill-group + .skill-group { margin-top: 20px; }
-    .skill-label { font-size: 0.8rem; font-weight: 700; margin-bottom: 8px; }
-    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
-    .chip {
-      font-size: 0.82rem;
-      font-weight: 500;
-      padding: 5px 11px;
-      border-radius: 999px;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--muted);
-    }
-    .chip.accent { background: var(--accent-soft); border-color: transparent; color: var(--accent-text); }
-
-    .sub-h { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; }
-    .edu-list { display: flex; flex-direction: column; gap: 12px; }
-    .edu { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: center; padding: 16px; }
-    .edu .card-icon { width: 48px; height: 48px; margin: 0; }
-    .edu-title { font-weight: 700; font-size: 0.95rem; line-height: 1.35; }
-    .edu-sub { font-size: 0.85rem; color: var(--muted); }
-    .edu-note { font-size: 0.85rem; color: var(--faint); margin-top: 12px; }
-
-    /* ── PROJECTS ── */
-    .projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
-    .projects.three { grid-template-columns: repeat(3, 1fr); }
-    .project-group + .project-group { margin-top: 40px; }
-    .group-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-bottom: 16px; }
-    .group-title { font-size: 1.15rem; font-weight: 700; letter-spacing: -0.01em; }
-    .group-sub { font-size: 0.85rem; color: var(--faint); }
-    .project-icon {
-      width: 40px; height: 40px;
-      border-radius: 10px;
-      background: var(--accent-soft);
-      color: var(--accent-text);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-    .project-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-    .project-head .chips { margin-bottom: 14px; }
-    .project {
-      display: flex;
-      flex-direction: column;
-      text-decoration: none;
-      transition: border-color 0.15s, transform 0.15s;
-    }
-    .project:hover { border-color: var(--accent); transform: translateY(-2px); }
-    .project .chips { margin-bottom: 14px; }
-    .project-title { font-size: 1.1rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 8px; }
-    .project-desc { font-size: 0.92rem; color: var(--muted); flex: 1; }
-    .project.static:hover { border-color: var(--border); transform: none; }
-    .project-media {
-      margin: -8px -8px 16px;
-      height: 140px;
-      border-radius: 10px;
-      overflow: hidden;
-      background: #0b0f17;
-    }
-    .project-media video {
-      display: block;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 35%;
-      transition: transform 0.4s ease;
-    }
-    .project:hover .project-media video { transform: scale(1.03); }
-    .private-note {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: 10px;
-      border: 1px dashed var(--border);
-      background: var(--surface);
-      font-size: 0.84rem;
-      color: var(--muted);
-      line-height: 1.5;
-    }
-    .private-note svg { flex-shrink: 0; margin-top: 2px; color: var(--accent-text); }
-    .project .btn { align-self: flex-start; margin-top: 14px; }
-    .project-cta {
-      margin-top: 16px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--accent-text);
-    }
-
-    /* ── CONTACT ── */
-    .contact {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-      flex-wrap: wrap;
-      padding: 36px;
-    }
-    .contact p { color: var(--muted); margin-top: 6px; }
-    .contact-actions { display: flex; flex-wrap: wrap; gap: 10px; }
-
-    footer {
-      padding: 28px 0 40px;
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--faint);
-    }
-
-    /* ── MOTION ── */
-    .sr-only {
-      position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-      overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
-    }
-
-    /* Scroll reveal, staggered via --d */
-    .js .fade-in {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.55s ease var(--d, 0s), transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
-    }
-    .js .fade-in.visible { opacity: 1; transform: none; }
-    .js .fade-in.settled { transition: border-color 0.15s, transform 0.15s; }
-
-    .js .reveal-chips .chip {
-      opacity: 0;
-      transform: translateY(6px);
-      transition: opacity 0.35s ease var(--d, 0s), transform 0.35s cubic-bezier(0.22, 1, 0.36, 1) var(--d, 0s);
-    }
-    .js .reveal-chips.visible .chip { opacity: 1; transform: none; }
-
-    /* Highlighter sweep behind key phrases */
-    .hl {
-      background-image: linear-gradient(var(--hl), var(--hl));
-      background-repeat: no-repeat;
-      background-position: 0 90%;
-      background-size: 0% 42%;
-      transition: background-size 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.35s;
-      -webkit-box-decoration-break: clone;
-      box-decoration-break: clone;
-    }
-    .hl.in { background-size: 100% 42%; }
-    .impact.anim { background-size: 0% 100%; transition: background-size 0.8s cubic-bezier(0.65, 0, 0.35, 1) 0.2s; }
-    .impact.anim.in { background-size: 100% 100%; }
-
-    /* Count-up numbers */
-    .count { font-variant-numeric: tabular-nums; }
-
-    /* Rotating word in hero */
-    .rotator {
-      display: inline-block;
-      position: relative;
-      vertical-align: top;
-      white-space: nowrap;
-      color: var(--accent-text);
-      font-weight: 600;
-      transition: width 0.45s cubic-bezier(0.65, 0, 0.35, 1);
-    }
-    .rotator span {
-      position: absolute;
-      left: 0;
-      top: 0;
-      opacity: 0;
-      transform: translateY(0.45em);
-      filter: blur(6px);
-      transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1), filter 0.45s ease;
-    }
-    .rotator span.on { position: relative; opacity: 1; transform: none; filter: none; }
-    .rotator span.out { opacity: 0; transform: translateY(-0.45em); filter: blur(6px); }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      .js .fade-in, .js .reveal-chips .chip { opacity: 1; transform: none; transition: none; }
-      .hl, .impact.anim { transition: none; }
-      .rotator, .rotator span { transition: none; }
-      .btn:hover, .project:hover { transform: none; }
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 860px) {
-      .projects.three { grid-template-columns: 1fr 1fr; }
-      .two-col { grid-template-columns: 1fr; gap: 40px; }
-      .cards-3 { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 720px) {
-      .reel { margin-top: 36px; border-radius: 14px; }
-      .reel-play { width: 64px; height: 64px; }
-      .reel-toggle { right: 10px; bottom: 10px; width: 34px; height: 34px; }
-      .container { padding: 0 16px; }
-      .nav-links { display: none; }
-      nav { width: calc(100% - 24px); --flare: 12px; }
-      .nav-inner { grid-template-columns: 1fr auto; padding-left: 18px; }
-      #hero { padding: 40px 0 56px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 28px; }
-      .headshot { width: 120px; height: 120px; border-radius: 22px; order: -1; box-shadow: 0 0 0 6px var(--accent-soft); }
-      section { padding: 56px 0; }
-      .projects, .projects.three { grid-template-columns: 1fr; }
-      .job { padding: 18px; }
-      .job-head { grid-template-columns: 44px 1fr; gap: 12px; }
-      .logo { width: 44px; height: 44px; }
-      .job-meta { grid-column: 1 / -1; text-align: left; white-space: normal; }
-      .job-meta br { display: none; }
-      .job-meta .loc::before { content: ' · '; }
-      .impact, .bullets, .job-links { margin-left: 0; }
-      .subroles { margin-left: 6px; }
-      .contact { padding: 24px; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+
+<!-- Icons used more than once: <svg width="16" height="16"><use href="#i-NAME"/></svg> -->
+<svg hidden>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></symbol>
+  <symbol id="i-trend" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></symbol>
+</svg>
 
 <!-- ── NAV ── -->
 <nav aria-label="Main">
@@ -774,7 +55,7 @@
         <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
       </button>
       <a href="Tempestini Resume.pdf" download class="btn btn-cta">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <svg width="14" height="14"><use href="#i-download"/></svg>
         Resume
       </a>
     </div>
@@ -793,19 +74,19 @@
       <p class="hero-lede fade-in">
         <span class="lede-hook">I started selling loads on the phone — now I ship software for
         <span class="sr-only">freight brokers, carriers, drivers, factoring firms, and sales teams</span><span class="rotator" aria-hidden="true"><span class="on">freight brokers</span><span>carriers</span><span>drivers</span><span>factoring firms</span><span>sales teams</span></span>.</span>
-        <strong><span class="count" data-to="7">7</span>+ years in freight &amp; logistics tech</strong>, turning messy operational problems into simple, high-impact B2B products.
+        <strong><span class="count">7</span>+ years in freight &amp; logistics tech</strong>, turning messy operational problems into simple, high-impact B2B products.
       </p>
       <div class="hero-actions fade-in">
         <a href="Tempestini Resume.pdf" download class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg width="16" height="16"><use href="#i-download"/></svg>
           Download Resume
         </a>
         <a href="https://www.linkedin.com/in/michael-tempestini-977174115/" target="_blank" rel="noopener" class="btn btn-outline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <svg width="16" height="16"><use href="#i-linkedin"/></svg>
           LinkedIn
         </a>
         <a href="mailto:mrtempestini@gmail.com" class="btn btn-outline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <svg width="16" height="16"><use href="#i-mail"/></svg>
           Email
         </a>
       </div>
@@ -818,11 +99,11 @@
     <div class="reel fade-in" style="--d: 0.4s">
       <video id="reel-video" src="showreel.mp4" poster="showreel-poster.jpg" muted loop playsinline controls preload="metadata" width="1920" height="1080" aria-label="30-second career showreel: Coyote Logistics, Internet Truckstop, OTR Solutions, conference talks, and side projects"></video>
       <button class="reel-play" type="button" aria-label="Play showreel">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg width="28" height="28"><use href="#i-play"/></svg>
       </button>
       <button class="reel-toggle" type="button" aria-label="Pause showreel">
         <svg class="icon-pause" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16" rx="1"/><rect x="14" y="4" width="4" height="16" rx="1"/></svg>
-        <svg class="icon-play" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        <svg class="icon-play" width="16" height="16"><use href="#i-play"/></svg>
       </button>
     </div>
   </div>
@@ -836,7 +117,7 @@
       <h2>From the brokerage floor to product</h2>
     </div>
     <p class="about-summary fade-in">
-      Product manager with <strong><span class="count" data-to="7">7</span>+ years in freight and logistics technology</strong>, including <strong>nearly 5 years in product roles</strong> on B2B SaaS web and mobile products. I run the full lifecycle — discovery and requirements through launch, iteration, and measurement — with engineering, design, data science, and marketing, and I use <strong>AI-enabled tools</strong> to prototype UI, draft requirements, and automate roadmap and release communication.
+      Product manager with <strong><span class="count">7</span>+ years in freight and logistics technology</strong>, including <strong>nearly 5 years in product roles</strong> on B2B SaaS web and mobile products. I run the full lifecycle — discovery and requirements through launch, iteration, and measurement — with engineering, design, data science, and marketing, and I use <strong>AI-enabled tools</strong> to prototype UI, draft requirements, and automate roadmap and release communication.
     </p>
     <div class="cards-3">
       <div class="card fade-in">
@@ -882,7 +163,7 @@
           <div class="job-meta"><span class="dates">Jan 2025 — Oct 2026</span><br/><span class="loc">Atlanta, GA (Remote)</span></div>
         </div>
         <div class="impact">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+          <svg width="14" height="14"><use href="#i-trend"/></svg>
           <span>Owned Epay Manager end-to-end · Took the Epay Manager Mobile App to go-live</span>
         </div>
         <ul class="bullets">
@@ -895,11 +176,11 @@
         </ul>
         <div class="job-links">
           <a href="https://www.youtube.com/watch?v=25eFZMvYzLs" target="_blank" rel="noopener" class="pill-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg width="12" height="12"><use href="#i-play"/></svg>
             Gaining a Competitive Edge — TIA 2025
           </a>
           <a href="https://www.youtube.com/watch?v=lmlRIH0odKQ" target="_blank" rel="noopener" class="pill-link">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+            <svg width="12" height="12"><use href="#i-play"/></svg>
             OTR Solutions Demo — FreightWaves 2025
           </a>
         </div>
@@ -916,8 +197,8 @@
           <div class="job-meta"><span class="dates">Oct 2023 — Jan 2025</span><br/><span class="loc">Boise, ID (Remote)</span></div>
         </div>
         <div class="impact">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-          <span>$0 → $<span class="count" data-to="41.7" data-dec="1">41.7</span>k MRR in 6 months · <span class="count" data-to="800">800</span>k requests/day</span>
+          <svg width="14" height="14"><use href="#i-trend"/></svg>
+          <span>$0 → $<span class="count">41.7</span>k MRR in 6 months · <span class="count">800</span>k requests/day</span>
         </div>
         <ul class="bullets">
           <li>Supported development of underlying services for <strong>Risk Factors</strong> in Chrome and Outlook, from initial launch in June 2024 to an up-market premium offering in November 2024</li>
@@ -951,8 +232,8 @@
               <div class="subrole-date">Nov 2021 — Sep 2023</div>
             </div>
             <div class="impact">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
-              <span>+<span class="count" data-to="50">50</span>% load-opening speed · −<span class="count" data-to="20">20</span>% time-to-task · +5–7% engagement</span>
+              <svg width="14" height="14"><use href="#i-trend"/></svg>
+              <span>+<span class="count">50</span>% load-opening speed · −<span class="count">20</span>% time-to-task · +5–7% engagement</span>
             </div>
             <ul class="bullets">
               <li>Conducted discovery and started development of two internal web applications for sales reps (Accessorial Management Portal, Carrier Sales Web Application), breaking legacy workflows into web apps; decreased time-to-task in freight-matching workflows by <strong>20%</strong> and increased speed of opening loads by <strong>50%</strong></li>
@@ -969,7 +250,7 @@
               <div class="subrole-date">Jul 2020 — Nov 2021</div>
             </div>
             <ul class="bullets">
-              <li>Onboarded <strong><span class="count" data-to="200">200</span>+ new carriers per week</strong> to the CoyoteGO digital freight platform to drive adoption of digital booking, and collected weekly carrier feedback to inform product development</li>
+              <li>Onboarded <strong><span class="count">200</span>+ new carriers per week</strong> to the CoyoteGO digital freight platform to drive adoption of digital booking, and collected weekly carrier feedback to inform product development</li>
             </ul>
           </div>
 
@@ -1096,7 +377,7 @@
         <div class="project-title">Epay Manager Mobile</div>
         <div class="project-desc">Led the app through discovery, scoping, development, and go-live — drivers submit delivery documents to Epay Manager straight from their phone.</div>
         <span class="project-cta">View on the App Store
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       <a class="card project fade-in" href="https://chromewebstore.google.com/detail/iidaalogndbmmimncgclgnkomilphook" target="_blank" rel="noopener">
@@ -1105,7 +386,7 @@
         <div class="project-title">Risk Factors — Chrome &amp; Outlook</div>
         <div class="project-desc">Helped ship a freight risk assessment product from <strong>$0 to $41.7k MRR in 6 months</strong>, with <strong>800k daily requests</strong>. Available on the Chrome Web Store.</div>
         <span class="project-cta">View on Chrome Web Store
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       <div class="card project static fade-in">
@@ -1118,7 +399,7 @@
           <span>Intentionally kept private to protect information. I'd be happy to demo it on a call.</span>
         </div>
         <a class="btn btn-outline btn-sm" href="mailto:mrtempestini@gmail.com?subject=Demo%20request%3A%20Broker%20Onboarding%20Playbook">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <svg width="14" height="14"><use href="#i-mail"/></svg>
           Request a demo
         </a>
       </div>
@@ -1139,7 +420,7 @@
         <div class="project-title">Gaining a Competitive Edge</div>
         <div class="project-desc">Presented at the TIA Intermediaries Conference on freight automation best practices — a six-step implementation framework and real-world case studies.</div>
         <span class="project-cta">Watch talk
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       <a class="card project fade-in" href="https://www.youtube.com/watch?v=lmlRIH0odKQ" target="_blank" rel="noopener">
@@ -1150,7 +431,7 @@
         <div class="project-title">OTR Solutions Product Demo</div>
         <div class="project-desc">Live product demo of the OTR Solutions platform, presented on stage at FreightWaves 2025.</div>
         <span class="project-cta">Watch demo
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       </div>
@@ -1168,7 +449,7 @@
         <div class="project-title">Cart Jockey</div>
         <div class="project-desc">A small browser game about wrangling shopping carts across a parking lot before your shift ends.</div>
         <span class="project-cta">Play now
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       <a class="card project fade-in" href="https://miketempestini.github.io/band-rise/" target="_blank" rel="noopener">
@@ -1177,7 +458,7 @@
         <div class="project-title">Band Rise</div>
         <div class="project-desc">A strategic simulator game about going from a bedroom musician to international stardom.</div>
         <span class="project-cta">Play now
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       <a class="card project fade-in" href="https://github.com/miketempestini/bitcoinportfolio" target="_blank" rel="noopener">
@@ -1186,7 +467,7 @@
         <div class="project-title">Bitcoin Portfolio</div>
         <div class="project-desc">A 100% local, custom, and private Bitcoin purchase tracker built for personal financial planning.</div>
         <span class="project-cta">View on GitHub
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+          <svg width="14" height="14"><use href="#i-arrow"/></svg>
         </span>
       </a>
       </div>
@@ -1204,15 +485,15 @@
       </div>
       <div class="contact-actions">
         <a href="mailto:mrtempestini@gmail.com" class="btn btn-primary">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <svg width="16" height="16"><use href="#i-mail"/></svg>
           Email me
         </a>
         <a href="https://www.linkedin.com/in/michael-tempestini-977174115/" target="_blank" rel="noopener" class="btn btn-outline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <svg width="16" height="16"><use href="#i-linkedin"/></svg>
           LinkedIn
         </a>
         <a href="Tempestini Resume.pdf" download class="btn btn-outline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <svg width="16" height="16"><use href="#i-download"/></svg>
           Resume
         </a>
       </div>
@@ -1226,183 +507,7 @@
   <p>&copy; <span id="year">2026</span> Mike Tempestini · Chicago, IL · mrtempestini@gmail.com</p>
 </footer>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // ── Theme toggle ──
-  const root = document.documentElement;
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const current = root.dataset.theme ||
-      (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-    const next = current === 'dark' ? 'light' : 'dark';
-    const apply = () => {
-      root.dataset.theme = next;
-      try { localStorage.setItem('theme', next); } catch (e) {}
-    };
-    // Cross-fade where supported; otherwise (or with reduced motion) switch instantly
-    if (document.startViewTransition && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      document.startViewTransition(apply);
-    } else {
-      apply();
-    }
-  });
-
-  const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  // ── Stagger: delay siblings so groups cascade in ──
-  const stagger = (sel, stepMs) => document.querySelectorAll(sel).forEach(group => {
-    [...group.children].forEach((el, i) => el.style.setProperty('--d', `${i * stepMs}ms`));
-  });
-  stagger('.hero-copy', 80);
-  stagger('.cards-3', 90);
-  stagger('.edu-list', 90);
-  stagger('.projects', 100);
-  document.querySelectorAll('.reveal-chips .chip').forEach((el, i) => el.style.setProperty('--d', `${i * 18}ms`));
-
-  // ── Highlighter targets ──
-  document.querySelectorAll('.hero-lede strong, .about-summary strong, .bullets strong, .project-desc strong')
-    .forEach(el => el.classList.add('hl'));
-  document.querySelectorAll('.impact').forEach(el => el.classList.add('anim'));
-
-  // ── Count-up ──
-  const countUp = (el) => {
-    const to = parseFloat(el.dataset.to);
-    const dec = parseInt(el.dataset.dec || '0', 10);
-    if (reduceMotion) return;
-    const dur = 1200;
-    const start = performance.now();
-    const tick = (now) => {
-      const t = Math.min((now - start) / dur, 1);
-      const eased = 1 - Math.pow(1 - t, 3);
-      el.textContent = (to * eased).toFixed(dec);
-      if (t < 1) requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
-  };
-
-  // ── Scroll reveal: fade-ins, highlight sweeps, counters ──
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      const el = entry.target;
-      if (el.classList.contains('fade-in')) el.classList.add('visible');
-      if (el.classList.contains('hl') || el.classList.contains('anim')) el.classList.add('in');
-      if (el.classList.contains('count')) countUp(el);
-      observer.unobserve(el);
-    });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade-in, .hl, .impact, .count').forEach(el => observer.observe(el));
-
-  // Once a card has faded in, drop the reveal delay so hover feels instant
-  document.querySelectorAll('.fade-in').forEach(el => {
-    el.addEventListener('transitionend', (e) => {
-      if (e.propertyName === 'opacity' && el.classList.contains('visible')) el.classList.add('settled');
-    });
-  });
-
-  // ── Showreel: autoplay muted while in view; poster + play button for reduced motion ──
-  const reel = document.querySelector('.reel');
-  const video = document.getElementById('reel-video');
-  if (reel && video) {
-    video.controls = false;
-    reel.classList.add('ready');
-    let userPaused = false;
-    let inView = false;
-    const sync = () => {
-      reel.classList.toggle('paused', video.paused);
-      reel.querySelector('.reel-toggle').setAttribute('aria-label', video.paused ? 'Play showreel' : 'Pause showreel');
-    };
-    video.addEventListener('play', () => { reel.classList.remove('idle'); sync(); });
-    video.addEventListener('pause', sync);
-    const tryPlay = () => { video.play().catch(() => { reel.classList.add('idle'); }); };
-
-    reel.querySelector('.reel-play').addEventListener('click', () => { userPaused = false; tryPlay(); });
-    reel.querySelector('.reel-toggle').addEventListener('click', () => {
-      if (video.paused) { userPaused = false; tryPlay(); }
-      else { userPaused = true; video.pause(); }
-    });
-
-    if (reduceMotion) {
-      reel.classList.add('idle');
-      userPaused = true;
-    }
-    new IntersectionObserver(([entry]) => {
-      inView = entry.isIntersecting;
-      if (inView && !userPaused) tryPlay();
-      else if (!inView && !video.paused) video.pause();
-    }, { threshold: 0.35 }).observe(reel);
-    sync();
-  }
-
-  // ── Project card previews: loop muted while on screen; still frame for reduced motion ──
-  const previews = document.querySelectorAll('.project-media video');
-  if (!reduceMotion) {
-    const previewObserver = new IntersectionObserver((entries) => {
-      entries.forEach(({ target, isIntersecting }) => {
-        if (isIntersecting) target.play().catch(() => {});
-        else target.pause();
-      });
-    }, { threshold: 0.25 });
-    previews.forEach(v => previewObserver.observe(v));
-  }
-
-  // ── Rotating word in hero ──
-  const rotator = document.querySelector('.rotator');
-  if (rotator) {
-    const words = [...rotator.children];
-    let i = 0;
-    const fit = () => { rotator.style.width = words[i].offsetWidth + 'px'; };
-    fit();
-    window.addEventListener('resize', fit);
-    if (document.fonts) document.fonts.ready.then(fit);
-    if (!reduceMotion) {
-      setInterval(() => {
-        const prev = words[i];
-        i = (i + 1) % words.length;
-        prev.classList.remove('on');
-        prev.classList.add('out');
-        words[i].classList.remove('out');
-        words[i].classList.add('on');
-        fit();
-        setTimeout(() => prev.classList.remove('out'), 500);
-      }, 2400);
-    }
-  }
-
-  // ── Nav: sliding highlight pill follows hover, rests on the current section ──
-  const navList = document.querySelector('.nav-links');
-  const navPill = document.querySelector('.nav-pill');
-  const navLinks = document.querySelectorAll('.nav-links a');
-  let activeLink = null;
-  const movePill = (link) => {
-    navLinks.forEach(l => l.classList.toggle('lit', l === link));
-    if (!link) { navPill.style.opacity = '0'; return; }
-    const listBox = navList.getBoundingClientRect();
-    const box = link.getBoundingClientRect();
-    navPill.style.width = box.width + 'px';
-    navPill.style.transform = `translateX(${box.left - listBox.left}px)`;
-    navPill.style.opacity = '1';
-  };
-  if (reduceMotion) navPill.style.transition = 'none';
-  navLinks.forEach(link => {
-    link.addEventListener('mouseenter', () => movePill(link));
-    link.addEventListener('focus', () => movePill(link));
-  });
-  navList.addEventListener('mouseleave', () => movePill(activeLink));
-  navList.addEventListener('focusout', () => movePill(activeLink));
-
-  const navObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      activeLink = [...navLinks].find(l => l.getAttribute('href') === '#' + entry.target.id) || null;
-      navLinks.forEach(l => l.classList.toggle('active', l === activeLink));
-      if (!navList.matches(':hover')) movePill(activeLink);
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  document.querySelectorAll('section[id]').forEach(s => navObserver.observe(s));
-  window.addEventListener('resize', () => movePill(activeLink));
-  if (document.fonts) document.fonts.ready.then(() => movePill(activeLink));
-</script>
+<script src="main.js"></script>
 
 </body>
 </html>

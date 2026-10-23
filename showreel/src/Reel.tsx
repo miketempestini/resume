@@ -1,6 +1,6 @@
 import React from 'react';
 import {AbsoluteFill, Sequence, interpolate, useCurrentFrame} from 'remotion';
-import {C, T, fontFamily} from './theme';
+import {C, T, fontFamily, type SceneName} from './theme';
 import {Intro} from './scenes/Intro';
 import {Coyote} from './scenes/Coyote';
 import {Truckstop} from './scenes/Truckstop';
@@ -32,30 +32,38 @@ const Background: React.FC = () => {
   );
 };
 
-// Career rail along the bottom; fills as the story advances
-const STOPS = [
-  {label: 'Coyote Logistics', sub: '2019'},
-  {label: 'Truckstop', sub: '2023'},
-  {label: 'OTR Solutions', sub: '2025'},
-  {label: 'On stage', sub: '2025'},
-  {label: 'Side projects', sub: 'Now'},
+// Career rail along the bottom; fills as the story advances. One stop per scene, in order.
+const STOPS: {scene: SceneName; label: string; sub: string}[] = [
+  {scene: 'coyote', label: 'Coyote Logistics', sub: '2019'},
+  {scene: 'truckstop', label: 'Truckstop', sub: '2023'},
+  {scene: 'otr', label: 'OTR Solutions', sub: '2025'},
+  {scene: 'stage', label: 'On stage', sub: '2025'},
+  {scene: 'side', label: 'Side projects', sub: 'Now'},
 ];
+const LAST = STOPS.length - 1;
 const RAIL_X0 = 140;
 const RAIL_X1 = 1780;
 const RAIL_Y = 975;
 
+// Top bar and rail show from the first stop's scene through the last stop's scene
+const chromeOpacity = (f: number) => {
+  const from = T[STOPS[0].scene][0];
+  const to = T[STOPS[LAST].scene][1];
+  return Math.min(
+    interpolate(f, [from - 6, from + 10], [0, 1], clamp),
+    interpolate(f, [to - 10, to + 4], [1, 0], clamp),
+  );
+};
+
 const Rail: React.FC = () => {
   const f = useCurrentFrame();
-  const opacity = Math.min(
-    interpolate(f, [T.coyote[0] - 6, T.coyote[0] + 10], [0, 1], clamp),
-    interpolate(f, [T.side[1] - 10, T.side[1] + 4], [1, 0], clamp),
-  );
-  const starts = [T.coyote[0], T.truckstop[0], T.otr[0], T.stage[0], T.side[0]];
+  const opacity = chromeOpacity(f);
   const input: number[] = [];
   const output: number[] = [];
-  starts.forEach((s, i) => {
+  STOPS.forEach(({scene}, i) => {
+    const s = T[scene][0];
     input.push(s, s + 20);
-    output.push(i === 0 ? 0 : (i - 1) / 4, i / 4);
+    output.push(i === 0 ? 0 : (i - 1) / LAST, i / LAST);
   });
   const progress = interpolate(f, input, output, clamp);
   const width = RAIL_X1 - RAIL_X0;
@@ -64,9 +72,9 @@ const Rail: React.FC = () => {
       <div style={{position: 'absolute', left: RAIL_X0, top: RAIL_Y, width, height: 4, borderRadius: 4, background: C.border}} />
       <div style={{position: 'absolute', left: RAIL_X0, top: RAIL_Y, width: width * progress, height: 4, borderRadius: 4, background: C.accent}} />
       {STOPS.map((s, i) => {
-        const at = i / 4;
+        const at = i / LAST;
         const reached = progress >= at - 0.001;
-        const current = reached && (i === 4 || progress < (i + 1) / 4 - 0.001);
+        const current = reached && (i === LAST || progress < (i + 1) / LAST - 0.001);
         const x = RAIL_X0 + width * at;
         return (
           <div key={s.label} style={{position: 'absolute', left: x, top: RAIL_Y + 2, transform: 'translate(-50%, -50%)'}}>
@@ -86,9 +94,9 @@ const Rail: React.FC = () => {
                 position: 'absolute',
                 top: 30,
                 left: '50%',
-                transform: `translateX(${i === 0 ? '-12px' : i === 4 ? 'calc(-100% + 12px)' : '-50%'})`,
+                transform: `translateX(${i === 0 ? '-12px' : i === LAST ? 'calc(-100% + 12px)' : '-50%'})`,
                 whiteSpace: 'nowrap',
-                textAlign: i === 0 ? 'left' : i === 4 ? 'right' : 'center',
+                textAlign: i === 0 ? 'left' : i === LAST ? 'right' : 'center',
               }}
             >
               <span style={{fontSize: 22, fontWeight: 700, color: current ? C.text : reached ? C.muted : C.faint}}>{s.label}</span>
@@ -102,11 +110,7 @@ const Rail: React.FC = () => {
 };
 
 const TopBar: React.FC = () => {
-  const f = useCurrentFrame();
-  const opacity = Math.min(
-    interpolate(f, [T.coyote[0] - 6, T.coyote[0] + 10], [0, 1], clamp),
-    interpolate(f, [T.side[1] - 10, T.side[1] + 4], [1, 0], clamp),
-  );
+  const opacity = chromeOpacity(useCurrentFrame());
   return (
     <div
       style={{

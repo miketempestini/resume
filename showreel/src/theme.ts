@@ -24,15 +24,23 @@ export const C = {
   amber: '#ffb547',
 };
 
-// Scene timing (frames @ 30fps)
+// Scene lengths (frames @ 30fps) in play order; start/end frames are derived below
 export const FPS = 30;
-export const T = {
-  intro: [0, 75],
-  coyote: [75, 255],
-  truckstop: [255, 405],
-  otr: [405, 555],
-  stage: [555, 675],
-  side: [675, 810],
-  outro: [810, 900],
-} as const;
-export const TOTAL = 900;
+const LENGTHS = {
+  intro: 75,
+  coyote: 180,
+  truckstop: 150,
+  otr: 150,
+  stage: 120,
+  side: 135,
+  outro: 90,
+};
+export type SceneName = keyof typeof LENGTHS;
+
+export const T = {} as Record<SceneName, readonly [number, number]>;
+let start = 0;
+for (const [name, len] of Object.entries(LENGTHS) as [SceneName, number][]) {
+  T[name] = [start, start + len];
+  start += len;
+}
+export const TOTAL = start;

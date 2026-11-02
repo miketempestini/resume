@@ -26,6 +26,7 @@ stagger('.hero-copy', 80);
 stagger('.cards-3', 90);
 stagger('.edu-list', 90);
 stagger('.projects', 100);
+stagger('.ticket-phones', 100);
 document.querySelectorAll('.reveal-chips .chip').forEach((el, i) => el.style.setProperty('--d', `${i * 18}ms`));
 
 // ── Highlighter targets ──

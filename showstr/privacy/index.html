@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Showstr Privacy Policy</title>
+  <meta name="description" content="Privacy policy for Showstr, a private journal for every concert and festival you've been to." />
+  <!-- Only reachable by direct link or from the Showstr panel, so keep it out of search results -->
+  <meta name="robots" content="noindex" />
+  <meta name="color-scheme" content="light dark" />
+  <script>
+    // Set the theme before paint to avoid a flash: saved choice, else the system setting
+    let t = null;
+    try { t = localStorage.getItem('theme'); } catch (e) {}
+    document.documentElement.dataset.theme = t === 'light' || t === 'dark' ? t
+      : matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+</head>
+<body>
+
+<header class="policy-header">
+  <div class="policy-wrap">
+    <img src="../../showstr-logo.png" alt="" width="256" height="256" />
+    <span>Showstr</span>
+  </div>
+</header>
+
+<main class="policy-wrap policy">
+  <h1>Privacy Policy</h1>
+
+  <!-- Replace this note with the policy, using <h2>, <p> and <ul> inside .policy-body.
+       Add a "Last updated" date above it. -->
+  <div class="policy-body">
+    <p class="private-note">The privacy policy for Showstr will be posted here.</p>
+  </div>
+
+  <a class="policy-back" href="../../">Back to Mike Tempestini's site</a>
+</main>
+
+</body>
+</html>

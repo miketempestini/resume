@@ -505,15 +505,13 @@ h1 {
 .edu-note { font-size: 0.85rem; color: var(--faint); margin-top: 12px; }
 
 /* ── SHOWSTR: a concert ticket like the app's logo, split at the perforation ── */
-#showstr { padding-bottom: 0; }
 .ticket {
   /* Same colors in both themes. Darker than the logo's orange so white text passes AA */
   --ticket-bg: #c94d20;
   --ticket-peach: #fac878;
   --ticket-ink: #5a2310;
   --notch: 20px;
-  width: min(1200px, calc(100% - 48px));
-  margin: 0 auto;
+  margin-bottom: 40px;
   color: #fff;
 }
 .ticket-stub, .ticket-body {
@@ -555,8 +553,8 @@ h1 {
   border-radius: 20px;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28);
 }
-.ticket h2 {
-  font-size: clamp(2.75rem, 6vw, 4.5rem);
+.ticket h3 {
+  font-size: clamp(2.75rem, 5vw, 4rem);
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1;
@@ -741,11 +739,6 @@ footer {
 }
 
 /* ── RESPONSIVE ── */
-/* Below this the six nav links no longer fit between the logo and the buttons */
-@media (max-width: 900px) {
-  .nav-links { display: none; }
-  .nav-inner { grid-template-columns: 1fr auto; padding-left: 18px; }
-}
 @media (max-width: 860px) {
   .projects.three { grid-template-columns: 1fr 1fr; }
   .two-col { grid-template-columns: 1fr; gap: 40px; }
@@ -760,7 +753,9 @@ footer {
   .reel-play { width: 64px; height: 64px; }
   .reel-toggle { right: 10px; bottom: 10px; width: 34px; height: 34px; }
   .container { padding: 0 16px; }
+  .nav-links { display: none; }
   nav { width: calc(100% - 24px); --flare: 12px; }
+  .nav-inner { grid-template-columns: 1fr auto; padding-left: 18px; }
   #hero { padding: 40px 0 56px; }
   .hero-grid { grid-template-columns: 1fr; gap: 28px; }
   .headshot { width: 120px; height: 120px; border-radius: 22px; order: -1; box-shadow: 0 0 0 6px var(--accent-soft); }
@@ -775,7 +770,7 @@ footer {
   .impact, .bullets, .job-links { margin-left: 0; }
   .subroles { margin-left: 6px; }
   .contact { padding: 24px; }
-  .ticket { --notch: 14px; width: calc(100% - 24px); }
+  .ticket { --notch: 14px; }
   .ticket-stub { padding: 32px 22px 28px; border-radius: 22px 22px 0 0; }
   .ticket-body { padding: 32px 22px 30px; border-radius: 0 0 22px 22px; }
   .ticket-brand { gap: 14px; margin-bottom: 18px; }

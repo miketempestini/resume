@@ -596,10 +596,12 @@ h1 {
 }
 .policy-header img { width: 40px; height: 40px; border-radius: 9px; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.28); }
 .policy { padding-top: 56px; padding-bottom: 72px; }
-.policy h1 { font-size: clamp(2rem, 5vw, 2.75rem); margin-bottom: 24px; }
+.policy h1 { font-size: clamp(2rem, 5vw, 2.75rem); margin-bottom: 8px; }
+.policy-updated { font-size: 0.92rem; color: var(--faint); }
 .policy-body h2 { font-size: 1.25rem; margin: 32px 0 8px; }
 .policy-body p, .policy-body ul { color: var(--muted); margin-bottom: 12px; }
 .policy-body ul { padding-left: 20px; }
+.policy-body a { font-weight: 600; color: var(--accent-text); }
 .policy-back { display: inline-block; margin-top: 32px; font-size: 0.92rem; font-weight: 600; color: var(--accent-text); }
 
 /* ── PROJECTS ── */

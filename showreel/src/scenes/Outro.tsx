@@ -7,8 +7,7 @@ export const Outro: React.FC = () => {
   const photo = useSpring(0, 16);
   const name = useSpring(8);
   const role = useSpring(14);
-  const pill = useSpring(20, 14);
-  const url = useSpring(26);
+  const url = useSpring(20);
   return (
     <Scene style={{alignItems: 'center', justifyContent: 'center', textAlign: 'center', paddingBottom: 130}}>
       <div
@@ -29,25 +28,6 @@ export const Outro: React.FC = () => {
         Mike Tempestini
       </div>
       <div style={{fontSize: 38, color: C.muted, fontWeight: 500, marginTop: 22, ...rise(role)}}>Product Manager · Chicago, IL</div>
-      <div
-        style={{
-          marginTop: 34,
-          display: 'inline-flex',
-          alignItems: 'center',
-          gap: 14,
-          padding: '12px 26px 12px 22px',
-          borderRadius: 999,
-          background: C.successSoft,
-          color: C.success,
-          fontSize: 28,
-          fontWeight: 700,
-          opacity: pill,
-          transform: `scale(${0.85 + pill * 0.15})`,
-        }}
-      >
-        <span style={{width: 14, height: 14, borderRadius: '50%', background: C.success}} />
-        Open to new product roles
-      </div>
       <div style={{fontSize: 30, color: C.accentText, fontWeight: 600, marginTop: 30, ...rise(url)}}>miketemp.com</div>
     </Scene>
   );

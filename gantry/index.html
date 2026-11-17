@@ -207,9 +207,9 @@
 </section>
 
 <!-- ── FEATURES ──
-     Each step's video is a placeholder cut from the promo film, except steps 01
-     and 02, which have their dedicated demos. Replace the other assets/clip-*.mp4 with
-     dedicated demos when they're recorded: drop that step's .placeholder-tag
+     Step 04's video is still a placeholder cut from the promo film; steps 01–03
+     have their dedicated demos. Replace assets/clip-releases.mp4 with a
+     dedicated demo when it's recorded: drop that step's .placeholder-tag
      line and mark its stage <video> with data-final (that hides the shared
      stage tag while it shows). -->
 <section class="section tight-top" id="features">
@@ -250,15 +250,19 @@
         </article>
         <article class="step">
           <p class="step-num">03 / 04 · Roadmap and sprints</p>
-          <h3>See the whole plan <span class="mark">on one timeline</span></h3>
-          <p>A Gantt roadmap with a Today line, milestones and progress on every bar. Plan sprints by dragging tickets between them.</p>
+          <h3>See the whole plan, <span class="mark">let your agent shape it</span></h3>
+          <p>A Gantt roadmap with a Today line, sprints, releases and milestones. Ask your agent to plan it: it reads every ticket, sets dates, flags what won't fit, and redraws the plan when priorities change. You approve the plan, and every change can be undone.</p>
+          <div class="ask">
+            <span class="ask-label">Just ask</span>
+            <p>“Plan Q1 so every feature ships by March 31. Put Apple Health before Widgets.”</p>
+          </div>
           <ul class="ticks">
-            <li>Drag to schedule, drag the edge to resize</li>
-            <li>Warnings for late work and dates that don't fit</li>
-            <li>Sprint planning with a No sprint list of what's left</li>
-            <li>Export the roadmap as a PNG or PDF</li>
+            <li>An agent drafts the roadmap from your backlog</li>
+            <li>Reprioritize in a sentence: dates, sprints and dependencies follow</li>
+            <li>Warnings for late work, missed due dates and blocked starts</li>
+            <li>Drag to schedule, export as PNG or PDF</li>
           </ul>
-          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none" aria-label="The roadmap and the sprints page"></video></div></div>
+          <div class="step-media"><div class="screen"><video data-loop src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none" aria-label="You ask Claude to plan Q1 against the v3.0 release on March 31. Claude reads the board, proposes a plan and, on your yes, draws it onto the roadmap. You ask to put Apple Health ahead of Widgets next month; Claude names the tradeoff, the plan reshuffles, a dependency warning appears and Claude fixes it, and every bar ends before v3.0 with five days of slack."></video></div></div>
         </article>
         <article class="step">
           <p class="step-num">04 / 04 · Releases</p>
@@ -278,7 +282,7 @@
           <span class="placeholder-tag">placeholder clips</span>
           <video data-final src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="metadata"></video>
           <video data-final src="assets/clip-backlog.mp4" poster="assets/clip-backlog.jpg" muted loop playsinline preload="none"></video>
-          <video src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none"></video>
+          <video data-final src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none"></video>
           <video src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none"></video>
         </div>
         <div class="stage-dots">

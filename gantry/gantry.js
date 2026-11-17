@@ -129,6 +129,8 @@ if (steps.length && stage) {
     current = i;
     steps.forEach((s, j) => s.classList.toggle('active', j === i));
     dots.forEach((d, j) => { d.classList.toggle('on', j === i); d.setAttribute('aria-current', j === i ? 'true' : 'false'); });
+    // Clips marked data-final are the real demos: hide the shared "placeholder clips" tag while one shows.
+    stage.classList.toggle('final', !!vids[i]?.hasAttribute('data-final'));
     vids.forEach((v, j) => {
       const on = j === i;
       v.classList.toggle('on', on);

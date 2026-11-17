@@ -207,8 +207,8 @@
 </section>
 
 <!-- ── FEATURES ──
-     Each step's video is a placeholder cut from the promo film, except step 02,
-     which has its dedicated demo. Replace the other assets/clip-*.mp4 with
+     Each step's video is a placeholder cut from the promo film, except steps 01
+     and 02, which have their dedicated demos. Replace the other assets/clip-*.mp4 with
      dedicated demos when they're recorded: drop that step's .placeholder-tag
      line and mark its stage <video> with data-final (that hides the shared
      stage tag while it shows). -->
@@ -230,7 +230,7 @@
             <li>Frontier or local, any MCP agent can read and update tickets</li>
           </ul>
           <p class="note"><svg aria-hidden="true"><use href="#l-claude"/></svg><span><b>Live replies work with Claude today.</b> Chatting with an agent right in the ticket is Claude-only for now. Every other agent can still read and update your tickets.</span></p>
-          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="none" aria-label="A user asks an agent a question in a ticket and agrees on a change"></video></div></div>
+          <div class="step-media"><div class="screen"><video data-loop src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="none" aria-label="In a story's comments, you ask @claude to start on it. Claude replies with two questions, you click Reply Yes, and Claude claims the story, moves it to In development, and the card moves across the board."></video></div></div>
         </article>
         <article class="step">
           <p class="step-num">02 / 04 · Backlog and board</p>
@@ -276,7 +276,7 @@
       <div class="stage" aria-hidden="true">
         <div class="screen">
           <span class="placeholder-tag">placeholder clips</span>
-          <video src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="metadata"></video>
+          <video data-final src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="metadata"></video>
           <video data-final src="assets/clip-backlog.mp4" poster="assets/clip-backlog.jpg" muted loop playsinline preload="none"></video>
           <video src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none"></video>
           <video src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none"></video>

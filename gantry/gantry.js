@@ -144,28 +144,20 @@ if (steps.length && stage) {
   show(0);
 }
 
-// ── How it works: the example ticket plays the hand-off when it scrolls in ──
-const tk = $('.tk');
-if (tk) {
-  const howSteps = $$('.how-step');
-  const list = $('.how-steps');
-  let timers = [];
-  const setStep = n => {
-    tk.classList.remove('s1', 's2', 's3', 's4');
-    if (n) tk.classList.add('s' + n);
-    howSteps.forEach((li, i) => li.classList.toggle('on', i < n));
-    list.style.setProperty('--fill', Math.max(0, (n - 1) / 3));
+// ── How it works: light up each stop in turn while the diagram is on screen ──
+const arch = $('.arch');
+if (arch && !reduceMotion) {
+  const stops = $$('.arch-node', arch);
+  let i = -1;
+  let timer = null;
+  const next = () => {
+    i = (i + 1) % stops.length;
+    stops.forEach((s, j) => s.classList.toggle('on', j === i));
   };
-  const play = () => {
-    timers.forEach(clearTimeout);
-    if (reduceMotion) { setStep(4); return; }
-    setStep(0);
-    timers = [400, 1700, 3100, 4300].map((ms, i) => setTimeout(() => setStep(i + 1), ms));
-  };
-  new IntersectionObserver(([e], obs) => {
-    if (e.isIntersecting) { play(); obs.disconnect(); }
-  }, { threshold: 0.45 }).observe(tk);
-  $('[data-replay]').addEventListener('click', play);
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting && !timer) { next(); timer = setInterval(next, 2000); }
+    else if (!e.isIntersecting && timer) { clearInterval(timer); timer = null; }
+  }, { threshold: 0.4 }).observe(arch);
 }
 
 // ── Demo library: filter by category, open videos in a player ──

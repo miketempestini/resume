@@ -16,9 +16,23 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="gantry.css" />
+  <link rel="stylesheet" href="gantry.css?v=20261117d" />
 </head>
 <body>
+
+<!-- Animated page background (makegradient.com, script loaded at the end of the body).
+     Fixed behind every section; the veil and the reduced-motion rule are in gantry.css.
+     The positioning is inline too, so it holds even while a browser has an older gantry.css cached. -->
+<div class="page-gradient" aria-hidden="true" style="position: fixed; inset: 0; z-index: 0; pointer-events: none;">
+  <div
+    data-lumina-gradient
+    data-colors='["#11141C","#303439","#1547CF","#3B82F6","#93B9F8"]'
+    data-mode="aurora"
+    data-noise="0"
+    data-speed="2"
+    style="width: 100%; height: 100%; position: absolute; inset: 0;"
+  ></div>
+</div>
 
 <!-- Icons used more than once: <svg><use href="#g-NAME"/></svg> -->
 <svg width="0" height="0" style="position: absolute; overflow: hidden" aria-hidden="true">
@@ -485,6 +499,7 @@
   <div class="player-frame"></div>
 </dialog>
 
-<script src="gantry.js"></script>
+<script src="https://makegradient.com/embed.js"></script>
+<script src="gantry.js?v=20261117d"></script>
 </body>
 </html>

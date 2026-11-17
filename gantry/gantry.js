@@ -142,7 +142,29 @@ if (steps.length && stage) {
     entries.forEach(e => { if (e.isIntersecting) show(steps.indexOf(e.target)); });
   }, { rootMargin: '-50% 0px -50% 0px' });
   steps.forEach(s => stepObserver.observe(s));
-  dots.forEach((d, i) => d.addEventListener('click', () => steps[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' })));
+
+  // The scroll position that centres a step in the screen below the 65 px top bar.
+  const centre = s => s.getBoundingClientRect().top + scrollY + s.offsetHeight / 2 - (65 + innerHeight) / 2;
+  let from = scrollY, snapping = false;
+  const go = top => { snapping = true; scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' }); };
+  dots.forEach((d, i) => d.addEventListener('click', () => go(centre(steps[i]))));
+
+  // Directional snap (desktop layout, motion allowed): when scrolling stops among the steps, the page settles on the
+  // next step in the direction you were going, so each step and its video arrive whole. Scrolling stays free above
+  // step 1 and below step 4. (CSS proximity snapping picks the nearest step instead, so short scrolls spring back.)
+  const desktop = matchMedia('(min-width: 961px)');
+  const settle = () => {
+    const y = scrollY, dir = Math.sign(y - from);
+    from = y;
+    if (snapping) { snapping = false; return; }
+    if (reduceMotion || !desktop.matches || !dir) return;
+    const cs = steps.map(centre), half = (cs[1] - cs[0]) / 2;
+    if (y < cs[0] - half || y > cs[cs.length - 1] + half) return;
+    const target = dir > 0 ? cs.find(c => c >= y - 2) : [...cs].reverse().find(c => c <= y + 2);
+    if (target !== undefined && Math.abs(target - y) > 2) go(target);
+  };
+  if ('onscrollend' in window) addEventListener('scrollend', settle);
+  else { let t; addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(settle, 140); }, { passive: true }); }
   show(0);
 }
 

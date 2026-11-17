@@ -29,24 +29,10 @@ const revealer = new IntersectionObserver(entries => {
   entries.forEach(({ target, isIntersecting }) => {
     if (!isIntersecting) return;
     target.classList.add('visible');
-    if (target.dataset.count) countUp(target);
     revealer.unobserve(target);
   });
 }, { threshold: 0.18, rootMargin: '0px 0px -40px 0px' });
-$$('.reveal, .loop, [data-count]').forEach(el => revealer.observe(el));
-
-function countUp(el) {
-  const to = parseFloat(el.dataset.count);
-  if (reduceMotion) { el.textContent = to.toLocaleString(); return; }
-  const start = performance.now();
-  const dur = 1600;
-  const tick = now => {
-    const t = Math.min((now - start) / dur, 1);
-    el.textContent = Math.round(to * (1 - Math.pow(1 - t, 4))).toLocaleString();
-    if (t < 1) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-}
+$$('.reveal').forEach(el => revealer.observe(el));
 
 // ── Cursor spotlight on cards ──
 $$('.spot').forEach(card => {
@@ -156,6 +142,30 @@ if (steps.length && stage) {
   steps.forEach(s => stepObserver.observe(s));
   dots.forEach((d, i) => d.addEventListener('click', () => steps[i].scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'center' })));
   show(0);
+}
+
+// ── How it works: the example ticket plays the hand-off when it scrolls in ──
+const tk = $('.tk');
+if (tk) {
+  const howSteps = $$('.how-step');
+  const list = $('.how-steps');
+  let timers = [];
+  const setStep = n => {
+    tk.classList.remove('s1', 's2', 's3', 's4');
+    if (n) tk.classList.add('s' + n);
+    howSteps.forEach((li, i) => li.classList.toggle('on', i < n));
+    list.style.setProperty('--fill', Math.max(0, (n - 1) / 3));
+  };
+  const play = () => {
+    timers.forEach(clearTimeout);
+    if (reduceMotion) { setStep(4); return; }
+    setStep(0);
+    timers = [400, 1700, 3100, 4300].map((ms, i) => setTimeout(() => setStep(i + 1), ms));
+  };
+  new IntersectionObserver(([e], obs) => {
+    if (e.isIntersecting) { play(); obs.disconnect(); }
+  }, { threshold: 0.45 }).observe(tk);
+  $('[data-replay]').addEventListener('click', play);
 }
 
 // ── Demo library: filter by category, open videos in a player ──

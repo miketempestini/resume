@@ -105,7 +105,7 @@ if (reel && video) {
 }
 
 // ── Project card previews: loop muted while on screen; still frame for reduced motion ──
-const previews = document.querySelectorAll('.project-media video');
+const previews = document.querySelectorAll('.project-media video, .gantry-media video');
 if (!reduceMotion) {
   const previewObserver = new IntersectionObserver((entries) => {
     entries.forEach(({ target, isIntersecting }) => {
@@ -178,3 +178,13 @@ window.addEventListener('scroll', setActive, { passive: true });
 setActive();
 window.addEventListener('resize', () => movePill(activeLink));
 if (document.fonts) document.fonts.ready.then(() => movePill(activeLink));
+
+// ── Gantry banner: light follows the cursor ──
+const gantryBanner = document.querySelector('.gantry-banner');
+if (gantryBanner) {
+  gantryBanner.addEventListener('pointermove', (e) => {
+    const r = gantryBanner.getBoundingClientRect();
+    gantryBanner.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    gantryBanner.style.setProperty('--my', `${e.clientY - r.top}px`);
+  });
+}

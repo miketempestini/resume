@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gantry — Plan the work. Let your agents build it.</title>
+  <meta name="description" content="Gantry is a product planning app that lives on your computer. Plan epics, sprints and roadmaps, then hand tickets to Claude, Codex, Cursor or any MCP tool. No cloud, no login." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Gantry — Plan the work. Let your agents build it." />
+  <meta property="og:description" content="Industry-standard product planning on your own machine, with AI agents working right in the ticket." />
+  <meta property="og:image" content="assets/gantry-promo-poster.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#05070d" />
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="icon" type="image/png" href="assets/favicon-64.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="gantry.css" />
+</head>
+<body>
+
+<!-- Icons used more than once: <svg><use href="#g-NAME"/></svg> -->
+<svg style="display: none">
+  <symbol id="g-apple" viewBox="0 0 24 24" fill="currentColor"><path d="M16.37 12.6c-.03-2.7 2.2-4 2.3-4.07-1.26-1.84-3.21-2.09-3.9-2.12-1.66-.17-3.24.98-4.08.98-.85 0-2.14-.96-3.52-.93-1.81.03-3.48 1.05-4.41 2.67-1.88 3.26-.48 8.09 1.35 10.74.9 1.29 1.96 2.75 3.36 2.7 1.35-.05 1.86-.87 3.49-.87 1.63 0 2.09.87 3.51.85 1.45-.03 2.37-1.32 3.26-2.62 1.03-1.5 1.45-2.95 1.47-3.03-.03-.01-2.82-1.08-2.85-4.3zM13.7 4.67c.74-.9 1.24-2.15 1.11-3.39-1.07.04-2.36.71-3.13 1.61-.69.79-1.29 2.06-1.13 3.28 1.19.09 2.41-.61 3.15-1.5z"/></symbol>
+  <symbol id="g-windows" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.1 10.4 4v7.2H3zM11.4 3.9 21 2.5v8.7h-9.6zM3 12.2h7.4v7.2L3 18.3zM11.4 12.2H21v8.8l-9.6-1.4z"/></symbol>
+  <symbol id="g-linux" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="3"/><polyline points="7 10 10 12.5 7 15"/><line x1="12.5" y1="15" x2="17" y2="15"/></symbol>
+  <symbol id="g-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></symbol>
+  <symbol id="g-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="8 7 17 7 17 16"/></symbol>
+  <symbol id="g-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13a1 1 0 0 0 1.5.86l10.4-6.5a1 1 0 0 0 0-1.72L9.5 4.64A1 1 0 0 0 8 5.5z"/></symbol>
+</svg>
+
+<div class="backdrop" aria-hidden="true"></div>
+
+<!-- ── TOP BAR ── -->
+<header class="topbar">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="./" aria-label="Gantry home">
+      <img src="assets/gantry-icon-256.png" alt="" width="256" height="256" />
+      Gantry
+    </a>
+    <nav class="topnav" aria-label="Gantry">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#demos">Demos</a>
+      <a href="story/">Story</a>
+    </nav>
+    <a class="by" href="../"><span class="long">by</span> Mike Tempestini <svg width="12" height="12" aria-hidden="true"><use href="#g-out"/></svg></a>
+    <a class="btn btn-light btn-sm" href="#download">Download</a>
+  </div>
+</header>
+
+<main>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="wrap">
+    <a class="pill rise" href="story/"><b>Beta</b> Why I built Gantry <svg width="12" height="12" aria-hidden="true"><use href="#g-arrow"/></svg></a>
+    <h1>
+      <span class="quiet"><span class="rise">Plan</span> <span class="rise">the</span> <span class="rise">work.</span></span>
+      <span class="rise">Let</span> <span class="rise">your</span> <span class="rise">agents</span> <span class="rise"><span class="mark">build&nbsp;it.</span></span>
+    </h1>
+    <p class="hero-sub rise">Gantry is a product planning app that lives on your computer. Plan epics, sprints and roadmaps, then hand tickets to <strong>Claude, Codex, Cursor or any MCP tool</strong> and watch them update the board as they work.</p>
+
+    <!-- DOWNLOADS: placeholders until each build ships. Swap href and remove data-soon. -->
+    <div class="platforms rise" id="download">
+      <a class="platform primary" href="#" data-soon="The Mac download is coming soon">
+        <svg aria-hidden="true"><use href="#g-apple"/></svg>
+        <span><small>Coming soon</small><b>Download for Mac</b></span>
+      </a>
+      <a class="platform" href="#" data-soon="Windows is on the roadmap">
+        <svg aria-hidden="true"><use href="#g-windows"/></svg>
+        <span><small>Coming soon</small><b>Windows</b></span>
+      </a>
+      <a class="platform" href="#" data-soon="Linux is on the roadmap">
+        <svg aria-hidden="true"><use href="#g-linux"/></svg>
+        <span><small>Coming soon</small><b>Linux</b></span>
+      </a>
+    </div>
+    <p class="hero-note rise">No account. No cloud. Your projects stay on your machine.</p>
+  </div>
+
+  <div class="wrap film-stage">
+    <div class="film muted">
+      <div class="chrome" aria-hidden="true"><i></i><i></i><i></i><span>Gantry</span></div>
+      <video src="assets/gantry-promo.mp4" poster="assets/gantry-promo-poster.jpg" muted loop playsinline preload="metadata" width="1600" height="900" aria-label="Gantry promo film: planning a backlog, board, roadmap and sprints, then handing tickets to AI agents that update them and write release notes"></video>
+      <div class="film-controls">
+        <button class="ctl" type="button" data-film="toggle" aria-label="Play or pause the film">
+          <svg class="pause" width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+          <svg class="play" width="14" height="14" aria-hidden="true"><use href="#g-play"/></svg>
+        </button>
+        <button class="ctl" type="button" data-film="sound" aria-label="Turn sound on or off">
+          <svg class="off" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg class="on" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7"/><path d="M19 5a10 10 0 0 1 0 14"/></svg>
+          <span class="off">Sound on</span><span class="on">Sound off</span>
+        </button>
+      </div>
+      <div class="film-progress" aria-hidden="true"><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WORKS WITH ── -->
+<section class="works" aria-label="Works with">
+  <p>Plug in any agent you use</p>
+  <div class="marquee">
+    <div class="marquee-track">
+      <span class="tool" style="--c:#fb923c"><i></i>Claude Code</span>
+      <span class="tool" style="--c:#e2e8f0"><i></i>Codex</span>
+      <span class="tool" style="--c:#94a3b8"><i></i>Cursor</span>
+      <span class="tool" style="--c:#38bdf8"><i></i>VS Code</span>
+      <span class="tool" style="--c:#f87171"><i></i>OpenClaw</span>
+      <span class="tool" style="--c:#a78bfa"><i></i>Hermes Agent</span>
+      <span class="tool" style="--c:#cbd5e1"><i></i>Ollama</span>
+      <span class="tool" style="--c:#818cf8"><i></i>Any MCP tool</span>
+      <!-- second copy makes the loop seamless -->
+      <span class="tool" style="--c:#fb923c" aria-hidden="true"><i></i>Claude Code</span>
+      <span class="tool" style="--c:#e2e8f0" aria-hidden="true"><i></i>Codex</span>
+      <span class="tool" style="--c:#94a3b8" aria-hidden="true"><i></i>Cursor</span>
+      <span class="tool" style="--c:#38bdf8" aria-hidden="true"><i></i>VS Code</span>
+      <span class="tool" style="--c:#f87171" aria-hidden="true"><i></i>OpenClaw</span>
+      <span class="tool" style="--c:#a78bfa" aria-hidden="true"><i></i>Hermes Agent</span>
+      <span class="tool" style="--c:#cbd5e1" aria-hidden="true"><i></i>Ollama</span>
+      <span class="tool" style="--c:#818cf8" aria-hidden="true"><i></i>Any MCP tool</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── PILLARS ── -->
+<section class="section">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">Why Gantry</p>
+      <h2 class="h2 reveal">Stop prompting. <em>Start assigning.</em></h2>
+      <p class="lede reveal">Your agents already write the code. Gantry gives them a real plan to work from, and gives you a board that shows what each one is doing.</p>
+    </div>
+    <div class="pillars" data-stagger="110">
+      <article class="spot pillar reveal">
+        <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+        <h3>No cloud. No login.</h3>
+        <p>Every project is a file on your own machine. There's no account to make, no server holding your roadmap, and nothing to sync.</p>
+      </article>
+      <article class="spot pillar reveal">
+        <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="14" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="6" y1="18" x2="16" y2="18"/></svg></div>
+        <h3>Industry-standard planning</h3>
+        <p>Epics, features, stories, bugs and subtasks. A backlog, a board, a roadmap, sprints and releases, ready the moment you open it.</p>
+      </article>
+      <article class="spot pillar reveal">
+        <div class="pillar-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="m3 7 9 5 9-5"/><line x1="12" y1="12" x2="12" y2="22"/></svg></div>
+        <h3>You stay in control</h3>
+        <p>Agents claim a ticket before they start, ask before they change anything, and every edit they make lands in the activity log with Undo.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ── FEATURES ──
+     Each step's video is a placeholder cut from the promo film. Replace
+     assets/clip-*.mp4 with a dedicated demo when it's recorded, and drop the
+     .placeholder-tag lines. -->
+<section class="section" id="features" style="padding-top: 40px">
+  <div class="wrap">
+    <p class="eyebrow reveal">Features</p>
+    <h2 class="h2 reveal">Everything a product team plans with.<br /><em>Built for agents too.</em></h2>
+
+    <div class="features">
+      <div class="steps">
+        <article class="step">
+          <p class="step-num"><b>01</b> / 04 · AI agents</p>
+          <h3>Talk to your agents, <em>right in the ticket.</em></h3>
+          <p>Mention @claude on any ticket and ask for help. The agent replies with a plan, waits for your yes, then claims the work and moves the ticket as it goes.</p>
+          <ul class="ticks">
+            <li>Agents claim tickets, so two never work on the same thing</li>
+            <li>Nothing changes until you reply yes</li>
+            <li>Every agent edit is logged, with Undo</li>
+            <li>Works with Claude, Codex, Cursor and any MCP tool</li>
+          </ul>
+          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="none" aria-label="A user asks an agent a question in a ticket and agrees on a change"></video></div></div>
+        </article>
+        <article class="step">
+          <p class="step-num"><b>02</b> / 04 · Backlog &amp; board</p>
+          <h3>From epic to subtask, <em>in one tree.</em></h3>
+          <p>Structure work as epics, features, user stories, bugs and subtasks. Edit right in the table, then drag cards across the board as work moves.</p>
+          <ul class="ticks">
+            <li>Inline editing for status, priority, sprint and dates</li>
+            <li>Filters and saved views that travel with the project</li>
+            <li>Bulk edit across any set of tickets</li>
+            <li>A Kanban board with your own statuses</li>
+          </ul>
+          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-backlog.mp4" poster="assets/clip-backlog.jpg" muted loop playsinline preload="none" aria-label="The backlog tree of epics and stories, then the board"></video></div></div>
+        </article>
+        <article class="step">
+          <p class="step-num"><b>03</b> / 04 · Roadmap &amp; sprints</p>
+          <h3>See the whole plan <em>on one timeline.</em></h3>
+          <p>A Gantt roadmap with a Today line, milestones and progress on every bar. Plan sprints by dragging tickets between them.</p>
+          <ul class="ticks">
+            <li>Drag to schedule, drag the edge to resize</li>
+            <li>Warnings for late work and dates that don't fit</li>
+            <li>Sprint planning with a No sprint list of what's left</li>
+            <li>Export the roadmap as a PNG or PDF</li>
+          </ul>
+          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none" aria-label="The roadmap and the sprints page"></video></div></div>
+        </article>
+        <article class="step">
+          <p class="step-num"><b>04</b> / 04 · Releases</p>
+          <h3>Release notes, <em>written for you.</em></h3>
+          <p>When a release ships, your agent drafts a short note for each ticket from its own description, comments and commits. You approve it before anything is saved.</p>
+          <ul class="ticks">
+            <li>Notes come from the ticket, never invented</li>
+            <li>Edit any note, date or ticket before you share</li>
+            <li>Export a clean PDF to send anywhere</li>
+          </ul>
+          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none" aria-label="Release notes written by an agent, exported as a PDF"></video></div></div>
+        </article>
+      </div>
+
+      <div class="stage" aria-hidden="true">
+        <div class="screen">
+          <span class="placeholder-tag">placeholder clips</span>
+          <video src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="metadata"></video>
+          <video src="assets/clip-backlog.mp4" poster="assets/clip-backlog.jpg" muted loop playsinline preload="none"></video>
+          <video src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none"></video>
+          <video src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none"></video>
+        </div>
+        <div class="stage-dots">
+          <button type="button" tabindex="-1"></button>
+          <button type="button" tabindex="-1"></button>
+          <button type="button" tabindex="-1"></button>
+          <button type="button" tabindex="-1"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ── -->
+<section class="section" id="how">
+  <div class="wrap">
+    <div class="center">
+      <p class="eyebrow reveal">How it works</p>
+      <h2 class="h2 reveal">Every agent on its own ticket.<br /><em>Every claim visible.</em></h2>
+    </div>
+    <div class="loop" data-stagger="350">
+      <div class="loop-step"><div class="loop-dot">01</div><h4>You ask a question</h4><p>Mention @claude on a ticket, like you'd ask a teammate.</p><span class="who you">you</span></div>
+      <div class="loop-step"><div class="loop-dot">02</div><h4>The agent answers</h4><p>It reads the ticket and replies with a plan.</p><span class="who ai">agent</span></div>
+      <div class="loop-step"><div class="loop-dot">03</div><h4>You agree on a change</h4><p>One click on Reply Yes, and it's approved.</p><span class="who you">you</span></div>
+      <div class="loop-step"><div class="loop-dot">04</div><h4>The agent updates the ticket</h4><p>It claims the work, links commits and moves the status.</p><span class="who ai">agent</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── STATS: real numbers from the Gantry dogfood board ── -->
+<section aria-label="Gantry by the numbers">
+  <div class="wrap">
+    <div class="stats">
+      <!-- AI changes in the activity log's 90 days, read Nov 15, 2026 (launch-video/NOTES.md) -->
+      <div class="stat reveal"><b data-count="790">790</b><span>changes made by AI agents on Gantry's own board in 90 days</span></div>
+      <!-- Items on the Gantry - Dogfood project, Nov 16, 2026 -->
+      <div class="stat reveal" style="--d:100ms"><b data-count="341">341</b><span>tickets Gantry has planned for itself, built with Gantry</span></div>
+      <div class="stat reveal" style="--d:200ms"><b>0</b><span>accounts, servers or logins between you and your plan</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEMO LIBRARY ──
+     Each card opens a YouTube player. Put the video's ID (the part after
+     watch?v=) in data-youtube; until then the card shows "coming soon".
+     Swap the thumbnail for https://i.ytimg.com/vi/ID/maxresdefault.jpg if you like. -->
+<section class="section" id="demos">
+  <div class="wrap">
+    <div class="lib-head">
+      <div>
+        <p class="eyebrow reveal">Demo library</p>
+        <h2 class="h2 reveal">Watch it work.</h2>
+        <p class="lede reveal">Full walkthroughs, start to finish, for every part of Gantry.</p>
+      </div>
+      <div class="filters reveal" role="group" aria-label="Filter demos">
+        <span class="glider" aria-hidden="true"></span>
+        <button type="button" class="on" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="start" aria-pressed="false">Getting started</button>
+        <button type="button" data-filter="ai" aria-pressed="false">AI agents</button>
+        <button type="button" data-filter="plan" aria-pressed="false">Planning</button>
+      </div>
+    </div>
+
+    <div class="library" data-stagger="70">
+      <button type="button" class="spot demo soon reveal" data-cat="start" data-youtube="">
+        <div class="demo-thumb"><img src="assets/gantry-promo-poster.jpg" alt="" loading="lazy" /><span class="demo-play"><svg width="20" height="20" aria-hidden="true"><use href="#g-play"/></svg></span><span class="demo-len">soon</span></div>
+        <div class="demo-body"><p class="demo-cat">Getting started</p><p class="demo-title">Gantry in ten minutes</p><p class="demo-desc">A full tour, from a new project to a shipped release.</p></div>
+      </button>
+      <button type="button" class="spot demo soon reveal" data-cat="ai" data-youtube="">
+        <div class="demo-thumb"><img src="assets/clip-banner.jpg" alt="" loading="lazy" /><span class="demo-play"><svg width="20" height="20" aria-hidden="true"><use href="#g-play"/></svg></span><span class="demo-len">soon</span></div>
+        <div class="demo-body"><p class="demo-cat">AI agents</p><p class="demo-title">Connecting Claude Code</p><p class="demo-desc">Set up the AI helper and give an agent its first ticket.</p></div>
+      </button>
+      <button type="button" class="spot demo soon reveal" data-cat="ai" data-youtube="">
+        <div class="demo-thumb"><img src="assets/clip-agents.jpg" alt="" loading="lazy" /><span class="demo-play"><svg width="20" height="20" aria-hidden="true"><use href="#g-play"/></svg></span><span class="demo-len">soon</span></div>
+        <div class="demo-body"><p class="demo-cat">AI agents</p><p class="demo-title">Handing a ticket to an agent</p><p class="demo-desc">Ask, approve and watch it move from New to Ready for Release.</p></div>
+      </button>
+      <button type="button" class="spot demo soon reveal" data-cat="plan" data-youtube="">
+        <div class="demo-thumb"><img src="assets/clip-backlog.jpg" alt="" loading="lazy" /><span class="demo-play"><svg width="20" height="20" aria-hidden="true"><use href="#g-play"/></svg></span><span class="demo-len">soon</span></div>
+        <div class="demo-body"><p class="demo-cat">Planning</p><p class="demo-title">Building a backlog from scratch</p><p class="demo-desc">Epics, features and stories, with filters and saved views.</p></div>
+      </button>
+      <button type="button" class="spot demo soon reveal" data-cat="plan" data-youtube="">
+        <div class="demo-thumb"><img src="assets/clip-roadmap.jpg" alt="" loading="lazy" /><span class="demo-play"><svg width="20" height="20" aria-hidden="true"><use href="#g-play"/></svg></span><span class="demo-len">soon</span></div>
+        <div class="demo-body"><p class="demo-cat">Planning</p><p class="demo-title">Roadmaps and sprints</p><p class="demo-desc">Schedule on the timeline, plan a sprint, export a PDF.</p></div>
+      </button>
+      <button type="button" class="spot demo soon reveal" data-cat="ai" data-youtube="">
+        <div class="demo-thumb"><img src="assets/clip-releases.jpg" alt="" loading="lazy" /><span class="demo-play"><svg width="20" height="20" aria-hidden="true"><use href="#g-play"/></svg></span><span class="demo-len">soon</span></div>
+        <div class="demo-body"><p class="demo-cat">AI agents</p><p class="demo-title">Release notes, written for you</p><p class="demo-desc">Ship a release and approve the notes your agent drafts.</p></div>
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ── STORY TEASER ── -->
+<section class="section" style="padding-top: 0">
+  <div class="wrap">
+    <a class="spot story-card reveal" href="story/">
+      <div class="story-copy">
+        <p class="eyebrow">The story</p>
+        <h2 class="h2">Why I built Gantry.</h2>
+        <p class="lede">What I kept running into as a product manager working with AI agents, what Gantry solves, and how I built it.</p>
+        <div class="story-meta"><span>Mike Tempestini</span><span>·</span><span>Long read</span></div>
+        <span class="btn btn-ghost">Read the story <svg width="15" height="15" aria-hidden="true"><use href="#g-arrow"/></svg></span>
+      </div>
+      <div class="story-art" aria-hidden="true">
+        <div class="lines"></div>
+        <img src="assets/gantry-icon-256.png" alt="" width="256" height="256" loading="lazy" />
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ── -->
+<section class="cta">
+  <div class="wrap">
+    <img class="cta-icon reveal" src="assets/gantry-icon-256.png" alt="" width="256" height="256" loading="lazy" />
+    <h2 class="h2 reveal">Plan it. Hand it off.<br /><span>Ship it.</span></h2>
+    <div class="platforms reveal">
+      <a class="platform primary" href="#" data-soon="The Mac download is coming soon">
+        <svg aria-hidden="true"><use href="#g-apple"/></svg>
+        <span><small>Coming soon</small><b>Download for Mac</b></span>
+      </a>
+      <a class="platform" href="#" data-soon="Windows is on the roadmap">
+        <svg aria-hidden="true"><use href="#g-windows"/></svg>
+        <span><small>Coming soon</small><b>Windows</b></span>
+      </a>
+      <a class="platform" href="#" data-soon="Linux is on the roadmap">
+        <svg aria-hidden="true"><use href="#g-linux"/></svg>
+        <span><small>Coming soon</small><b>Linux</b></span>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <a class="brand" href="./"><img src="assets/gantry-icon-256.png" alt="" width="256" height="256" />Gantry</a>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="story/">The story</a>
+      <a href="privacy/">Privacy policy</a>
+      <a href="mailto:help@miketemp.com">help@miketemp.com</a>
+      <a href="../">Built by Mike Tempestini</a>
+    </nav>
+    <span>© <span data-year>2026</span></span>
+  </div>
+</footer>
+
+<dialog class="player" aria-label="Demo video">
+  <button class="ctl player-close" type="button">Close <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg></button>
+  <div class="player-frame"></div>
+</dialog>
+
+<script src="gantry.js"></script>
+</body>
+</html>

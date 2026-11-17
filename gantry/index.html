@@ -207,11 +207,10 @@
 </section>
 
 <!-- ── FEATURES ──
-     Step 04's video is still a placeholder cut from the promo film; steps 01–03
-     have their dedicated demos. Replace assets/clip-releases.mp4 with a
-     dedicated demo when it's recorded: drop that step's .placeholder-tag
-     line and mark its stage <video> with data-final (that hides the shared
-     stage tag while it shows). -->
+     All four steps have their dedicated demos (each stage <video> is marked
+     data-final, which hides the shared stage tag). To put a placeholder clip
+     back in a step, give it a .placeholder-tag line and drop data-final from
+     its stage <video>. -->
 <section class="section tight-top" id="features">
   <div class="wrap">
     <p class="eyebrow reveal">Features</p>
@@ -266,14 +265,19 @@
         </article>
         <article class="step">
           <p class="step-num">04 / 04 · Releases</p>
-          <h3>Release notes, <span class="mark">written for you</span></h3>
-          <p>When a release ships, your agent drafts a short note for each ticket from its own description, comments and commits. You approve it before anything is saved.</p>
+          <h3>Plan the release, <span class="mark">ship it with notes</span></h3>
+          <p>Plan each release with a target date and watch it fill as tickets finish. Say “ship it” and your agent shows you what goes out, then merges to production, files every ticket under the release and writes a short note for each from its own description, comments and commits. Read them over, then send a clean PDF.</p>
+          <div class="ask">
+            <span class="ask-label">Just ask</span>
+            <p>“Push release v3.0 to production and write the notes.”</p>
+          </div>
           <ul class="ticks">
-            <li>Notes come from the ticket, never invented</li>
-            <li>Edit any note, date or ticket before you share</li>
-            <li>Export a clean PDF to send anywhere</li>
+            <li>Planned releases with target dates and live progress</li>
+            <li>Move unfinished tickets to the next release in one step</li>
+            <li>Notes come from the ticket, never made up</li>
+            <li>Highlights up top, exported as a clean PDF</li>
           </ul>
-          <div class="step-media"><div class="screen"><span class="placeholder-tag">placeholder clip</span><video data-loop src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none" aria-label="Release notes written by an agent, exported as a PDF"></video></div></div>
+          <div class="step-media"><div class="screen"><video data-loop src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none" aria-label="v3.0 is planned with 4 of its 12 tickets done. You ask Claude to push it to production and write the notes; Claude says 11 tickets ship and one is still in testing, and asks to move it to v3.1. On your yes, the tickets turn Done, the unfinished one moves to v3.1 and v3.0 moves to Shipped. Claude writes a note for each ticket and the release's highlights, and the PDF preview opens on the highlights."></video></div></div>
         </article>
       </div>
 
@@ -283,7 +287,7 @@
           <video data-final src="assets/clip-agents.mp4" poster="assets/clip-agents.jpg" muted loop playsinline preload="metadata"></video>
           <video data-final src="assets/clip-backlog.mp4" poster="assets/clip-backlog.jpg" muted loop playsinline preload="none"></video>
           <video data-final src="assets/clip-roadmap.mp4" poster="assets/clip-roadmap.jpg" muted loop playsinline preload="none"></video>
-          <video src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none"></video>
+          <video data-final src="assets/clip-releases.mp4" poster="assets/clip-releases.jpg" muted loop playsinline preload="none"></video>
         </div>
         <div class="stage-dots">
           <button type="button" tabindex="-1"></button>

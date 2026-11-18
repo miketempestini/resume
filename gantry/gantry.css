@@ -792,6 +792,8 @@ section { position: relative; z-index: 1; }
 .prose figcaption { margin-top: 12px; font-size: 0.875rem; color: var(--faint); text-align: center; }
 .article-end { margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .policy { max-width: 720px; margin: 0 auto; padding-bottom: 128px; position: relative; z-index: 1; }
+.short-page { min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; }
+.short-page main { flex: 1; }
 .policy-updated { margin-top: 16px; font-family: var(--mono); font-size: 0.75rem; color: var(--faint); }
 
 /* ── Reduced motion: everything lands in place ── */

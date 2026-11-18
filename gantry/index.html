@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- The host serves /gantry without its trailing slash, and every relative link here needs it. -->
+  <script>if(/\/[^\/.]+$/.test(location.pathname))location.replace(location.pathname+'/'+location.search+location.hash);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gantry — Plan the work. Let your agents build it.</title>
   <meta name="description" content="Gantry is a private planning app that runs entirely on your computer, with no cloud and no login. Plan epics, sprints and roadmaps, then hand tickets to the agents you choose, frontier or local." />

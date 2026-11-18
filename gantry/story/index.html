@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <!-- The host serves /gantry without its trailing slash, and every relative link here needs it. -->
+  <script>if(/\/[^\/.]+$/.test(location.pathname))location.replace(location.pathname+'/'+location.search+location.hash);</script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Why I Built Gantry — Mike Tempestini</title>
   <meta name="description" content="Why I built Gantry, the problem it solves for product teams working with AI agents, and how I built it." />
@@ -14,7 +16,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../gantry.css" />
+  <link rel="stylesheet" href="../gantry.css?v=20261118a" />
 </head>
 <body>
 
@@ -43,7 +45,6 @@
     <div class="wrap">
       <p class="eyebrow reveal">The story</p>
       <h1 class="reveal">Why I built Gantry</h1>
-      <!-- PLACEHOLDER: one or two sentences that set up the post -->
       <p class="lede reveal">What I kept running into as a product manager working with AI agents, what Gantry solves, and how I built it.</p>
       <div class="byline reveal">
         <img src="../../headshot.jpg" alt="" width="76" height="76" />
@@ -57,44 +58,127 @@
       <p>Contents</p>
       <ol>
         <li><a href="#problem">The problem</a></li>
-        <li><a href="#gap">Why existing tools fell short</a></li>
+        <li><a href="#gap">Why I didn't use an existing tool</a></li>
         <li><a href="#idea">The idea</a></li>
         <li><a href="#build">How I built it</a></li>
         <li><a href="#learned">What I learned</a></li>
+        <li><a href="#different">What I'd do differently</a></li>
         <li><a href="#next">What's next</a></li>
       </ol>
     </aside>
 
-    <!-- PLACEHOLDER POST. Replace each .ph block with real writing.
-         Plain <p>, <h2 id>, <blockquote>, <ul> and <figure> are all styled.
-         Keep each h2's id in step with the Contents list above. -->
     <article class="prose">
       <h2 id="problem">The problem</h2>
-      <div class="ph"><b>placeholder</b>What was going wrong in your day-to-day as a PM once AI agents started writing code? Where did the plan live, and where did it fall apart?</div>
-      <div class="ph"><b>placeholder</b>A specific moment or example that made the problem obvious.</div>
-
-      <h2 id="gap">Why existing tools fell short</h2>
-      <div class="ph"><b>placeholder</b>What you tried first (Jira, Linear, Notion, docs, chat) and why each one didn't fit a workflow where agents do the building.</div>
-
-      <blockquote>Placeholder pull quote: the one line you'd want someone to remember from this post.</blockquote>
-
+      <p>I'm a product manager by trade. I'm used to working in Scrum and Agile frameworks with dev teams: sprints, roadmaps, epics, all that jazz. I'm used to reporting progress upwards to stakeholders and leadership, because visibility is a core function of a good product manager.</p>
+      <p>And I believe good frameworks are universal. No matter what the problem is, if your team can stick to a reliable process, you'll make progress.</p>
+      <p>So when I got into vibe coding in early 2026, you'd think I would have brought that process with me. I didn't.</p>
+      <p>I had very little idea what I was doing. I'd been watching what other people were building on the internet, I was fascinated by what frontier models could do, and I figured I'd give it a try. The possibilities were nearly endless, and I was eager to try building something myself. I saw what was happening and wanted to be a part of the moment in my own small way.</p>
+      <p>It was a super fun process, and it continues to be to this day. Building, iterating, seeing things come to life. It was addicting. I learned by making mistakes and asking a lot of questions. I was always searching for the next thing to build and the next limit to test. I developed a better understanding of software development as a whole.</p>
+      <p>As I started building for myself, I quickly re-learned the hard lesson that all product managers will encounter at some point in their career. If your product plan isn't documented on paper, then it doesn't really exist.</p>
+      <h3>Attempt one: a Bitcoin portfolio</h3>
+      <p>My first attempt at building something for myself was a Bitcoin portfolio. I wanted an easy way to manage my bitcoin investments at a glance. In my experience, the challenge for a lot of bitcoin holders is getting a sense of "am I buying enough when the price is low enough to be considered a discount for me?"</p>
+      <p>None of the portfolio tools I tried felt right. Exchanges only show their slice of my history. "All-in-one" portfolio apps wanted me to hand over my full transaction history to the cloud. No thanks. Privacy is critically important to bitcoiners. Spreadsheets work, but they're archaic, and they didn't answer the questions that actually mattered to me.</p>
+      <p>At first, the process was simple: describe what I wanted the experience to be, what my information would look like, and how it should interact with me. I quickly had a great initial version going. Then I took it one step further, beyond bitcoin, into a holistic finance app: stocks, retirement accounts, bank accounts, credit cards, etc. I figured why not just manage one element of my financial health when I could have this cover the entire picture.</p>
+      <p>That's where it fell apart. I got lost in the mess of "what should I build?" I built too many things too quickly. Half of them didn't work that well, and the other half were buried in a sea of noise. I had a hard time keeping track of what I wanted to build, what needed improvements, what wasn't tested, and what was broken. I had no framework to work within. The "tech debt" got too big, and I lost interest.</p>
+      <p>One thing stuck with me from that project, though: privacy first, local, your data stays yours. That theme has followed me into every project since, including Gantry.</p>
+      <h3>Attempt two: Showstr</h3>
+      <p>This one had another real need and a real use case behind it. I spend a lot of time seeing live music, and after a few hundred bands over a decade and a half, I realized I was losing the details that mattered. I'd been tracking it all in a spreadsheet. It did the job, but it felt more like work than a living journal. I wanted something more intuitive.</p>
+      <p>The first prototype was great, but the process was slow, and I was still disorganized and working entirely out of a few chat sessions. I hit a wall getting it into the App Store. When I came back months later and got it out to TestFlight, I had a hard time keeping track of what features it should have, what ideas I'd had months before, and what research I'd already done. My chats were a jumbled mess. My own notes were disorganized and out of date.</p>
+      <p>I did eventually get Showstr live and published to the App Store, which gave me a satisfying taste of seeing an idea actually come to life. But I still needed a better way to organize my projects. And frankly, I didn't want to pay for it.</p>
+      <h2 id="gap">Why I didn't use an existing tool</h2>
+      <p>Existing tools most likely were not falling short of what I needed. I just didn't want an existing tool. I saw more potential problems than solutions:</p>
+      <ul>
+        <li>Enterprise tools like the ones I've used professionally cost money. Jira, Aha!, Asana, Azure DevOps; they all have free tiers, but those come with limitations. This is a hobby for me. The cost of the Claude subscription alone is about as far as I wanted to go.</li>
+        <li>Getting them to integrate with each other is a challenge in and of itself. I've seen this first hand in my career. I wanted one tool that did everything I needed.</li>
+        <li>Some of these platforms have all the features, but when you're a solo builder making things for fun, you don't need all the bells and whistles of an enterprise-grade solution.</li>
+        <li>To my knowledge, not a lot of them supported local models. If you're building with privacy in mind, your options shrink dramatically. This gap is widening as reliance on brand-name AI providers increases, and as open source local models keep up with the pace of growth. This piece was important to me personally.</li>
+      </ul>
+      <p>There were probably tools out there that could have worked for me right out of the box. There likely are tools that support local models, not just the name brand ones.</p>
+      <p>But I figured I could build one that works just how I want it to. I'd done it before. Might as well give it another try.</p>
+      <blockquote>The question is no longer "is there a solution for that?" It's "what would a solution look like if it were just for me?"</blockquote>
       <h2 id="idea">The idea</h2>
-      <div class="ph"><b>placeholder</b>The core idea: a real planning tool that agents can read and update, where you stay in control. Why it's private and local, with no cloud and no login.</div>
-      <div class="ph"><b>placeholder</b>Bring your own agent: why Gantry has no AI of its own, and how that lets you pick frontier models when speed matters most or local models when privacy matters most.</div>
-      <figure>
-        <div class="ph ph-media"><span><b>placeholder figure</b>Screenshot or short clip: the board with an agent working a ticket</span></div>
-        <figcaption>Caption for the figure.</figcaption>
-      </figure>
-
+      <p>The idea was simple; a tool that helps me vibe code like a PM. A real planning tool that AI agents can read and update, where I stay in control. I can manage my projects like I would with a real team of developers, and an army of stakeholders behind me.</p>
+      <p>That's the bigger theme, too: building things that work how YOU want them to work. Fitting your preferences and your use cases. Features you've always wanted but never had access to. A UI that's friendly to you. Start with that as your MVP, expand from there, and iterate.</p>
+      <h3>Private and local</h3>
+      <p>Privacy has been a core theme of a lot of my personal projects. As a bitcoiner, my beliefs in the self-sovereignty of money naturally extend into software. So much software today depends on the cloud, an internet connection, and permission to use it. As open source permissionless technology and protocols grow in popularity and capability, I wanted to contribute to the mission of building software for the individual, with privacy at the core of its features, in whatever minuscule way I could.</p>
+      <p>Showstr is a great example of this. It's a private concert diary that's unique to you and only accessible by you, with data you don't have to surrender to an unknown third party. Your photos, your memories, all local and private.</p>
+      <p>People have asked me to let them share concerts with friends, to give it a social network feel, basically turn it into a social media app where people can view each other's concerts. While that's a great idea, it felt antithetical to the reason I set out to build the app in the first place.</p>
+      <p>Gantry follows the same rule. No cloud, no login. Your plans live on your machine. You can plug in a frontier model like Claude if you want, or keep everything entirely local. No problem either way.</p>
+      <h3>Bring your own agent</h3>
+      <p>Gantry has no AI of its own. You bring the agent. That means you can pick a frontier model when speed matters most, or a local model when privacy matters most. Enabling people to use their own local AI models is true empowerment.</p>
       <h2 id="build">How I built it</h2>
-      <div class="ph"><b>placeholder</b>How you built it: planning Gantry in Gantry, building with Claude Code, the Mac app and the AI helper, decisions you made along the way.</div>
-      <div class="ph"><b>placeholder</b>Numbers worth sharing, such as tickets planned, releases shipped, or changes agents made on the board.</div>
-
+      <p>It started out really simple. I met a friend who owned a startup that was building a software product. During a gap before my next job, I helped him as a product advisor. We started by organizing his Jira backlog. It had become cluttered, disorganized, out of date, and difficult to manage. The roadmap and quarter-over-quarter plan for where his company was going lived in his head. That's fine when you're a founder, but it's difficult to scale as more team members come on board, customers start asking for more features, and potential investors need a sense of the bigger picture.</p>
+      <p>Jira had a product management plugin, but it was a limited trial with his subscription. I started thinking: <em>well, if I can export his Jira backlog, I could just build a tool that lets me build roadmaps with his existing backlog. If I could do that, I'd have something to help us organize his longer-term roadmap, prioritize some stories in the short term, and create roadmap artifacts he could share with his internal team and some of his customers.</em></p>
+      <p>Gantry started with just the roadmapping tools. Sprints, epics, user stories, Gantt charts, all the basic tooling a PM uses daily. Eventually, I thought about how someone would actually use a tool like this in 2026: "<em>this won't be useful to anyone if you can't just talk to an AI and have it do stuff for you. It should be able to integrate with Claude directly.</em>" And then: <em>if I can do Claude, why can't I do everything?</em> That was the lightbulb moment for me.</p>
+      <p>Iteration started from there, and I started using Gantry to plan Gantry. As I tested new features, new stories were born, and the flywheel was in full swing. Test a feature, find a bug, tell Claude to log it, come back to it later. Rinse and repeat.</p>
+      <p>It started as Mac only. Then I figured, why not just do Windows and Linux too? Don't limit yourself. Go the whole nine yards.</p>
+      <p>Here's what building Gantry in Gantry looks like, by the numbers:</p>
+      <ul>
+        <li><strong>400+</strong> tickets planned on the board</li>
+        <li><strong>200+</strong> of them shipped</li>
+        <li><strong>20</strong> releases, all in about a week (I had some free time, and tunnel vision. You know how that goes).</li>
+        <li><strong>1,400+</strong> changes made on the board by AI agents: creating tickets, moving them through the board, leaving comments, and writing release notes</li>
+      </ul>
+      <p>That leads us to today, with you reading this post. Gantry is still a work in progress, but its core capabilities already work, because I've been using it daily for weeks now.</p>
       <h2 id="learned">What I learned</h2>
-      <div class="ph"><b>placeholder</b>What surprised you, what you'd do differently, and what this taught you about product management with AI.</div>
-
+      <h3>Building the MCP was way easier than I expected</h3>
+      <p>The biggest thing that surprised me was how easy it was to get the MCP connection built, the connector that lets an AI read and update Gantry directly.</p>
+      <p>As I started building the core roadmapping features, I realized that for this tool to be useful, you have to be able to use it with AI. No product manager today should be drafting user stories by hand anymore, on top of everything else bureaucratic they have to do every day: writing release notes, managing sprints, drafting roadmaps for stakeholders, prioritizing features. For anybody to get value out of this tool, AI not only had to read what was in there so it could start development, it also had to help create those development items.</p>
+      <p>Building the MCP was simply a matter of defining what I wanted AI to be able to do. I knew it was working once I could ask Claude something about my project and get a legit answer back.</p>
+      <ul>
+        <li><strong>Start simple:</strong> read tickets and see what I'd already put in Gantry. <em>"What stories are in the next sprint?"</em></li>
+        <li><strong>Expand from there:</strong> create tickets. <em>"I need a new story."</em></li>
+        <li><strong>Push even further:</strong> create releases and roadmaps. <em>"Make a plan to get this done by next week."</em></li>
+        <li><strong>Keep going:</strong> <em>"What's missing? Suggest improvements I'm not thinking about."</em></li>
+      </ul>
+      <h3>The money maker: working with Claude in comments</h3>
+      <p>I'm used to talking to developers in the comments of tickets. It's a great way to centralize conversations, document decisions, and figure out the details. So I told Claude that. I wanted it to not only read my comments, but to pick them up in real time and address them as they came in.</p>
+      <p>Claude figured out a way to do this using an experimental channels feature. After some iteration, it worked. It became the primary way I worked within Gantry to build new Gantry features. Write a story, hand it to an agent, write another story, check the inbox for replies, confirm details, rinse and repeat over and over.</p>
+      <p>Other platforms like Codex and Cursor can read comments and reply to them, but they need an extra step: you have to prompt them to review their active mentions. I couldn't find a way to get them to reply live. That still has a use case, though. You can let a lot of mentions build up and have an agent look at lots of items at once.</p>
+      <h3>Open to any agent</h3>
+      <p>Once I had a Claude connection working, I figured, why not expand this to any AI I possibly could? That's where OpenClaw and Hermes (open source agents) come in. They're in line with my personal mantra of privacy-focused tools, and open source is a huge element of that. Super important. AI tools today let you bring the models and agents you prefer, and I wanted Gantry to meet that standard.</p>
+      <h3>Claude can figure it out</h3>
+      <p>Bring your big, half-baked ideas to Claude. It will guide you through the fog. Have an end goal in mind, and Claude can help you get there. Odds are you aren't the first person to build a feature like that.</p>
+      <p>I rarely run into a feature idea that I'm unable to deliver on in some form or fashion. Even if Claude can't figure it out, or it's not technically possible, or it's too expensive to build, or for whatever reason I can't get there yet, Claude will propose a way for me to get there, somehow, someway, within the boundaries I have.</p>
+      <p>Shoot for the stars. You'll be amazed where you land. Worst case, you park the idea on the back burner.</p>
+      <h3>The Outcome: Gantry radically changed how I was building with AI</h3>
+      <p>Again, I'm not a developer by trade, and I'm certainly not an expert in how to maximize AI as a tool. I probably had some bad habits that could have been easily avoided, but I look at it as all part of the journey. Gantry quickly helped me get the most out of my time when building.</p>
+      <p>I noticed that I found myself with a lot of downtime as agents worked on my prompts. With a 5 hour session window, I would spend maybe 45 minutes to an hour of that time actually working on useful tasks for my projects such as writing prompts, reviewing outputs, testing new builds, and so on. So much time was spent just waiting for Claude to be finished with the last prompt I gave it so I could review its output. This would lead me to get distracted doing other things; scrolling X, crossword puzzles, basically putzing around until it was my turn to prompt again. Not very efficient, and not a great way to stay on task.</p>
+      <p>When Gantry came into the picture, and the MCP was up and running reliably, my workflow changed very noticeably. Instead of waiting for my next chance to prompt, I could go look at the backlog while Claude worked. I could file new bug tickets, I could reprioritize what I wanted to do next, I could scope out entire new epics. Suddenly I had a platform to work on the project that Claude could reference later when it was ready to start a new task. Not only that, but I could spin up subagents to work on multiple stories at the same time. Instead of doing one story at a time, I could just tell Claude to start on an entire feature, work it in a sequential order that made sense, and ask me when questions came up. It was super intuitive.</p>
+      <p>UI bugs became a breeze to handle. I'd screenshot anything that didn't look "good" (an overlapping text field, a broken scroll bar, an element sitting in an awkward spot in some very specific scenario) and send it to Claude with one line: "File this as a UI bug." That was all it took. It would create the ticket, describe the issue perfectly, and file it away. I'd often follow that up with "start working on a fix", and it would be done in a few minutes. A few months ago, I might have noticed that bug and forgotten about it entirely. Now, I had a way to document it meaningfully.</p>
+      <h2 id="different">What I'd do differently</h2>
+      <h3>Take more time asking "why"</h3>
+      <p>Building this way means you don't need to stop and ask why. Shipping quickly means every little idea you have gets pushed to prod that hour.</p>
+      <p>That can be a double-edged sword. Good ideas can go live quickly, but the threshold of what counts as a "good" idea gets blurry when everything can be built easily. Not every idea is going to be a winner.</p>
+      <p><strong>Lesson:</strong> stop and think. Slow is smooth, and smooth is fast. Not everything has to get built. Practice good product management, and make sure what you're building connects to your broader strategy.</p>
+      <h3>Design with intention</h3>
+      <p>UI and design are still valuable skills. AI is great at getting a start, but it makes a lot of mistakes, and it doesn't have "taste." Lots of people have noticed this, and they're right.</p>
+      <p><strong>Lesson:</strong> find resources, skills, repos, libraries, and inspiration that can help your agents design better. Don't just take what it gives you. Have something in mind. Don't be afraid to push back and refine, and don't be married to a design. Getting a human in the loop here can be super useful.</p>
+      <h3>Get people involved early</h3>
+      <p>Whatever it is, have people start testing and using it. Don't build in silence. Get feedback early.</p>
+      <h3>The short version</h3>
+      <ul>
+        <li>Staying organized is always a useful practice. Keep track of your ideas, and park the ones you want to sit on.</li>
+        <li>Build tools that help you build tools.</li>
+        <li>Optimize for your own workflows.</li>
+        <li>Software is cheap now.</li>
+        <li>Use the free resources out there.</li>
+      </ul>
       <h2 id="next">What's next</h2>
-      <div class="ph"><b>placeholder</b>Windows and Linux, the public release, and how people can try it or get in touch.</div>
+      <p>For Gantry: Windows and Linux are coming soon, followed by the public release. Right now the beta is open on Mac. Want to try it? Email <strong><a href="mailto:gantry@miketemp.com?subject=Join%20the%20Gantry%20beta&amp;body=Hi%20Mike%2C%20I%27d%20like%20to%20join%20the%20Gantry%20beta.">gantry@miketemp.com</a></strong> to join.</p>
+      <p>After that, other projects! I don't want Gantry to be the only project I tweak forever. I'm excited for whatever inspiration strikes me next, because now I'll have a tool to properly organize myself so I can build it stronger and better.</p>
+      <p>I can actually use Gantry to build more apps and tools for myself:</p>
+      <ul>
+        <li><strong>More mobile apps.</strong> Those are fun to make, easy to deploy, and can get other people involved quickly.</li>
+        <li><strong>More games.</strong> There are lots of great 3D Blender resources out there, and a world of fantasy and adventure would be fun to scope out. That will be a challenge on its own, and one that would feel like a lot of fun.</li>
+        <li><strong>More tools that fit my day to day.</strong> It's fun going through life now thinking, "could I build a tool to fix this?" And not just for my day to day, but for my friends and family too. Free software, for the people.</li>
+      </ul>
+      <p>I also want to keep pushing the boundaries of the technology I can manage. The "next level": databases, servers, logins, paywalls, APIs, etc. That means breaking from the privacy-first philosophy and trying my hand at something more rigid and focused, with a broader use case. Bigger stakes and more upfront investment, so it'll need a good idea to justify it.</p>
+      <hr />
+      <p>If you've made it this far, I hope you've gotten some value out of this story! My message to you is simple: take this as your sign to start building tools for yourself! If there is a gap in your life where you've always wondered "I wish there was an app for this!", the good news is you can build it. Join the beta, hook up Claude, and start telling it what you need, and how you want it to work. I bet you'll be surprised how quickly you can put something together.</p>
+      <p>Should you use Gantry to build something cool, please share it with me! I'd love to hear your feedback, whether it made your process easier, and what other features the app should have. Send me a note at <a href="mailto:hey@miketemp.com">hey@miketemp.com</a></p>
+      <p>-MT</p>
+
 
       <div class="article-end">
         <a class="btn btn-ghost" href="../"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="11 18 5 12 11 6"/></svg> Back to Gantry</a>

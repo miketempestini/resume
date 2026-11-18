@@ -97,7 +97,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   transition: transform 0.25s var(--ease-out), background-color 0.15s, border-color 0.15s;
 }
 .btn svg { flex: none; }
-.btn:hover { transform: translateY(-2px); }
 .btn:active { transform: scale(0.98); }
 .btn-light { background: var(--text); color: var(--bg); }
 .btn-light:hover { background: #fff; }
@@ -136,7 +135,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Signature: the promo's blue highlighter, swept across one phrase */
 .mark {
   padding: 0 0.12em;
-  margin: 0 -0.04em;
+  /* cancels the padding on every line, so a wrapped highlighted line starts where the line above does */
+  margin: 0 -0.12em;
   border-radius: 0.12em;
   color: #fff;
   background-image: linear-gradient(var(--blue), var(--blue));
@@ -256,7 +256,7 @@ span.rise { display: inline-block; }
 
 /* ── Sections ── */
 section { position: relative; z-index: 1; }
-.section { padding: 128px 0; }
+.section { padding: 96px 0; }
 .section.tight-top { padding-top: 40px; }
 .section.flush-top { padding-top: 0; }
 .eyebrow {
@@ -340,7 +340,7 @@ section { position: relative; z-index: 1; }
 .byo-card { padding: 32px 28px 28px; display: flex; flex-direction: column; }
 .byo-when { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); }
 .byo-card h3 { margin-top: 12px; font-size: 1.5rem; font-weight: 600; letter-spacing: -0.01em; }
-.byo-card > p { margin-top: 8px; color: var(--muted); font-size: 0.9375rem; max-width: 44ch; }
+.byo-card > p:not([class]) { margin-top: 8px; color: var(--muted); font-size: 0.9375rem; max-width: 44ch; }
 .byo-tools { margin-top: 16px; font-size: 0.875rem; color: var(--text); }
 .byo-tools span + span::before { content: ' · '; color: var(--faint); }
 .flow { margin-top: auto; padding-top: 32px; display: flex; align-items: center; }
@@ -408,22 +408,22 @@ section { position: relative; z-index: 1; }
 .step.active { opacity: 1; }
 .step-num { font-family: var(--mono); font-size: 0.75rem; color: var(--faint); }
 .step h3 {
-  margin-top: 16px;
-  font-size: clamp(1.625rem, 2.6vw, 2.125rem);
+  margin-top: 12px;
+  font-size: clamp(1.5rem, 2.3vw, 1.875rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
   font-weight: 600;
   text-wrap: balance;
 }
-.step > p { margin-top: 16px; color: var(--muted); font-size: 1rem; max-width: 46ch; }
-.ticks { list-style: none; margin-top: 24px; display: grid; gap: 8px; }
-.ticks li { display: flex; gap: 12px; font-size: 0.9375rem; color: var(--text); }
+.step > p:not([class]) { margin-top: 12px; color: var(--muted); font-size: 0.9375rem; line-height: 1.55; max-width: 46ch; }
+.ticks { list-style: none; margin-top: 20px; display: grid; gap: 8px; }
+.ticks li { display: flex; gap: 12px; font-size: 0.875rem; line-height: 1.5; color: var(--text); }
 .ticks li::before {
   content: '';
   flex: none;
   width: 16px;
   height: 16px;
-  margin-top: 4px;
+  margin-top: 2px;
   background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a8296' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center / 16px no-repeat;
 }
 .step-media { display: none; }
@@ -431,29 +431,30 @@ section { position: relative; z-index: 1; }
 .note {
   display: flex;
   gap: 12px;
-  margin-top: 24px;
+  margin-top: 20px;
   padding: 12px 16px;
   max-width: 46ch;
   border-radius: 12px;
   background: var(--card);
   border: 1px solid var(--line);
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
+  line-height: 1.55;
   color: var(--muted);
 }
-.note svg { flex: none; width: 16px; height: 16px; margin-top: 3px; }
+.note svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }
 .note b { color: var(--text); font-weight: 500; }
 /* An example request to an agent, set like a chat prompt */
 .ask {
-  margin-top: 20px;
+  margin-top: 16px;
   max-width: 46ch;
   padding: 12px 16px;
   border-radius: 12px;
   background: var(--card);
   border: 1px solid var(--line);
-  border-left: 2px solid var(--agent);
 }
-.ask-label { font-family: var(--mono); font-size: 0.6875rem; color: var(--agent-ink); }
-.ask p { margin-top: 4px; font-size: 0.9375rem; color: var(--text); }
+.ask-label { display: inline-flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 0.6875rem; color: var(--agent-ink); }
+.ask-label::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--agent); }
+.ask p { margin-top: 4px; font-size: 0.875rem; line-height: 1.5; color: var(--text); }
 /* The video stays centred in the screen below the top bar while the steps scroll past. Its column reaches past the
    page grid to 40 px from the window edge (never narrower than its grid column), and the video grows to about the
    height of a step's copy (530 px), and never taller than the screen allows. */
@@ -536,7 +537,7 @@ section { position: relative; z-index: 1; }
   border-radius: 12px;
   border: 1px dashed rgba(59, 130, 246, 0.5);
 }
-.arch-zone span { position: absolute; left: 8px; top: 4px; font-family: var(--mono); font-size: 0.625rem; line-height: 1; color: var(--blue-ink); white-space: nowrap; }
+.arch-zone span { position: absolute; left: 8px; top: 4px; font-family: var(--mono); font-size: 0.6875rem; line-height: 1; color: var(--blue-ink); white-space: nowrap; }
 .arch-zone img { width: 40px; height: 40px; border-radius: 10px; }
 .arch-logos { display: grid; grid-template-columns: repeat(2, 32px); gap: 8px; }
 .arch-logos span, .arch-tile {
@@ -649,7 +650,10 @@ section { position: relative; z-index: 1; }
 .demo-cat { font-family: var(--mono); font-size: 0.6875rem; color: var(--faint); }
 .demo-title { margin-top: 8px; font-weight: 600; font-size: 1rem; }
 .demo-desc { margin-top: 4px; font-size: 0.875rem; color: var(--muted); }
-.demo.soon .demo-play { background: rgba(17, 20, 28, 0.88); color: var(--muted); border: 1px solid var(--line-hi); }
+/* Not recorded yet: no play button over the thumbnail, the "soon" tag says it */
+.demo.soon .demo-play { display: none; }
+.demo.soon .demo-thumb img { opacity: 0.85; }
+.demo.soon:hover .demo-thumb img { opacity: 1; }
 
 /* Player dialog */
 .player { width: min(1100px, calc(100vw - 32px)); margin: auto; border: 0; background: transparent; color: var(--text); overflow: visible; }
@@ -693,8 +697,7 @@ section { position: relative; z-index: 1; }
 
 /* ── Final call to action ── */
 .cta { text-align: center; padding: 128px 0 112px; }
-.cta-icon { width: 88px; height: 88px; margin: 0 auto; border-radius: 20px; box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5); }
-.cta .h2 { margin-top: 32px; }
+.cta .h2 { margin-top: 0; }
 .cta .actions { justify-content: center; margin-top: 32px; }
 
 /* ── Footer ── */
@@ -803,10 +806,22 @@ section { position: relative; z-index: 1; }
   .arch-wire::after, .arch-wire.both::before { animation: none; display: none; }
   .arch-node, .arch-node.on { transform: none; }
   .screen video { transition: none; }
-  .btn:hover, .btn:active { transform: none; }
+  .btn:active { transform: none; }
 }
 
 /* ── Responsive ── */
+/* Short windows: the step copy tightens so a whole step fits beside its video */
+@media (min-width: 961px) and (max-height: 760px) {
+  .step { padding: 24px 0; }
+  .step h3 { margin-top: 8px; font-size: clamp(1.375rem, 2vw, 1.625rem); }
+  .step > p:not([class]) { margin-top: 8px; font-size: 0.875rem; line-height: 1.5; }
+  .ticks { margin-top: 12px; gap: 4px; }
+  .ticks li { font-size: 0.8125rem; line-height: 1.4; }
+  .ticks li::before { margin-top: 1px; }
+  .ask, .note { margin-top: 12px; padding: 8px 12px; }
+  .ask p { font-size: 0.8125rem; }
+  .note { font-size: 0.75rem; }
+}
 @media (max-width: 960px) {
   .topnav { display: none; }
   .by { margin-left: auto; }
@@ -853,7 +868,7 @@ section { position: relative; z-index: 1; }
   .node.gantry img { display: none; }
   .gains { grid-template-columns: 1fr; gap: 24px; }
   .story-copy { padding: 32px 24px; }
-  .filters { width: 100%; overflow-x: auto; }
+  .filters { width: 100%; overflow-x: auto; mask-image: linear-gradient(90deg, #000 85%, transparent); -webkit-mask-image: linear-gradient(90deg, #000 85%, transparent); }
   .cta { padding: 96px 0 88px; }
   .article-head { padding: 64px 0 40px; }
   .prose { font-size: 1rem; }

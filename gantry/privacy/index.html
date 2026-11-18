@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../gantry.css" />
+  <link rel="stylesheet" href="../gantry.css?v=20261117h" />
 </head>
 <body>
 
@@ -35,24 +35,74 @@
 </header>
 
 <main>
-  <header class="article-head">
+  <header class="article-head legal">
     <div class="wrap">
       <p class="eyebrow">Legal</p>
-      <h1>Privacy Policy</h1>
-      <!-- PLACEHOLDER: set the date when the real text goes in -->
-      <p class="policy-updated">Last Updated: —</p>
+      <h1>Gantry Privacy Policy</h1>
+      <p class="policy-updated">Effective date: November 17, 2026</p>
     </div>
   </header>
 
-  <!-- PLACEHOLDER POLICY. Paste the final text into .prose as <h2> + <p> pairs,
-       like showstr/privacy/index.html. -->
   <div class="wrap">
     <article class="policy prose">
-      <div class="ph"><b>placeholder</b>The Gantry privacy policy will go here.</div>
+      <p>Gantry is a planning app for the Mac, made by Michael Tempestini ("we", "us"). This policy explains what Gantry does with your information. In short: <strong>Gantry has no account, no login and no server. Your projects stay on your Mac. Nothing leaves it unless you connect an AI tool and that tool reads it.</strong></p>
+
+      <h2>AI tools and third-party providers</h2>
+      <p>This is the one way your Gantry data can leave your Mac, so it comes first.</p>
+      <p>Gantry includes an optional AI helper that lets AI tools you install and set up yourself read and update your projects. These include Claude (Claude Desktop, Claude Code), Codex, Cursor, VS Code, Gemini CLI, Windsurf, OpenClaw, Hermes Agent, Ollama and any other tool that supports the Model Context Protocol (MCP).</p>
+      <ul>
+        <li><strong>Off unless you turn it on.</strong> The helper runs only when an AI tool you have set up starts it. Gantry never starts it, and never contacts an AI provider itself.</li>
+        <li><strong>What can be shared.</strong> Once connected, the AI tool can read anything in your Gantry projects: titles, descriptions, comments, attachments, names you've typed, and other details. Treat a connected AI tool as able to see everything in Gantry. Anything in that content, including personal information about you or other people, may be sent to the tool's provider.</li>
+        <li><strong>Their policies apply, not ours.</strong> What the AI tool and its provider do with what it reads (sending it to their servers, storing it, using it for training) is covered by that provider's own terms and privacy policy, not this one. Please read them before connecting. For example:
+          <ul>
+            <li>Anthropic (Claude): <a href="https://www.anthropic.com/legal/privacy">https://www.anthropic.com/legal/privacy</a></li>
+            <li>OpenAI (Codex): <a href="https://openai.com/policies/privacy-policy">https://openai.com/policies/privacy-policy</a></li>
+            <li>Google (Gemini CLI): <a href="https://policies.google.com/privacy">https://policies.google.com/privacy</a></li>
+            <li>For other tools, see the privacy policy on that tool's website.</li>
+          </ul>
+        </li>
+        <li><strong>Local models.</strong> If you use a model that runs on your Mac, such as one through Ollama, what it reads stays on your Mac.</li>
+        <li><strong>You stay in control.</strong> Everything an AI tool changes is marked as its change and kept in Gantry's activity log so you can undo it. To stop sharing, disconnect Gantry in the AI tool's settings or remove the tool.</li>
+      </ul>
+      <p><strong>Not affiliated.</strong> Gantry is an independent app. It is not affiliated with, endorsed by or sponsored by Anthropic, OpenAI, Google, Microsoft, Anysphere (Cursor), Ollama, or any other AI provider or tool maker. Their names are used only to say which tools Gantry works with, and they belong to their owners.</p>
+      <p><strong>AI output.</strong> AI tools can be wrong. Check what an AI tool writes or changes in your projects before relying on it. We're not responsible for what a third-party AI tool does with your data or writes into Gantry.</p>
+
+      <h2>What Gantry stores, and where</h2>
+      <ul>
+        <li><strong>Your projects</strong>, including epics, features, stories, bugs, sprints, comments, releases, settings, attachments and anything you import from Jira, are saved in files on your Mac. They live in a folder that only the Gantry app and its AI helper can use (<code>~/Library/Group Containers/459TC46MLY.com.tempestini.gantry</code>).</li>
+        <li><strong>Your preferences</strong>, such as appearance and the name you enter, are also saved only on your Mac.</li>
+        <li>Files you export or open through Open and Save are stored wherever you choose.</li>
+        <li>Like other files on your Mac, these may be included in backups you make, such as Time Machine.</li>
+      </ul>
+
+      <h2>What Gantry sends anywhere</h2>
+      <p><strong>Nothing.</strong> Gantry makes no network connections of its own. It doesn't send your projects, usage or device details to us or to anyone else. (macOS requires Gantry to have network permission because its built-in web view needs it to start, but Gantry doesn't use it.)</p>
+      <ul>
+        <li><strong>No account or login.</strong> We don't know who you are.</li>
+        <li><strong>No analytics, tracking or advertising.</strong> Gantry has no analytics, crash reporting, advertising or tracking code, and doesn't track you across apps or websites.</li>
+        <li><strong>No selling or sharing.</strong> We don't receive your data, so we have none to sell or share.</li>
+      </ul>
+
+      <h2>Email you send us</h2>
+      <p>If you choose <strong>Send feedback</strong> in Settings → About, Gantry opens a new email in your email app with your Gantry and macOS version filled in. Nothing is sent unless you send that email. If you do, we receive your email address and whatever you wrote, and use them only to reply and improve Gantry.</p>
+
+      <h2>Deleting your data</h2>
+      <p>Your data is on your Mac, so you control it:</p>
+      <ul>
+        <li><strong>Delete a project or item</strong> in Gantry. It goes to Trash for 30 days, then is removed. You can empty Trash sooner.</li>
+        <li><strong>Delete everything:</strong> quit Gantry, delete the app, then delete the folder <code>~/Library/Group Containers/459TC46MLY.com.tempestini.gantry</code>.</li>
+        <li><strong>Data a connected AI tool already read:</strong> ask that tool's provider, under their privacy policy.</li>
+        <li><strong>Email you sent us:</strong> ask us at the address below to delete it.</li>
+      </ul>
+
+      <h2>Children</h2>
+      <p>Gantry isn't directed at children under 13, and we don't knowingly collect personal information from anyone. Gantry doesn't collect personal information from any user.</p>
+
+      <h2>Changes to this policy</h2>
+      <p>If this policy changes, we'll post the new version at this address and update the effective date. If a change affects how your data is handled, we'll also note it in Gantry's release notes.</p>
 
       <h2>Contact</h2>
-      <p>If you have questions or concerns about privacy, please contact us at:</p>
-      <p><a href="mailto:help@miketemp.com">help@miketemp.com</a></p>
+      <p>Questions about privacy: <a href="mailto:gantry@miketemp.com"><strong>gantry@miketemp.com</strong></a></p>
     </article>
   </div>
 </main>

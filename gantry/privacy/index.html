@@ -41,16 +41,16 @@
     <div class="wrap">
       <p class="eyebrow">Legal</p>
       <h1>Gantry Privacy Policy</h1>
-      <p class="policy-updated">Effective date: November 18, 2026</p>
+      <p class="policy-updated">Effective date: November 24, 2026</p>
     </div>
   </header>
 
   <div class="wrap">
     <article class="policy prose">
-      <p>Gantry is a planning app for the Mac, made by Michael Tempestini ("we", "us"). This policy explains what Gantry does with your information. In short: <strong>Gantry has no account, no login and no server. Your projects stay on your Mac. Nothing leaves it unless you connect an AI tool and that tool reads it.</strong></p>
+      <p>Gantry is a planning app for Mac and Windows, made by Michael Tempestini ("we", "us"). This policy explains what Gantry does with your information, on both. In short: <strong>Gantry has no account, no login and no server. Your projects stay on your computer. Nothing leaves it unless you connect an AI tool and that tool reads it.</strong></p>
 
       <h2>AI tools and third-party providers</h2>
-      <p>This is the one way your Gantry data can leave your Mac, so it comes first.</p>
+      <p>This is the one way your Gantry data can leave your computer, so it comes first.</p>
       <p>Gantry includes an optional AI helper that lets AI tools you install and set up yourself read and update your projects. These include Claude (Claude Desktop, Claude Code), Codex, Cursor, VS Code, Gemini CLI, Windsurf, OpenClaw, Hermes Agent, Ollama and any other tool that supports the Model Context Protocol (MCP).</p>
       <ul>
         <li><strong>Off unless you turn it on.</strong> The helper runs only when an AI tool you have set up starts it. Gantry never starts it, and never contacts an AI provider itself.</li>
@@ -63,36 +63,43 @@
             <li>For other tools, see the privacy policy on that tool's website.</li>
           </ul>
         </li>
-        <li><strong>Local models.</strong> If you use a model that runs on your Mac, such as one through Ollama, what it reads stays on your Mac.</li>
+        <li><strong>Local models.</strong> If you use a model that runs on your computer, such as one through Ollama, what it reads stays on your computer.</li>
         <li><strong>You stay in control.</strong> Everything an AI tool changes is marked as its change and kept in Gantry's activity log so you can undo it. To stop sharing, disconnect Gantry in the AI tool's settings or remove the tool.</li>
       </ul>
-      <p><strong>Not affiliated.</strong> Gantry is an independent app. It is not affiliated with, endorsed by or sponsored by Anthropic, OpenAI, Google, Microsoft, Anysphere (Cursor), Ollama, or any other AI provider or tool maker. Their names are used only to say which tools Gantry works with, and they belong to their owners.</p>
+      <p><strong>Not affiliated.</strong> Gantry is an independent app. It is not affiliated with, endorsed by or sponsored by Apple, Anthropic, OpenAI, Google, Microsoft, Anysphere (Cursor), Ollama, or any other AI provider or tool maker. Their names are used only to say which tools Gantry works with, and they belong to their owners.</p>
       <p><strong>AI output.</strong> AI tools can be wrong. Check what an AI tool writes or changes in your projects before relying on it. We're not responsible for what a third-party AI tool does with your data or writes into Gantry.</p>
 
       <h2>What Gantry stores, and where</h2>
+      <p><strong>Your projects</strong>, including epics, features, stories, bugs, sprints, comments, releases, settings, attachments and anything you import from Jira, are saved in files on your computer:</p>
       <ul>
-        <li><strong>Your projects</strong>, including epics, features, stories, bugs, sprints, comments, releases, settings, attachments and anything you import from Jira, are saved in files on your Mac. They live in a folder that only the Gantry app and its AI helper can use (<code>~/Library/Group Containers/459TC46MLY.com.tempestini.gantry</code>).</li>
-        <li><strong>Your preferences</strong>, such as appearance and the name you enter, are also saved only on your Mac.</li>
+        <li><strong>On a Mac</strong>, in a folder that only the Gantry app and its AI helper can use (<code>~/Library/Group Containers/459TC46MLY.com.tempestini.gantry</code>).</li>
+        <li><strong>On Windows</strong>, in the <code>.gantry</code> folder in your user folder (<code>%USERPROFILE%\.gantry</code>). Gantry's window size, theme and error log are kept in <code>%APPDATA%\Gantry</code>. The log lists errors and file paths, never what's in your projects, and stays on your PC unless you choose to send it to us.</li>
+      </ul>
+      <ul>
+        <li><strong>Your preferences</strong>, such as appearance and the name you enter, are also saved only on your computer.</li>
         <li>Files you export or open through Open and Save are stored wherever you choose.</li>
-        <li>Like other files on your Mac, these may be included in backups you make, such as Time Machine.</li>
+        <li>Like other files on your computer, these may be included in backups you make, such as Time Machine or File History, or synced by a cloud service you set up for that folder.</li>
       </ul>
 
       <h2>What Gantry sends anywhere</h2>
-      <p><strong>Nothing.</strong> Gantry makes no network connections of its own. It doesn't send your projects, usage or device details to us or to anyone else. (macOS requires Gantry to have network permission because its built-in web view needs it to start, but Gantry doesn't use it.)</p>
+      <p>Gantry never sends your projects, usage or device details to us or to anyone else.</p>
       <ul>
+        <li><strong>On a Mac, nothing at all.</strong> Gantry makes no network connections of its own. (macOS requires Gantry to have network permission because its built-in web view needs it to start, but Gantry doesn't use it.)</li>
+        <li><strong>On Windows, one update check.</strong> At most once a day, Gantry asks GitHub, where its downloads are hosted, whether a newer version is out, and offers to open the download page if one is. The request carries nothing about you or your projects. Like any website, GitHub sees your IP address when it answers, under <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>. If your PC is offline, Gantry skips the check.</li>
         <li><strong>No account or login.</strong> We don't know who you are.</li>
         <li><strong>No analytics, tracking or advertising.</strong> Gantry has no analytics, crash reporting, advertising or tracking code, and doesn't track you across apps or websites.</li>
         <li><strong>No selling or sharing.</strong> We don't receive your data, so we have none to sell or share.</li>
       </ul>
 
       <h2>Email you send us</h2>
-      <p>If you choose <strong>Send feedback</strong> in Settings → About, Gantry opens a new email in your email app with your Gantry and macOS version filled in. Nothing is sent unless you send that email. If you do, we receive your email address and whatever you wrote, and use them only to reply and improve Gantry.</p>
+      <p>If you choose <strong>Send feedback</strong> in Settings → About, Gantry opens a new email in your email app with your Gantry version and operating system version filled in. Nothing is sent unless you send that email. If you do, we receive your email address and whatever you wrote, and use them only to reply and improve Gantry.</p>
 
       <h2>Deleting your data</h2>
-      <p>Your data is on your Mac, so you control it:</p>
+      <p>Your data is on your computer, so you control it:</p>
       <ul>
         <li><strong>Delete a project or item</strong> in Gantry. It goes to Trash for 30 days, then is removed. You can empty Trash sooner.</li>
-        <li><strong>Delete everything:</strong> quit Gantry, delete the app, then delete the folder <code>~/Library/Group Containers/459TC46MLY.com.tempestini.gantry</code>.</li>
+        <li><strong>Delete everything on a Mac:</strong> quit Gantry, delete the app, then delete the folder <code>~/Library/Group Containers/459TC46MLY.com.tempestini.gantry</code>.</li>
+        <li><strong>Delete everything on Windows:</strong> quit Gantry, uninstall it from Settings → Apps → Installed apps, then delete the folders <code>%USERPROFILE%\.gantry</code> and <code>%APPDATA%\Gantry</code>. Uninstalling alone keeps your projects, so a reinstall picks up where you left off.</li>
         <li><strong>Data a connected AI tool already read:</strong> ask that tool's provider, under their privacy policy.</li>
         <li><strong>Email you sent us:</strong> ask us at the address below to delete it.</li>
       </ul>
